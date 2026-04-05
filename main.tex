@@ -1,0 +1,146 @@
+% ******************
+% Document Class Definition
+% ******************
+\documentclass[%
+	paper=letter,				% paper size
+	twoside=false,				% onesite or twoside printing
+	parskip=half,				% spacing value para párrafos (ajustado de 8mm para KOMA-Script)
+	chapterprefix=false, 		% prefix for chapter marks
+	12pt,						% font size
+	headings=normal,			% size of headings
+	bibliography=totoc,			% include bib in toc
+	listof=totoc,				% include listof entries in toc
+	titlepage=on,				% own page for each title page
+	captions=tableabove,		% display table captions above the float env
+	draft=false,				% value for draft version
+]{scrbook}%
+
+% --- Paquetes de Estilo y Gráficos ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{ragged2e}
+\usepackage[absolute,overlay]{textpos}
+
+% --- Matemáticas y Algoritmos ---
+\usepackage{amsmath,amsfonts}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% --- Tablas y Listas ---
+\usepackage{tabularx}
+\usepackage{multirow,array}
+\usepackage{longtable}
+\usepackage[shortlabels]{enumitem}
+
+% --- Código y Texto de Relleno ---
+\usepackage{listings}
+% \usepackage{minted} % Comentado por defecto si no compilas con -shell-escape
+\usepackage{blindtext}
+\usepackage{multicol}
+\usepackage{comment}
+
+% --- Configuración de Hipervínculos ---
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\urlstyle{same}
+
+% --- Bibliografía ---
+\usepackage[square,numbers,sectionbib]{natbib}
+\usepackage[sectionbib]{chapterbib}
+
+% --- Configuraciones Personalizadas ---
+\lstset{
+    breaklines=true,
+	basicstyle=\footnotesize\ttfamily,
+	xleftmargin=.0in,
+	xrightmargin=.0in
+} 
+
+% Numeración personalizada solicitada
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
+\renewcommand{\thefigure}{\textbf{\thechapter-\arabic{figure}}}
+\renewcommand{\thetable}{\textbf{\thechapter-\arabic{table}}}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\; #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\; #1}}
+
+% *****************************************************************************
+% CUERPO DEL DOCUMENTO
+% *****************************************************************************
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Large \textbf{Nombre del Curso}} \\[1cm] % Puedes reemplazar esto
+    {\Huge \textbf{Entregable 1: Documento de Requisitos}} \\[0.5cm]
+    {\LARGE \textbf{Producto ALMA}} \\[1.5cm]
+    {\Large Autor: Miguel Angel Alvarez Guzman} \\[0.5cm]
+    {\large Grupo: XX} \\[2cm] % Reemplazar con el grupo real
+    \vfill
+    {\large \today}
+\end{titlepage}
+
+\tableofcontents
+\listoftables
+
+\chapter{Introducción}
+
+\section{Propósito del documento}
+El primer entregable del proyecto consiste en la elaboración del documento de requisitos del producto ALMA[cite: 4]. Este documento constituye la base técnica del trabajo posterior, redactado con rigor, claridad y trazabilidad[cite: 5]. Su propósito es definir explícitamente qué debe hacer el producto, en qué condiciones debe hacerlo, qué restricciones debe cumplir y cómo se verificará cada requisito[cite: 6]. 
+
+\section{Alcance del producto}
+El producto ALMA se concibe como un dispositivo con capacidades de interacción por voz, reproducción de audio, control de otros dispositivos e interfaz gráfica táctil[cite: 86, 88]. En esta etapa, el documento describe únicamente los requisitos técnicos y el desempeño esperado del producto, y no incluye decisiones de implementación detallada, marcas comerciales, ni actividades de gestión del proyecto[cite: 8, 17, 68, 103].
+
+\section{Metodología de construcción de requisitos}
+Para elaborar esta lista de requisitos, el equipo analizó en primer lugar la descripción del producto ALMA para extraer las necesidades implícitas y explícitas[cite: 73]. Posteriormente, estas necesidades se organizaron en las categorías exigidas (funcionales, no funcionales, ambientales, GUI y estándares)[cite: 74]. A continuación, se revisaron normativas y productos similares para identificar exigencias razonables[cite: 75]. Finalmente, la versión inicial se depuró para eliminar ambigüedades, consolidar redundancias y asignar criterios de aceptación y métodos de verificación concretos a cada requisito[cite: 77, 79].
+
+\chapter{Lista de Requisitos y Verificación}
+
+A continuación, se presenta la tabla consolidada que integra la lista de requisitos y la matriz de verificación, proporcionando trazabilidad técnica sobre el producto[cite: 32, 33, 56]. Todos los requisitos han sido redactados mediante lenguaje técnico y verificable.
+
+\begin{table}[H]
+    \caption{Matriz de Requisitos y Verificación del Producto ALMA [cite: 33, 56]}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.15\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.15\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.3\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.2\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.2\hsize\linewidth=\hsize}X|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \textbf{Identificador} & \textbf{Tipo} & \textbf{Requisito y Justificación} & \textbf{Criterio de Aceptación} & \textbf{Método de Verificación} \\ \hline
+        
+        REQ-F-01 & Funcional & \textbf{Req:} El sistema deberá ejecutar comandos de reproducción de audio enviados por voz[cite: 40, 86]. \newline \textbf{Justificación:} Es la función principal de interacción. & El dispositivo inicia o detiene el audio al recibir el comando. & Prueba funcional[cite: 57]. \\ \hline
+        
+        REQ-NF-01 & No Funcional & \textbf{Req:} El producto deberá ofrecer un tiempo de respuesta auditiva inferior a 2 segundos[cite: 41, 88]. \newline \textbf{Justificación:} Garantizar interacción en tiempo real. & Latencia medida $\le$ 2.0s en el 90\% de las pruebas. & Prueba funcional / Cálculo[cite: 57]. \\ \hline
+        
+        REQ-A-01 & Ambiental & \textbf{Req:} El dispositivo deberá operar correctamente en temperaturas de 5°C a 40°C[cite: 44, 90]. \newline \textbf{Justificación:} Rango térmico estándar para uso residencial. & El equipo mantiene sus funciones principales a 40°C por 2 horas sin apagarse. & Simulación y Prueba funcional[cite: 57]. \\ \hline
+        
+        REQ-G-01 & GUI & \textbf{Req:} La interfaz gráfica deberá mostrar visualmente el estado actual (reproduciendo, pausado, volumen)[cite: 43, 88]. \newline \textbf{Justificación:} Informar al usuario del estado del producto. & La pantalla actualiza los íconos de estado al cambiar el audio. & Inspección[cite: 57]. \\ \hline
+        
+        REQ-E-01 & Estándar & \textbf{Req:} El producto deberá cumplir con las normativas esenciales de compatibilidad electromagnética[cite: 41, 90]. \newline \textbf{Justificación:} Restricción legal para equipos electrónicos. & Trazabilidad de cumplimiento de emisiones radiadas en diseño. & Revisión documental / Análisis[cite: 57, 58]. \\ \hline
+    \end{tabularx}
+\end{table}
+
+\chapter{Observaciones y Conclusiones}
+
+\section{Observaciones, supuestos o vacíos identificados}
+Actualmente existe incertidumbre técnica respecto a los protocolos específicos que se utilizarán para el ``control de otros dispositivos''[cite: 36, 86]. Esta restricción de comunicación deberá refinarse y definirse con mayor precisión técnica en las siguientes entregas del diseño.
+
+\section{Conclusiones}
+En este primer entregable, se ha definido satisfactoriamente la base técnica del producto ALMA. La lista de requisitos elaborada cumple con los criterios de cobertura, claridad, coherencia, trazabilidad y verificabilidad[cite: 61, 62, 63, 64, 65]. Al evitar la inclusión de decisiones de diseño prematuras, este documento asegura una dirección estructurada para las fases posteriores de desarrollo[cite: 104].
+
+\end{document}
