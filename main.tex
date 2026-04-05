@@ -2,11 +2,11 @@
 % Document Class Definition
 % ******************
 \documentclass[%
-	paper=letter,				% paper size
+	paper=a4,				% paper size
 	twoside=false,				% onesite or twoside printing
 	parskip=half,				% spacing value para párrafos (ajustado de 8mm para KOMA-Script)
 	chapterprefix=false, 		% prefix for chapter marks
-	12pt,						% font size
+	10pt,						% font size
 	headings=normal,			% size of headings
 	bibliography=totoc,			% include bib in toc
 	listof=totoc,				% include listof entries in toc
@@ -83,11 +83,13 @@
 \begin{titlepage}
     \centering
     \vspace*{2cm}
-    {\Large \textbf{Nombre del Curso}} \\[1cm] % Puedes reemplazar esto
+    {\Large \textbf{Diseño de Productos Electronicos}} \\[1cm] % Puedes reemplazar esto
     {\Huge \textbf{Entregable 1: Documento de Requisitos}} \\[0.5cm]
     {\LARGE \textbf{Producto ALMA}} \\[1.5cm]
-    {\Large Autor: Miguel Angel Alvarez Guzman} \\[0.5cm]
-    {\large Grupo: XX} \\[2cm] % Reemplazar con el grupo real
+    {\Large Miguel Angel Alvarez Guzman} \\[0.5cm]
+    {\Large Juan Felipe Orozco Londoño} \\[0.5cm]
+    {\Large Carlos Augusto Quintero Velez} \\[0.5cm]
+    {\large Grupo: 04} \\[2cm] % Reemplazar con el grupo real
     \vfill
     {\large \today}
 \end{titlepage}
@@ -97,50 +99,156 @@
 
 \chapter{Introducción}
 
-\section{Propósito del documento}
-El primer entregable del proyecto consiste en la elaboración del documento de requisitos del producto ALMA[cite: 4]. Este documento constituye la base técnica del trabajo posterior, redactado con rigor, claridad y trazabilidad[cite: 5]. Su propósito es definir explícitamente qué debe hacer el producto, en qué condiciones debe hacerlo, qué restricciones debe cumplir y cómo se verificará cada requisito[cite: 6]. 
+\section{Propósito del entregable}
+El presente documento constituye el primer entregable del proyecto final, cuyo propósito es definir de forma explícita, completa y verificable los requisitos técnicos del producto ALMA. Este dispositivo se concibe como un altavoz inteligente de mesa que se ejecuta en Linux bajo una arquitectura ARM64.
 
-\section{Alcance del producto}
-El producto ALMA se concibe como un dispositivo con capacidades de interacción por voz, reproducción de audio, control de otros dispositivos e interfaz gráfica táctil[cite: 86, 88]. En esta etapa, el documento describe únicamente los requisitos técnicos y el desempeño esperado del producto, y no incluye decisiones de implementación detallada, marcas comerciales, ni actividades de gestión del proyecto[cite: 8, 17, 68, 103].
+A través de este documento, se establece la base técnica fundamental para las posteriores fases de diseño de hardware, permitiendo traducir las necesidades del producto en especificaciones que aseguren la coherencia de la arquitectura y la viabilidad de la implementación antes de iniciar el diseño físico. 
 
-\section{Metodología de construcción de requisitos}
-Para elaborar esta lista de requisitos, el equipo analizó en primer lugar la descripción del producto ALMA para extraer las necesidades implícitas y explícitas[cite: 73]. Posteriormente, estas necesidades se organizaron en las categorías exigidas (funcionales, no funcionales, ambientales, GUI y estándares)[cite: 74]. A continuación, se revisaron normativas y productos similares para identificar exigencias razonables[cite: 75]. Finalmente, la versión inicial se depuró para eliminar ambigüedades, consolidar redundancias y asignar criterios de aceptación y métodos de verificación concretos a cada requisito[cite: 77, 79].
+Para lograr este objetivo, el documento reúne una lista exhaustiva de requisitos organizados en las siguientes categorías:
+\begin{itemize}
+    \item \textbf{Requisitos funcionales:} Relacionados con las capacidades de interacción por voz, reproducción de audio y control de red.
+    \item \textbf{Requisitos no funcionales:} Relacionados con el desempeño, persistencia de datos y privacidad.
+    \item \textbf{Requisitos ambientales:} Condiciones del entorno de operación.
+    \item \textbf{Requisitos de interfaz gráfica (GUI):} Asociados a la pantalla táctil a color y visualización de estados.
+    \item \textbf{Requisitos de estándares esenciales:} Derivados de normativas aplicables en seguridad eléctrica, compatibilidad electromagnética (EMC/EMI), radio y ciberseguridad.
+\end{itemize}
 
-\chapter{Lista de Requisitos y Verificación}
+Cada uno de los requisitos aquí expuestos ha sido redactado en un lenguaje técnico e incluye criterios de aceptación claros y las pruebas o métodos necesarios para verificar su cumplimiento[cite: 135]. Cabe destacar que, en esta etapa, el foco se mantiene en la definición del comportamiento esperado del sistema y no en la selección de referencias específicas de componentes o implementaciones detalladas de hardware/software[cite: 129, 140].
+\chapter{Alcance del Producto}
 
-A continuación, se presenta la tabla consolidada que integra la lista de requisitos y la matriz de verificación, proporcionando trazabilidad técnica sobre el producto[cite: 32, 33, 56]. Todos los requisitos han sido redactados mediante lenguaje técnico y verificable.
+\section{Descripción General}
+ALMA se define como un altavoz inteligente de mesa diseñado para entornos domésticos u oficinas. El sistema opera sobre una plataforma de hardware con arquitectura ARM64 ejecutando un sistema operativo basado en Linux, compatible con el stack de OpenVoiceOS (OVOS). El producto combina procesamiento de voz a distancia, una ruta de audio de alta fidelidad, una interfaz visual táctil y elementos de iluminación ambiental para proporcionar una experiencia de usuario integral.
+
+\section{Funcionalidades y Características Incluidas}
+El alcance técnico del producto ALMA para este diseño contempla los siguientes elementos:
+\begin{itemize}
+    \item \textbf{Interacción por voz:} Capacidad de captura de comandos de voz a distancia y respuesta mediante síntesis de voz o retroalimentación visual.
+    \item \textbf{Sistema de Audio HD:} Reproducción de audio a través de un códec externo por interfaz I2S, con soporte técnico para audio de alta definición (hasta 24-bit/96 kHz).
+    \item \textbf{Interfaz Gráfica (GUI):} Pantalla táctil a color conectada mediante MIPI DSI para el control local, visualización de estados del sistema y configuración de red.
+    \item \textbf{Control de Dispositivos Externos:} Funcionalidad de cliente IP en red local para interactuar con otros dispositivos inteligentes bajo mecanismos de seguridad.
+    \item \textbf{Persistencia de Datos:} Capacidad de conservar configuraciones críticas (red, volumen, preferencias) y estados del sistema tras una desconexión eléctrica accidental.
+    \item \textbf{Interfaz Física y Privacidad:} Inclusión de botones físicos para control de volumen y un interruptor físico (hardware-level) para el silenciado de micrófonos con indicador visual claro.
+    \item \textbf{Iluminación Ambiental:} Sistema de iluminación RGB integrado para indicar estados y mejorar la estética del dispositivo.
+\end{itemize}
+
+\section{Exclusiones y Limitaciones}
+Para efectos de la presente etapa del proyecto, se consideran fuera del alcance los siguientes puntos:
+\begin{itemize}
+    \item \textbf{Implementación de Software/Firmware:} El alcance se limita a la definición de la arquitectura lógica y la interacción hardware-software, pero no incluye la programación o desarrollo del código fuente.
+    \item \textbf{Hub de Radio Específico:} ALMA no actuará como un concentrador (hub) directo para protocolos Zigbee, Thread o Matter; su comunicación con estos ecosistemas se realizará exclusivamente vía IP a través de la red local.
+    \item \textbf{Certificaciones Formales:} Aunque el diseño se basa en estándares esenciales (EMC, seguridad eléctrica, ciberseguridad), no se incluye la realización de ensayos de laboratorio ni trámites de certificación comercial.
+    \item \textbf{Selección de Componentes Finales:} En esta fase de requisitos, no se definen marcas ni números de parte comerciales específicos, priorizando el comportamiento y desempeño esperado del sistema.
+\end{itemize}
+
+\chapter{Metodología de Construcción de Requisitos}
+
+Para la elaboración y consolidación de la lista de requisitos técnicos del producto ALMA, el equipo de trabajo siguió un enfoque estructurado y sistemático, alineado con las directrices de diseño del curso \cite{guia_entregable1}. El proceso metodológico se desarrolló a través de las siguientes fases:
+
+\begin{enumerate}
+    \item \textbf{Análisis de la descripción del producto:} Se realizó una lectura exhaustiva del documento base del proyecto final \cite{guia_proyecto_final} para extraer todas las necesidades explícitas e implícitas del asistente de voz ALMA. Esto incluyó la identificación de la arquitectura base (ARM64 ejecutando Linux), la necesidad de un códec de audio externo por I2S y el requerimiento de una pantalla conectada por MIPI DSI.
+    
+    \item \textbf{Clasificación y categorización:} Las necesidades identificadas se organizaron en las cinco categorías exigidas: funcionales, no funcionales, ambientales, de interfaz gráfica (GUI) y asociadas a estándares esenciales.
+    
+    \item \textbf{Revisión de estándares y normativas esenciales:} Se consultaron marcos regulatorios clave para derivar requisitos verificables que aseguren la viabilidad comercial del diseño. Para la seguridad eléctrica de equipos de audio/video y tecnología de la información, se utilizó como referencia la norma IEC 62368-1 \cite{iec62368}. Asimismo, para establecer un \textit{baseline} de ciberseguridad en dispositivos IoT de consumo, se revisaron los lineamientos de la norma ETSI EN 303 645 \cite{etsi303645}.
+    
+    \item \textbf{Revisión de productos similares:} Se analizaron las especificaciones de altavoces inteligentes comerciales de referencia para identificar exigencias razonables de desempeño. Esto permitió establecer parámetros numéricos objetivos, como tiempos de respuesta aceptables, rangos de temperatura de operación y niveles de tolerancia de ruido para los micrófonos.
+    
+    \item \textbf{Discusión interna y consolidación final:} El equipo realizó sesiones de revisión cruzada para depurar la versión inicial del listado. Durante este proceso, se eliminaron ambigüedades, se fusionaron requisitos redundantes y se verificó que no existieran contradicciones. Finalmente, a cada requisito se le asignó un identificador único, un criterio de aceptación medible y un método de verificación técnico comprobable (inspección, análisis, cálculo, simulación o prueba funcional).
+\end{enumerate}
+\chapter{Lista de Requisitos de Hardware (Diseño de PCB)}
+
+En este capítulo se definen los requisitos técnicos del producto ALMA orientados exclusivamente al diseño físico de la placa de circuito impreso (PCB). Estos requerimientos han sido extraídos de las necesidades de arquitectura \cite{guia_proyecto_final} y las mejores prácticas de diseño para integridad de señal y compatibilidad electromagnética \cite{iec62368}.
 
 \begin{table}[H]
-    \caption{Matriz de Requisitos y Verificación del Producto ALMA [cite: 33, 56]}
+    \caption{Lista de Requisitos Orientados al Diseño de PCB}
     \centering
     \renewcommand{\arraystretch}{1.5}
     \begin{tabularx}{\textwidth}{|>{\hsize=0.15\hsize\linewidth=\hsize}X|
                                    >{\hsize=0.15\hsize\linewidth=\hsize}X|
-                                   >{\hsize=0.3\hsize\linewidth=\hsize}X|
-                                   >{\hsize=0.2\hsize\linewidth=\hsize}X|
-                                   >{\hsize=0.2\hsize\linewidth=\hsize}X|}
+                                   >{\hsize=0.4\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.3\hsize\linewidth=\hsize}X|}
         \hline
         \rowcolor[HTML]{EFEFEF} 
-        \textbf{Identificador} & \textbf{Tipo} & \textbf{Requisito y Justificación} & \textbf{Criterio de Aceptación} & \textbf{Método de Verificación} \\ \hline
+        \textbf{ID} & \textbf{Tipo} & \textbf{Requisito} & \textbf{Justificación} \\ \hline
         
-        REQ-F-01 & Funcional & \textbf{Req:} El sistema deberá ejecutar comandos de reproducción de audio enviados por voz[cite: 40, 86]. \newline \textbf{Justificación:} Es la función principal de interacción. & El dispositivo inicia o detiene el audio al recibir el comando. & Prueba funcional[cite: 57]. \\ \hline
+        REQ-F01 & Funcional & El diseño de la PCB debe incluir el enrutamiento de un bus I2S entre el SoC ARM64 y el códec de audio, aplicando técnicas de \textit{length matching} para las señales de reloj y datos. & Garantiza la integridad de la señal para la reproducción de audio de alta resolución sin pérdida de sincronía \cite{guia_proyecto_final}. \\ \hline
         
-        REQ-NF-01 & No Funcional & \textbf{Req:} El producto deberá ofrecer un tiempo de respuesta auditiva inferior a 2 segundos[cite: 41, 88]. \newline \textbf{Justificación:} Garantizar interacción en tiempo real. & Latencia medida $\le$ 2.0s en el 90\% de las pruebas. & Prueba funcional / Cálculo[cite: 57]. \\ \hline
+        REQ-F02 & Funcional & El diseño debe implementar pistas de alimentación (Power Nets) con un ancho calculado para soportar la corriente máxima requerida por el SoC y los periféricos de audio, limitando el incremento de temperatura. & Asegura una distribución de potencia (PDN) estable y evita el sobrecalentamiento de las pistas por alta densidad de corriente. \\ \hline
+
+        REQ-NF01 & No Funcional & El esquemático y layout deben incorporar un corte físico en la topología de las señales (nets) de los micrófonos, interrumpiendo eléctricamente la pista a través de un switch físico. & Cumple con el requisito de privacidad a nivel de hardware estipulado para el asistente de voz \cite{guia_proyecto_final}. \\ \hline
         
-        REQ-A-01 & Ambiental & \textbf{Req:} El dispositivo deberá operar correctamente en temperaturas de 5°C a 40°C[cite: 44, 90]. \newline \textbf{Justificación:} Rango térmico estándar para uso residencial. & El equipo mantiene sus funciones principales a 40°C por 2 horas sin apagarse. & Simulación y Prueba funcional[cite: 57]. \\ \hline
+        REQ-G01 & GUI & El enrutamiento de la interfaz de pantalla MIPI DSI debe realizarse mediante pares diferenciales con un perfil de impedancia controlada de $100\,\Omega \pm 10\%$. & Es un requisito eléctrico estricto del protocolo MIPI para evitar reflexiones en señales de alta frecuencia \cite{guia_proyecto_final}. \\ \hline
         
-        REQ-G-01 & GUI & \textbf{Req:} La interfaz gráfica deberá mostrar visualmente el estado actual (reproduciendo, pausado, volumen)[cite: 43, 88]. \newline \textbf{Justificación:} Informar al usuario del estado del producto. & La pantalla actualiza los íconos de estado al cambiar el audio. & Inspección[cite: 57]. \\ \hline
+        REQ-A01 & Ambiental & El layout debe incluir planos de cobre dedicados (GND) y matrices de vías térmicas (\textit{thermal vias}) ubicadas directamente debajo del SoC y los integrados de potencia. & Maximiza la disipación térmica hacia las capas internas de la placa, asegurando la operación dentro del rango de temperatura seguro. \\ \hline
         
-        REQ-E-01 & Estándar & \textbf{Req:} El producto deberá cumplir con las normativas esenciales de compatibilidad electromagnética[cite: 41, 90]. \newline \textbf{Justificación:} Restricción legal para equipos electrónicos. & Trazabilidad de cumplimiento de emisiones radiadas en diseño. & Revisión documental / Análisis[cite: 57, 58]. \\ \hline
+        REQ-E01 & Estándar & La PCB debe disponer de un plano de tierra (GND) sólido, sin cortes bajo señales de alta velocidad, y condensadores de desacople ubicados lo más cerca posible de los pines de alimentación de cada IC. & Minimiza la emisión de ruido electromagnético (EMI) y protege contra interferencias externas, base normativa aplicable a equipos electrónicos \cite{iec62368}. \\ \hline
+
+    \end{tabularx}
+\end{table}
+
+\chapter{Matriz de Verificación en Altium Designer}
+
+Este capítulo presenta los métodos de comprobación que se aplicarán directamente sobre la plataforma de diseño asistido por computadora (CAD) Altium Designer para asegurar que el diseño esquemático y el layout cumplen con los requerimientos estipulados en el capítulo anterior. No se contemplan pruebas de laboratorio físico en esta etapa.
+
+\begin{table}[H]
+    \caption{Matriz de Verificación basada en Herramientas de Altium Designer}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.15\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.45\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.4\hsize\linewidth=\hsize}X|}
+        \hline
+        \rowcolor[HTML]{EFEFEF} 
+        \textbf{ID Req. Asociado} & \textbf{Criterio de Aceptación en el Software} & \textbf{Método de Verificación en Altium} \\ \hline
+        
+        REQ-F01 & El panel de \textit{PCB Rules and Violations} reporta 0 errores en las reglas de tolerancia de longitud para el Net Class de la interfaz I2S. & Ejecución del \textbf{DRC (Design Rule Check)} para evaluar las reglas de \textit{Matched Lengths}. \\ \hline
+        
+        REQ-F02 & El ancho de las pistas de la red de alimentación ($V_{CC}$) cumple con los requisitos del estándar IPC-2152 configurados en las reglas de ruteo. & Revisión mediante \textbf{DRC (\textit{Width Constraint})} e inspección visual interactiva de polígonos de cobre. \\ \hline
+
+        REQ-NF01 & Al rastrear la conectividad del net de los micrófonos con la herramienta \textit{Cross Probe}, la conexión se muestra físicamente dividida en los terminales del componente Switch. & Análisis lógico mediante el \textbf{ERC (Electrical Rule Check)} e inspección del esquemático y layout 2D. \\ \hline
+        
+        REQ-G01 & El perfil calculado por el \textit{Impedance Profile} del Layer Stack Manager para los pares MIPI indica un valor nominal de $100\,\Omega$. & Verificación analítica mediante la calculadora de impedancia del \textbf{Layer Stack Manager} y \textbf{DRC (\textit{Differential Pairs Routing})}. \\ \hline
+        
+        REQ-A01 & El diseño en vista 2D y 3D muestra arreglos de vías en los \textit{pads} térmicos de los integrados principales, conectados al plano GND interno. & \textbf{Inspección visual y modelado 3D} dentro del entorno de PCB de Altium. \\ \hline
+        
+        REQ-E01 & El flujo de corriente de retorno no atraviesa áreas vacías (\textit{splits}) en las capas de GND subyacentes a las pistas de alta frecuencia. & Inspección visual con resaltado de redes (\textit{Highlight Nets}) y análisis del \textbf{DRC de polígonos (\textit{Unpoured Polygon Pours})}. \\ \hline
+
     \end{tabularx}
 \end{table}
 
 \chapter{Observaciones y Conclusiones}
 
 \section{Observaciones, supuestos o vacíos identificados}
-Actualmente existe incertidumbre técnica respecto a los protocolos específicos que se utilizarán para el ``control de otros dispositivos''[cite: 36, 86]. Esta restricción de comunicación deberá refinarse y definirse con mayor precisión técnica en las siguientes entregas del diseño.
+Durante esta fase de definición de requisitos orientados al diseño de la PCB, se han identificado las siguientes incertidumbres técnicas y supuestos que deberán resolverse en la próxima entrega (diseño esquemático):
+\begin{itemize}
+    \item \textbf{Definición del Stack-up:} Se asume que, dada la complejidad del enrutamiento de señales de alta velocidad (interfaz MIPI DSI) y el uso de un SoC con arquitectura ARM64, la placa requerirá un \textit{stack-up} mínimo de 4 a 6 capas. El perfil exacto de capas y dieléctricos está sujeto a los cálculos finales de impedancia controlada y a las capacidades del fabricante.
+    \item \textbf{Selección de Componentes Específicos:} Al estar en una etapa de definición conceptual, aún no se han fijado los números de parte comerciales para el SoC, el códec de audio I2S ni la memoria. La elección de estos encapsulados (\textit{footprints}) definirá las reglas de diseño (DRC) definitivas, como el ancho mínimo de pista (\textit{track}) y espacio (\textit{clearance}) para fan-out de componentes BGA.
+    \item \textbf{Gestión Térmica:} Se supone que la disipación pasiva a través de los planos de cobre y vías térmicas será suficiente. Sin embargo, este vacío deberá corroborarse mediante cálculos de disipación de potencia una vez se consolide el árbol de potencia (\textit{Power Tree}).
+\end{itemize}
 
 \section{Conclusiones}
-En este primer entregable, se ha definido satisfactoriamente la base técnica del producto ALMA. La lista de requisitos elaborada cumple con los criterios de cobertura, claridad, coherencia, trazabilidad y verificabilidad[cite: 61, 62, 63, 64, 65]. Al evitar la inclusión de decisiones de diseño prematuras, este documento asegura una dirección estructurada para las fases posteriores de desarrollo[cite: 104].
+Este primer entregable ha permitido establecer una base técnica sólida y estructurada, orientada exclusivamente al diseño físico del hardware para el producto ALMA. Al traducir las necesidades generales del asistente de voz en especificaciones concretas de trazado de PCB (integridad de señal, distribución de potencia y mitigación de EMI) fundamentadas en normativas \cite{iec62368}, se mitigan los riesgos de diseño temprano.
 
+Asimismo, al vincular cada requisito con una matriz de verificación basada enteramente en las herramientas de validación de Altium Designer (DRC, ERC, Layer Stack Manager y visualización 3D), el equipo de diseño cuenta ahora con una hoja de ruta objetiva y medible. 
+
+Finalmente, es importante destacar que los criterios de selección y la formulación de todos los requisitos técnicos aquí expuestos fueron basados en su casi totalidad en las especificaciones y lineamientos detallados en la guía oficial del proyecto \cite{guia_proyecto_final}. Esto garantiza una alineación estricta con los objetivos del curso, asegurando que la transición hacia la captura esquemática y el \textit{layout} se realice bajo parámetros viables, claros y directamente trazables a las necesidades del producto.
+% *****************************************************************************
+% BIBLIOGRAFÍA
+% *****************************************************************************
+\renewcommand{\bibname}{Referencias} % Cambia el nombre del capítulo a "Referencias"
+\begin{thebibliography}{99}
+
+\bibitem{guia_entregable1} 
+Universidad de Antioquia, Laboratorio de Diseño de Productos Electrónicos. \textit{Guía de desarrollo - Entregable 1: Documento de requisitos del producto}. Medellín, Colombia, 2026.
+
+\bibitem{guia_proyecto_final} 
+Universidad de Antioquia, Laboratorio de Diseño de Productos Electrónicos. \textit{Proyecto Final - Asistente de Voz ALMA}. Medellín, Colombia, 2026.
+
+\bibitem{iec62368} 
+International Electrotechnical Commission (IEC). \textit{IEC 62368-1: Audio/video, information and communication technology equipment - Part 1: Safety requirements}. 
+
+\bibitem{etsi303645} 
+European Telecommunications Standards Institute (ETSI). \textit{ETSI EN 303 645: Cyber Security for Consumer Internet of Things: Baseline Requirements}.
+
+\end{thebibliography}
 \end{document}
