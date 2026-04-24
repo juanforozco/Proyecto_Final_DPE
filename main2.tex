@@ -1,0 +1,657 @@
+\documentclass[%
+	paper=a4,
+	twoside=false,
+	parskip=half,
+	chapterprefix=false,
+	10pt,
+	headings=normal,
+	bibliography=totoc,
+	listof=totoc,
+	titlepage=on,
+	captions=tableabove,
+	draft=false,
+]{scrbook}%
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{ragged2e}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{amsmath,amsfonts}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{tabularx}
+\usepackage{multirow,array}
+\usepackage{longtable}
+\usepackage[shortlabels]{enumitem}
+\usepackage{blindtext}
+\usepackage{multicol}
+\usepackage{comment}
+\usepackage{booktabs}
+
+\lstdefinestyle{console}{
+  basicstyle=\fontsize{5.2pt}{6.2pt}\selectfont\ttfamily,
+  breaklines=true,
+  breakatwhitespace=false,
+  keepspaces=true,
+  columns=flexible,
+  frame=single,
+  rulecolor=\color{gray!50},
+  backgroundcolor=\color{gray!8},
+  xleftmargin=2pt,
+  xrightmargin=2pt,
+  framexleftmargin=2pt,
+  framexrightmargin=2pt,
+  aboveskip=4pt,
+  belowskip=4pt,
+}
+
+\begin{document}
+
+% ================================================================
+%  PORTADA
+% ================================================================
+\begin{titlepage}
+    \centering
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.2\linewidth]{image.png}
+        \label{fig:placeholder}
+    \end{figure}
+    \vspace*{2cm}
+    {\Large \textbf{Diseño de Productos Electrónicos}} \\[1cm]
+    {\Huge \textbf{Entregable 2: Documento de Especificaciones Técnicas}} \\[0.5cm]
+    {\LARGE \textbf{Producto ALMA}} \\[1.5cm]
+    {\Large Miguel Angel Alvarez Guzman} \\[0.5cm]
+    {\Large Juan Felipe Orozco Londoño} \\[0.5cm]
+    {\Large Carlos Augusto Quintero Velez} \\[0.5cm]
+    {\large Grupo: 04} \\[2cm]
+    \vfill
+    {\large \today}
+\end{titlepage}
+
+% ================================================================
+%  INTRODUCCIÓN  ← SECCIÓN NUEVA (requerida por la guía, Sección 4)
+% ================================================================
+\chapter{Introducción}
+
+El presente documento constituye el Entregable 2 del proyecto ALMA en el marco del curso Diseño de Productos Electrónicos. Su propósito es transformar la lista de requisitos aprobada en el Entregable 1 en una definición técnica completa del sistema, respondiendo a la pregunta central: \textit{¿Qué implica, técnicamente, implementar ALMA?}
+
+El Entregable 1 estableció los requisitos funcionales, no funcionales, generales, arquitectónicos y de estándares del asistente de voz ALMA. El presente documento toma esos requisitos como punto de partida y los convierte en especificaciones de ingeniería, identificando parámetros, interfaces, rangos, presupuestos energéticos, restricciones térmicas y alternativas de implementación. No se seleccionan referencias comerciales definitivas ni se presentan esquemáticos completos; el foco está en construir una base técnica sólida para el diseño detallado posterior.
+
+La estructura del documento sigue las cinco etapas metodológicas definidas en la guía: \textit{(i)} mapeo de requisitos a HW/SW/mixto, \textit{(ii)} derivación de especificaciones técnicas, \textit{(iii)} análisis de consistencia e interdependencias, \textit{(iv)} agrupación en subsistemas y \textit{(v)} elaboración del diagrama de bloques. Adicionalmente, se presenta una matriz refinada de verificación, y se registran los supuestos, riesgos y decisiones abiertas que condicionarán la siguiente etapa de diseño.
+
+% ================================================================
+%  METODOLOGÍA  ← SECCIÓN NUEVA (requerida por la guía, Sección 4)
+% ================================================================
+\chapter{Metodología de Trabajo}
+
+El equipo aplicó las cinco etapas definidas en la guía de desarrollo de la siguiente manera:
+
+\textbf{Etapa 1 — Mapeo de requisitos (HW/SW/Mixto):} A partir de la lista de requisitos del Entregable 1, cada integrante clasificó de forma independiente cada requisito. Las clasificaciones se discutieron en sesión conjunta y se consolidaron en la tabla de trazabilidad del Capítulo \ref{chap:mapeo}. La justificación de cada categoría se basó en el criterio de dónde reside principalmente la decisión de diseño: en el silicio, en el firmware/software, o en ambos.
+
+\textbf{Etapa 2 — Derivación de especificaciones técnicas:} Con los requisitos clasificados, cada integrante asignado al área correspondiente (audio, GUI/conectividad/persistencia, potencia/térmica/seguridad) redactó la ficha técnica de cada requisito, definiendo elementos, interfaces, rangos, presupuestos de energía, tiempos de respuesta, restricciones térmicas y alternativas de implementación. El resultado se recoge en el Capítulo \ref{chap:specs}.
+
+\textbf{Etapa 3 — Análisis de consistencia e interdependencias:} El equipo realizó una reunión de integración técnica en la que se identificaron recursos compartidos, dependencias funcionales, conflictos de diseño y requisitos transversales. Las preguntas guía de la metodología (¿qué recursos se comparten?, ¿qué decisiones entran en conflicto?, ¿qué funciones deben mantenerse juntas?) estructuraron la discusión. Los hallazgos se documentan en el Capítulo \ref{chap:consistencia}.
+
+\textbf{Etapa 4 — Agrupación en subsistemas:} Solo tras concluir el análisis de consistencia se procedió a definir los seis subsistemas del producto. La partición no fue arbitraria, sino que surgió de las agrupaciones naturales evidenciadas por las interdependencias detectadas. Cada subsistema se describe en el Capítulo \ref{chap:subsistemas}.
+
+\textbf{Etapa 5 — Diagrama de bloques:} Como síntesis de las etapas anteriores, se construyó el diagrama de bloques funcional (Capítulo \ref{chap:diagrama}), que representa fielmente la arquitectura técnica propuesta, incluyendo interfaces, flujos de datos y distribución de potencia.
+
+Finalmente, se refinaron los criterios de aceptación y métodos de verificación para cada requisito (Capítulo \ref{chap:verificacion}), y se registraron los supuestos, riesgos y decisiones abiertas (Capítulo \ref{chap:supuestos}).
+
+% ================================================================
+%  CAPÍTULO 1: MAPEO
+% ================================================================
+\chapter{Mapeo de Requisitos (Hardware, Software y Mixto)}
+\label{chap:mapeo}
+
+\begin{table}[H]
+    \caption{Etapa 1: Clasificación de Requisitos del Producto ALMA}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{|>{\hsize=0.12\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.18\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.35\hsize\linewidth=\hsize}X|
+                                   >{\hsize=0.35\hsize\linewidth=\hsize}X|}
+        \hline
+        \rowcolor[HTML]{EFEFEF}
+        \textbf{ID} & \textbf{Clasificación} & \textbf{Resumen del Requisito} & \textbf{Justificación de la Clasificación} \\ \hline
+
+        REQ-F-01 & \textbf{Mixto} & Reproducción de audio HD (24-bit/96 kHz) vía I2S. & Requiere la selección física de un códec externo y ruteo de señales (HW), además de los drivers de audio en Linux y el stack de OpenVoiceOS (SW). \\ \hline
+
+        REQ-F-02 & \textbf{Mixto} & Interacción y respuesta por voz a distancia. & Depende de la sensibilidad de los micrófonos y potencia de cómputo ARM64 (HW), y del procesamiento de lenguaje natural y síntesis de voz (SW). \\ \hline
+
+        REQ-F-03 & \textbf{Mixto} & Conservación de configuración ante desconexión eléctrica. & Requiere un medio físico de almacenamiento no volátil como eMMC o EEPROM (HW) y una lógica de gestión de persistencia en el sistema operativo (SW). \\ \hline
+
+        REQ-F-04 & \textbf{Mixto} & Iluminación ambiental RGB integrada. & Involucra el diseño del circuito de control de LEDs y drivers de potencia (HW) junto con la lógica de control de estados y efectos visuales (SW). \\ \hline
+
+        REQ-NF-01 & \textbf{Hardware} & Silenciado de micrófonos mediante switch físico con indicador. & La guía exige explícitamente un control que actúe a nivel de hardware para garantizar la privacidad sin dependencia del software. \\ \hline
+
+        REQ-NF-02 & \textbf{Software} & Control de otros dispositivos inteligentes como cliente IP. & Se basa primordialmente en la implementación de protocolos de red y comunicación interoperable sobre la infraestructura IP existente. \\ \hline
+
+        REQ-G-01 & \textbf{Mixto} & Interfaz gráfica táctil conectada por MIPI DSI. & Requiere el ruteo de pares diferenciales de alta velocidad y conexión física del panel (HW), y el desarrollo del framework de la GUI y drivers gráficos (SW). \\ \hline
+
+        REQ-A-01 & \textbf{Hardware} & Gestión térmica para operación en entorno doméstico. & El cumplimiento depende del diseño físico de la PCB (planos de tierra, vías térmicas) y la disposición de componentes para disipación pasiva. \\ \hline
+
+        REQ-E-01 & \textbf{Hardware} & Cumplimiento de seguridad eléctrica (IEC 62368-1). & Involucra decisiones de diseño físico como aislamientos, protecciones contra sobretensión y selección de materiales para prevenir riesgos eléctricos. \\ \hline
+
+        REQ-E-02 & \textbf{Mixto} & Baseline de ciberseguridad para IoT (ETSI EN 303 645). & Requiere protecciones físicas de puertos y arranque seguro (HW), además de mecanismos de autenticación y cifrado de datos en tránsito (SW). \\ \hline
+    \end{tabularx}
+\end{table}
+
+% ================================================================
+%  CAPÍTULO 2: ESPECIFICACIONES TÉCNICAS
+% ================================================================
+\chapter{Especificaciones Técnicas Detalladas}
+\label{chap:specs}
+
+En este capítulo se desglosan las implicaciones técnicas de cada requisito, definiendo los parámetros de diseño necesarios para la implementación del hardware y software de ALMA. Para cada requisito se incluye, además de las especificaciones técnicas, el \textbf{criterio de aceptación refinado} y el \textbf{método de verificación refinado}, tal como lo exige la guía \cite{guia_entregable2}.
+
+% --- REQUISITO 1 ---
+\section{REQ-F-01: Reproducción de Audio HD (I2S)}
+\begin{itemize}
+    \item \textbf{Elementos:} SoC ARM64, Códec de audio externo, Amplificador Clase D.
+    \item \textbf{Interfaces:} Bus I2S (BCLK, LRCLK, DIN/DOUT) e interfaz I2C para configuración del registro del códec.
+    \item \textbf{Tasas y Resoluciones:} Muestreo de 96 kHz con profundidad de 24 bits. Ancho de banda de audio de 20 Hz a 40 kHz.
+    \item \textbf{Rangos de Tensión/Potencia:} 3.3V (Digital), 5V–12V (Etapa de potencia). Consumo pico de 10 W en reproducción máxima.
+    \item \textbf{Dependencias:} Requiere el bloque de gestión de reloj del SoC y drivers ALSA en Linux.
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A (seleccionada):} Códec externo con interfaz I2S. Mayor calidad de audio y menor latencia; exige ruteo cuidadoso de señales de reloj y blindaje de la etapa analógica.
+            \item \textit{Opción B:} DAC con interfaz USB. Simplifica el ruteo de alta velocidad en la PCB, pero incrementa la latencia de salida (tipicamente $\geq$5 ms adicionales) y añade un nodo de alimentación extra.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} THD+N $<$ 0.01\%, SNR $>$ 100 dB (pesado con A), respuesta en frecuencia plana $\pm$3 dB en 20 Hz–40 kHz, todo medido a plena escala y 24-bit/96 kHz en condiciones de temperatura nominal (25 °C).
+    \item \textbf{Método de verificación refinado:} Medición con analizador de audio de doble canal (ej. APx515 o equivalente) utilizando señal de barrido sinusoidal. Se aplicará la norma AES17 para la supresión del fundamental durante la medición de THD+N.
+\end{itemize}
+
+% --- REQUISITO 2 ---
+\section{REQ-F-02: Interacción y Respuesta por Voz}
+\begin{itemize}
+    \item \textbf{Elementos:} Matriz de 2 o 4 micrófonos MEMS digitales, Altavoz de rango completo.
+    \item \textbf{Interfaces:} PDM (Pulse Density Modulation) para los micrófonos o I2S.
+    \item \textbf{Tiempos de Respuesta:} Latencia de detección de \textit{wake-word} $<$ 500 ms; latencia de inicio de respuesta $<$ 2 s.
+    \item \textbf{Condiciones de Operación:} Captura efectiva de voz en un radio de 5 metros con ruido ambiental de hasta 60 dB SPL.
+    \item \textbf{Dependencia:} Bloque funcional de Procesamiento Digital de Señales (DSP) para cancelación de eco (AEC) y supresión de ruido (NS).
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A:} Micrófonos MEMS digitales PDM — mayor inmunidad a EMI, procesamiento directo en el SoC.
+            \item \textit{Opción B:} Micrófonos analógicos con ADC externo — menor costo unitario, mayor complejidad de ruteo y riesgo de ruido de modo común.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Tasa de detección del \textit{wake-word} $\geq$ 95\% (Word Error Rate $\leq$ 5\%) a 5 m con ruido de fondo de 60 dB SPL. Latencia de detección $<$ 500 ms y de respuesta completa $<$ 2 s, medidos desde el final del enunciado.
+    \item \textbf{Método de verificación refinado:} Prueba en entorno controlado con fuente de ruido calibrada (ruido rosa a 60 dB SPL). Se ejecutarán 200 locuciones del \textit{wake-word} desde distintas posiciones a 5 m. Se medirá la latencia con timestamps en el log del sistema.
+\end{itemize}
+
+% --- REQUISITO 3 ---
+\section{REQ-F-03: Persistencia de Datos}
+\begin{itemize}
+    \item \textbf{Necesidades de Almacenamiento:} Memoria no volátil (eMMC en SoC o EEPROM externa). Capacidad mínima de 256 KB para logs y configuración.
+    \item \textbf{Interfaces:} Bus SDIO para eMMC o I2C/SPI para memorias auxiliares.
+    \item \textbf{Protección:} Implementación de sumas de comprobación (Checksum CRC-32) para evitar corrupción de datos durante cortes de energía.
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A (seleccionada):} Almacenamiento local en eMMC con partición protegida contra escritura.
+            \item \textit{Opción B:} Almacenamiento en la nube (SaaS) — viola el requisito de funcionamiento local de configuraciones críticas; descartada.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Tras un corte abrupto de alimentación durante una operación de escritura, el sistema debe restaurar la última configuración válida con integridad verificada por CRC-32 en un tiempo $\leq$ 10 s desde el reinicio.
+    \item \textbf{Método de verificación refinado:} Se programará una rutina automatizada que realice escrituras periódicas en la memoria y corte la alimentación aleatoriamente durante el proceso. Se verificará post-reinicio la integridad del archivo de configuración mediante comprobación del CRC almacenado. Se repetirá el ciclo un mínimo de 50 veces.
+\end{itemize}
+
+% --- REQUISITO 4 ---
+\section{REQ-F-04: Iluminación Ambiental RGB}
+\begin{itemize}
+    \item \textbf{Elementos:} Controlador PWM dedicado o LEDs inteligentes (tipo WS2812B).
+    \item \textbf{Presupuestos de Energía:} 5V DC, máximo 60 mA por cada LED a brillo total. Presupuesto total de iluminación: 1.5 W.
+    \item \textbf{Interfaces:} Un hilo (\textit{One-wire}) o GPIO con soporte de PWM de alta frecuencia ($\geq$ 200 Hz para eliminar parpadeo perceptible).
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A:} LEDs inteligentes WS2812B gestionados por GPIO del SoC — mínimo hardware externo, pero genera carga de CPU en tiempo real.
+            \item \textit{Opción B (recomendada):} Microcontrolador de bajo consumo independiente (Cortex-M0) para gestionar efectos visuales — desacopla la carga del SoC y permite efectos en modo de espera sin encender el núcleo principal.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Frecuencia de PWM $\geq$ 200 Hz (sin parpadeo perceptible a $<$ 1 m), reproducción de al menos 16M colores, transición suave entre estados en $\leq$ 200 ms, y consumo máximo del subsistema RGB $\leq$ 1.5 W.
+    \item \textbf{Método de verificación refinado:} Medición de la frecuencia de PWM con osciloscopio digital. Verificación de la gama de colores con colorímetro. Medición de consumo con multímetro de precisión en el riel de 5V durante operación a brillo total.
+\end{itemize}
+
+% --- REQUISITO 5 ---
+\section{REQ-NF-01: Silenciado Físico de Micrófonos}
+\begin{itemize}
+    \item \textbf{Elementos:} Switch mecánico DPST (Double Pole Single Throw) e indicador LED rojo.
+    \item \textbf{Requerimientos de Seguridad:} El corte debe ser galvánico o mediante interrupción de la línea de alimentación (VCC) de los micrófonos. El software no debe tener ninguna capacidad de anular el estado del switch.
+    \item \textbf{Interfaces:} Conexión directa \textit{hard-wired} (sin intervención del software).
+    \item \textbf{Restricciones:} El LED indicador debe ser alimentado directamente por el mismo circuito del switch, sin pasar por ningún GPIO del SoC.
+    \item \textbf{Alternativas de implementación:} No aplica — la guía del proyecto exige explícitamente implementación hardware pura; cualquier variante software queda descartada por diseño.
+    \item \textbf{Criterio de aceptación refinado:} Con el switch en posición de silenciado, la resistencia medida en la línea de alimentación de los micrófonos debe ser $>$ 10 M$\Omega$ (circuito abierto). El LED rojo debe encenderse simultáneamente, incluso con el SoC apagado o en estado de pánico del kernel.
+    \item \textbf{Método de verificación refinado:} Medición de continuidad con multímetro en la línea VCC de los micrófonos con switch activo. Verificación de independencia del software induciendo un bloqueo del sistema operativo (kernel panic) y confirmando que el LED permanece encendido y los micrófonos sin alimentación.
+\end{itemize}
+
+% --- REQUISITO 6 ---
+\section{REQ-NF-02: Control de Dispositivos (Cliente IP)}
+\begin{itemize}
+    \item \textbf{Interfaces:} WiFi 802.11n (2.4 GHz) y/o Ethernet 10/100 Mbps.
+    \item \textbf{Tasas de transferencia:} Mínimo 10 Mbps para asegurar actualizaciones de firmware (OTA) fluidas.
+    \item \textbf{Protección:} Implementación de protocolos TLS 1.3 para toda comunicación saliente.
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A:} WiFi integrado en el SoC — reduce componentes externos pero puede generar interferencias de RF con la etapa de audio.
+            \item \textit{Opción B:} Módulo WiFi/BT externo vía SDIO o USB — mayor flexibilidad de posicionamiento de antena, aislamiento de RF más sencillo.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Latencia de control bidireccional con dispositivos IP en la red local $<$ 200 ms (percentil 95). Verificación de cifrado TLS 1.3 activo en todas las conexiones salientes. Tasa de transferencia efectiva en OTA $\geq$ 10 Mbps en condiciones de señal WiFi $\geq$ -70 dBm.
+    \item \textbf{Método de verificación refinado:} Medición de latencia de comando-respuesta con herramienta de red (ping y pruebas de capa de aplicación). Inspección del tráfico cifrado con Wireshark para confirmar TLS 1.3. Prueba de velocidad OTA con imagen de firmware de 100 MB y cronómetro de sistema.
+\end{itemize}
+
+% --- REQUISITO 7 ---
+\section{REQ-G-01: Interfaz Gráfica (GUI) Táctil}
+\begin{itemize}
+    \item \textbf{Componentes de la GUI:} Panel LCD TFT/OLED de 5 a 7 pulgadas, digitalizador capacitivo.
+    \item \textbf{Interfaces:} MIPI DSI (4 carriles diferenciales) para video; I2C para el panel táctil.
+    \item \textbf{Resolución:} Mínimo 800$\times$480 píxeles, tasa de refresco de 60 fps.
+    \item \textbf{Presupuestos de Energía:} Retroiluminación (\textit{Backlight}) de 3.3V a 12V con convertidor Boost dedicado (consumo $\approx$2 W).
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A (seleccionada):} Panel TFT con MIPI DSI — alta disponibilidad, bajo costo, resolución suficiente.
+            \item \textit{Opción B:} Panel OLED — mejor contraste y menor consumo en fondos oscuros, pero mayor costo y riesgo de \textit{burn-in} en uso continuo doméstico.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Resolución efectiva de $\geq$800$\times$480 px a 60 fps estables (sin \textit{tearing} ni \textit{frame drops} $>$ 1\%). Latencia táctil $<$ 100 ms desde contacto hasta respuesta visual. Brillo mínimo $>$ 300 cd/m² a temperatura ambiente.
+    \item \textbf{Método de verificación refinado:} Medición de frame rate con herramienta de debug gráfico (ej. \texttt{framerate\_monitor} en Linux). Latencia táctil medida con cámara de alta velocidad (240 fps). Brillo medido con luxómetro calibrado a 10 cm de la pantalla.
+\end{itemize}
+
+% --- REQUISITO 8 ---
+\section{REQ-A-01: Gestión Térmica}
+\begin{itemize}
+    \item \textbf{Restricciones Térmicas:} Temperatura de unión ($T_j$) del SoC $<$ 105 °C. Temperatura de carcasa externa $<$ 45 °C.
+    \item \textbf{Condiciones de Operación:} Funcionamiento estable en ambientes de 0 °C a 40 °C con humedad relativa de 10\% a 90\% no condensante.
+    \item \textbf{Elementos:} Disipador de calor pasivo de aluminio y \textit{thermal pads} de alta conductividad ($>$ 3 W/mK).
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A (seleccionada):} Disipación pasiva mediante carcasa de aluminio como heatsink. Sin ruido, sin piezas móviles.
+            \item \textit{Opción B:} Ventilador activo de bajo perfil — permite disipar más calor pero añade ruido acústico inaceptable para un producto doméstico y reduce la fiabilidad mecánica.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Temperatura de unión del SoC $<$ 105 °C y temperatura de carcasa $<$ 45 °C tras 60 minutos de operación a carga máxima (audio pico + GUI activa + voz) en cámara ambiental a 40 °C. Sin \textit{thermal throttling} detectable en el log del kernel.
+    \item \textbf{Método de verificación refinado:} Cámara termográfica de infrarrojo y termopares pegados en puntos críticos (zona SoC, zona amplificador de audio, superficie de carcasa). Monitoreo de la frecuencia real del SoC con \texttt{cpufreq-info} durante la prueba para detectar \textit{throttling}.
+\end{itemize}
+
+% --- REQUISITO 9 ---
+\section{REQ-E-01: Seguridad Eléctrica (IEC 62368-1)}
+\begin{itemize}
+    \item \textbf{Rangos de Tensión:} Entrada de alimentación de 12V DC $\pm$ 5\%.
+    \item \textbf{Requerimientos de Protección:} Diodos TVS en todos los conectores externos, fusible resetable (PPTC) en la entrada principal.
+    \item \textbf{Protección:} Diseño de PCB con distancias de seguridad (\textit{clearance}) según la norma IEC 62368-1 para evitar arcos eléctricos.
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A (seleccionada):} Protecciones discretas (TVS + PPTC) — menor costo, trazabilidad clara del circuito de protección.
+            \item \textit{Opción B:} Integración en un único IC de protección — reduce espacio en PCB pero añade dependencia de un componente propietario.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Superación de prueba de rigidez dieléctrica (\textit{hi-pot}) a 500 V DC durante 60 s sin fallo. Cumplimiento de distancias de \textit{clearance} y \textit{creepage} según Tabla F.1 de IEC 62368-1. Disparo del PPTC en $<$ 5 s ante cortocircuito en la entrada.
+    \item \textbf{Método de verificación refinado:} Inspección de DRC (\textit{Design Rule Check}) en el software EDA con reglas derivadas de IEC 62368-1. Prueba \textit{hi-pot} con equipo certificado en el prototipo físico. Medición del tiempo de disparo del PPTC con cortocircuito controlado y osciloscopio.
+\end{itemize}
+
+% --- REQUISITO 10 ---
+\section{REQ-E-02: Ciberseguridad (ETSI EN 303 645)}
+\begin{itemize}
+    \item \textbf{Elementos de Procesamiento:} Uso de \textit{TrustZone} (ARM) o un elemento seguro (TPM) externo para almacenamiento de llaves.
+    \item \textbf{Necesidades de Almacenamiento:} Partición de arranque (\textit{Boot}) protegida contra escritura.
+    \item \textbf{Alternativas de implementación:}
+        \begin{itemize}
+            \item \textit{Opción A:} ARM TrustZone integrado en el SoC — sin costo adicional de componente, pero dependiente de la implementación del fabricante del SoC.
+            \item \textit{Opción B (recomendada como complemento):} Secure Element dedicado (ej. ATECC608B) para gestión de identidad de hardware — independiente del SoC, mayor garantía de aislamiento criptográfico.
+        \end{itemize}
+    \item \textbf{Criterio de aceptación refinado:} Cadena de arranque seguro (\textit{Secure Boot}) verificada y funcional; credenciales únicas por dispositivo (ninguna contraseña por defecto compartida); actualizaciones OTA firmadas y verificadas antes de aplicar; cumplimiento de los 13 controles mandatorios de ETSI EN 303 645 \cite{etsi303645}.
+    \item \textbf{Método de verificación refinado:} Análisis de superficie de ataque mediante \textit{pen-testing} básico (escaneo de puertos, intento de acceso con credenciales por defecto). Verificación del arranque seguro intentando flashear firmware sin firma. Auditoría manual contra la lista de verificación de ETSI EN 303 645.
+\end{itemize}
+
+% ================================================================
+%  CAPÍTULO 3: ANÁLISIS DE CONSISTENCIA (FUSIONADO)
+% ================================================================
+\chapter{Análisis de Consistencia e Interdependencias}
+\label{chap:consistencia}
+
+Este capítulo evalúa la coherencia técnica del sistema ALMA de forma integral, identificando cómo interactúan los requisitos entre sí y detectando posibles cuellos de botella o conflictos de diseño antes de proceder a la partición en subsistemas \cite{guia_entregable2}.
+
+\section{Presupuesto Energético Consolidado}
+
+Se realiza una estimación de la carga máxima para validar que la entrada de alimentación de 12V (REQ-E-01) es suficiente:
+
+\begin{itemize}
+    \item \textbf{SoC ARM64 + Conectividad:} 5 W (estimado en carga alta).
+    \item \textbf{Etapa de Audio (REQ-F-01):} 10 W (pico en máxima potencia).
+    \item \textbf{Pantalla y Backlight (REQ-G-01):} 2.5 W.
+    \item \textbf{Iluminación RGB (REQ-F-04):} 1.5 W.
+    \item \textbf{Total Estimado:} 19 W.
+\end{itemize}
+
+\textbf{Consistencia:} Una fuente de 12V DC a 2 A (24 W) proporciona un margen de seguridad del 20\%, cumpliendo con los requerimientos de potencia. Se recomienda escalar a 2.5 A para absorber picos transitorios del amplificador Clase D.
+
+\section{Compatibilidad de Recursos Críticos}
+
+Se han identificado los siguientes recursos compartidos que condicionan el diseño del hardware:
+
+\begin{itemize}
+    \item \textbf{Capacidad de Cómputo (SoC ARM64):} Es el recurso más solicitado. Debe gestionar simultáneamente la GUI (MIPI DSI), el procesamiento de voz (OpenVoiceOS), el cliente de red IP y el stack de audio de alta resolución.
+    \item \textbf{Buses de Alta Velocidad:} El espacio físico en la PCB es limitado. El ruteo de los 4 carriles de MIPI DSI debe convivir con las líneas de datos I2S y PDM sin generar interferencias cruzadas (\textit{crosstalk}). Se requerirán capas de referencia dedicadas en la PCB multicapa.
+    \item \textbf{Fuente de Alimentación (12V DC):} Debe derivar voltajes para componentes con necesidades opuestas: 1.2V–1.8V para el núcleo del SoC (alta estabilidad), 3.3V para periféricos, y 5V–12V para la etapa de potencia de audio y retroiluminación de pantalla (altas corrientes).
+    \item \textbf{Recursos del SoC:} Se requiere que el SoC ARM64 cuente con al menos: 1$\times$ MIPI DSI (4 lanes), 1$\times$ I2S (Audio), 1$\times$ PDM/I2S (Micrófonos), 2$\times$ I2C (Touch y Códec), y 1$\times$ SDIO (Memoria/WiFi). La mayoría de los SoCs industriales modernos (tipo i.MX8 o RK3399) cumplen con esta densidad de periféricos.
+\end{itemize}
+
+\section{Interdependencias Funcionales}
+
+El cumplimiento de ciertos requisitos está encadenado a la existencia de otros:
+
+\begin{itemize}
+    \item \textbf{Interacción por voz $\leftrightarrow$ Plataforma de cómputo y Audio:} El REQ-F-02 (Voz) es imposible de cumplir sin una latencia mínima en el bus I2S/PDM y sin la potencia de procesamiento necesaria para ejecutar los modelos de lenguaje localmente.
+    \item \textbf{Control de dispositivos por IP $\leftrightarrow$ Conectividad y Seguridad:} El REQ-NF-02 depende de una conexión WiFi/Ethernet estable y, según la norma ETSI EN 303 645 \cite{etsi303645}, de la implementación de llaves criptográficas en el hardware.
+    \item \textbf{Conservación de configuración $\leftrightarrow$ Almacenamiento no volátil:} La persistencia (REQ-F-03) depende directamente de la selección de una memoria con suficientes ciclos de escritura ($>$10000 ciclos P/E para eMMC) y de la integridad de la línea de 3.3V durante el apagado.
+    \item \textbf{Integridad de señal MIPI $\leftrightarrow$ Diseño PCB:} El REQ-G-01 impone una interdependencia crítica con el diseño físico de la PCB. Las señales de alta velocidad deben estar alejadas de la etapa de potencia de audio para evitar EMI.
+\end{itemize}
+
+\section{Conflictos y Tensiones de Diseño}
+
+Se han detectado los siguientes puntos de fricción que requieren compromisos de ingeniería:
+
+\begin{itemize}
+    \item \textbf{Audio de alta potencia vs. Sensibilidad de micrófonos:} El volumen requerido para el altavoz (REQ-F-01) genera vibraciones mecánicas y ruido eléctrico que pueden degradar la SNR de los micrófonos MEMS. Se requiere aislamiento físico (mecánico y de PCB) en el diseño final.
+    \item \textbf{Brillo de pantalla vs. Disipación térmica:} El uso de la GUI (REQ-G-01) al máximo brillo incrementa significativamente el calor dentro de la carcasa, lo que presiona el límite térmico del SoC (REQ-A-01). Se deberá implementar control adaptivo del brillo en función de la temperatura.
+    \item \textbf{Procesamiento local intenso vs. Costo:} Ejecutar OpenVoiceOS de forma fluida requiere un SoC con mayor RAM y desempeño, lo cual tensiona el presupuesto de costos frente a una solución basada en la nube.
+    \item \textbf{Disipación pasiva vs. Factor de forma:} La disipación pasiva (REQ-A-01) depende directamente de la potencia total disipada ($\approx$19 W). El encapsulado del producto debe permitir un flujo de aire mínimo o actuar como parte del disipador para evitar \textit{thermal throttling}, lo cual afectaría los tiempos de respuesta de voz (REQ-F-02).
+\end{itemize}
+
+\section{Requisitos Transversales}
+
+Los siguientes requisitos atraviesan toda la arquitectura y no pueden asignarse a un solo bloque:
+
+\begin{itemize}
+    \item \textbf{Integridad de Señal:} Afecta tanto al audio HD (REQ-F-01), como a la pantalla MIPI (REQ-G-01) y a la conectividad de red (REQ-NF-02).
+    \item \textbf{Privacidad y Seguridad:} El interruptor físico de micrófonos (REQ-NF-01) y el cumplimiento de IEC 62368-1 \cite{iec62368} son mandatorios en cada etapa del diseño eléctrico.
+    \item \textbf{Cumplimiento Normativo:} Las distancias de seguridad en la PCB y la protección contra EMI deben aplicarse en todos los nodos de la placa.
+    \item \textbf{Gestión Energética:} El presupuesto de potencia (19 W estimados) es un requisito transversal que condiciona la selección de la fuente de alimentación, los reguladores y el diseño térmico.
+\end{itemize}
+
+\section{Decisiones Abiertas y Pendientes}
+
+Aspectos que aún no se han definido y que impactarán la arquitectura final:
+
+\begin{itemize}
+    \item \textbf{Modelo específico del SoC:} La cantidad de pines y el tipo de encapsulado (BGA vs. QFP) definirá si la PCB será de 4 o 6 capas y el nivel de complejidad de fabricación.
+    \item \textbf{Tipo de Micrófonos:} La decisión entre PDM (digital) o Analógicos con ADC externo cambiará la complejidad del ruteo y el uso de recursos del SoC.
+    \item \textbf{Forma de integración del SoC:} System-on-Module (SoM) vs. diseño \textit{chip-down}. El SoM reduce el tiempo de diseño y la complejidad de ruteo de RAM, pero incrementa el costo unitario.
+    \item \textbf{Protocolo de domótica:} La implementación del cliente IP (REQ-NF-02) deberá definir qué estándares soportará (Matter, Zigbee sobre IP, HomeKit, etc.), lo que determinará los requisitos de procesamiento del stack de red.
+\end{itemize}
+
+% ================================================================
+%  CAPÍTULO 4: SUBSISTEMAS
+% ================================================================
+\chapter{Partición en Subsistemas y Definición de la Arquitectura}
+\label{chap:subsistemas}
+
+A partir del análisis de interdependencias, se ha definido una arquitectura modular compuesta por seis subsistemas principales. Esta partición facilita el diseño paralelo y asegura que los requisitos transversales (privacidad, seguridad y térmica) se gestionen en cada bloque correspondiente \cite{guia_entregable2}.
+
+\section{Subsistema 1: Procesamiento Central y Almacenamiento (SPCA)}
+\begin{itemize}
+    \item \textbf{Función principal:} Ejecutar el sistema operativo Linux (ARM64), gestionar la lógica de OpenVoiceOS y coordinar el flujo de datos entre todos los periféricos.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item Procesador ARM64 (REQ-F-02).
+            \item Memoria eMMC/SDIO para almacenamiento no volátil de 256 KB – 4 GB (REQ-F-03).
+            \item Soporte para ARM TrustZone (REQ-E-02).
+        \end{itemize}
+    \item \textbf{Interfaces:} Salida MIPI DSI, buses I2S/PDM para audio, I2C/SPI para control de sensores y SDIO para memoria.
+    \item \textbf{Restricciones relevantes:} Temperatura de unión $T_j < 105^\circ$C. Requiere PCB de alta densidad (HDI) para fan-out de encapsulado BGA.
+    \item \textbf{Alternativas de implementación:} Uso de un System-on-Module (SoM) para reducir la complejidad de ruteo de RAM, frente al diseño \textit{chip-down} para optimizar costos a gran escala.
+\end{itemize}
+
+\section{Subsistema 2: Audio y Acústica (SAA)}
+\begin{itemize}
+    \item \textbf{Función principal:} Capturar comandos de voz mediante una matriz de micrófonos y reproducir audio de alta fidelidad.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item Códec externo con resolución de 24-bit/96 kHz (REQ-F-01).
+            \item Amplificador Clase D con potencia pico de 10 W.
+            \item Respuesta en frecuencia de 20 Hz a 40 kHz.
+        \end{itemize}
+    \item \textbf{Interfaces:} Entrada de reloj y datos vía I2S desde el SPCA; configuración vía I2C.
+    \item \textbf{Restricciones relevantes:} SNR de micrófonos $>$ 60 dB. Necesidad de aislamiento mecánico para evitar que las vibraciones del altavoz activen falsamente los micrófonos.
+    \item \textbf{Alternativas de implementación:} Micrófonos digitales PDM (mayor inmunidad al ruido) vs. micrófonos analógicos con ADC externo (menor costo unitario).
+\end{itemize}
+
+\section{Subsistema 3: Interfaz Visual e Interacción (SIVI)}
+\begin{itemize}
+    \item \textbf{Función principal:} Proporcionar retroalimentación visual al usuario y permitir la interacción táctil y lumínica ambiental.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item Pantalla TFT/OLED con resolución 800$\times$480 a 60 fps (REQ-G-01).
+            \item Panel táctil capacitivo con latencia $<$ 100 ms.
+            \item Control de iluminación RGB mediante PWM o LEDs direccionables (REQ-F-04).
+        \end{itemize}
+    \item \textbf{Interfaces:} Enlace MIPI DSI de 4 carriles; bus I2C para el controlador táctil.
+    \item \textbf{Restricciones relevantes:} Impedancia diferencial controlada de $100\,\Omega \pm 10\%$. Presupuesto térmico limitado para el backlight de la pantalla.
+\end{itemize}
+
+\section{Subsistema 4: Gestión de Energía (SGE)}
+\begin{itemize}
+    \item \textbf{Función principal:} Convertir y regular la entrada de energía externa para alimentar de forma estable todos los subsistemas.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item Entrada de 12V DC $\pm 5\%$.
+            \item Reguladores de voltaje para rieles de 1.2V, 1.8V, 3.3V y 5V.
+            \item Eficiencia energética mínima del 85\%.
+        \end{itemize}
+    \item \textbf{Interfaces:} Salidas de potencia (VCC) hacia todos los subsistemas.
+    \item \textbf{Restricciones relevantes:} Cumplimiento de la norma IEC 62368-1 \cite{iec62368}. Protección contra cortocircuito y sobretensión mediante TVS y fusibles (REQ-E-01).
+    \item \textbf{Alternativas de implementación:} Uso de un PMIC dedicado (menor espacio, mayor integración) frente a reguladores Buck discretos (mayor control de diseño, menor costo unitario).
+\end{itemize}
+
+\section{Subsistema 5: Conectividad y Red (SCR)}
+\begin{itemize}
+    \item \textbf{Función principal:} Gestionar la comunicación del dispositivo con la red local y servicios externos bajo protocolos IP.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item WiFi 802.11n (2.4 GHz) o Ethernet 10/100 Mbps (REQ-NF-02).
+            \item Soporte para TLS 1.3 en todas las conexiones salientes.
+        \end{itemize}
+    \item \textbf{Interfaces:} Bus SDIO o USB hacia el SPCA.
+    \item \textbf{Restricciones relevantes:} El diseño de la antena debe estar alejado de las fuentes de ruido del amplificador de audio y la pantalla para evitar degradación de la SNR de RF.
+\end{itemize}
+
+\section{Subsistema 6: Privacidad y Seguridad Física (SPSF)}
+\begin{itemize}
+    \item \textbf{Función principal:} Garantizar el control del usuario sobre la privacidad del dispositivo mediante hardware, sin posibilidad de anulación por software.
+    \item \textbf{Especificaciones técnicas asociadas:}
+        \begin{itemize}
+            \item Switch mecánico DPST de interrupción física (REQ-NF-01).
+            \item Indicador LED de estado "Silenciado" (\textit{hard-wired}).
+        \end{itemize}
+    \item \textbf{Interfaces:} Intercepción de las líneas de alimentación/señal del subsistema SAA.
+    \item \textbf{Restricciones relevantes:} Prohibición estricta de \textit{bypass} por software. El estado del switch debe ser visible incluso si el SPCA está bloqueado o apagado.
+\end{itemize}
+
+% ================================================================
+%  CAPÍTULO 5: DIAGRAMA DE BLOQUES
+% ================================================================
+\chapter{Diagrama de Bloques Funcionales}
+\label{chap:diagrama}
+
+Como resultado de la partición lógica del sistema y el análisis de interdependencias, se ha construido el diagrama de bloques funcional del producto ALMA. Este esquema (Figura \ref{fig:diagrama_bloques}) representa de manera fiel y explícita la arquitectura técnica propuesta por el equipo de diseño, detallando los flujos de datos, interfaces físicas y la distribución de potencia \cite{guia_entregable2}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagrama.png}
+    \caption{Diagrama de bloques funcional de ALMA, mostrando subsistemas e interfaces.}
+    \label{fig:diagrama_bloques}
+\end{figure}
+
+\section{Descripción del Flujo Arquitectónico}
+
+El diagrama de bloques se articula alrededor del \textbf{Subsistema de Procesamiento Central (SPCA)}, gobernado por el SoC ARM64. Las relaciones principales operan de la siguiente manera:
+
+\begin{itemize}
+    \item \textbf{Flujo de Audio y Procesamiento:} El audio ambiental es captado por la matriz de micrófonos y digitalizado hacia el \textbf{Subsistema de Audio (SAA)}. El SoC intercambia datos de audio puro de alta resolución (24-bit/96 kHz) a través del bus I2S, mientras que la configuración de registros del códec se realiza paralelamente por I2C.
+    \item \textbf{Gestión de Privacidad Estricta:} Se ilustra explícitamente cómo el \textbf{Subsistema de Privacidad (SPSF)} interviene de manera \textit{hard-wired} sobre el hardware de audio. El switch mecánico corta físicamente la alimentación de la matriz de micrófonos y enciende el LED rojo, garantizando privacidad sin dependencia del software \cite{guia_proyecto_final}.
+    \item \textbf{Flujo de Interfaz Gráfica (GUI):} El SoC transfiere video de alta velocidad hacia el \textbf{Subsistema Visual (SIVI)} mediante 4 carriles diferenciales MIPI DSI. El retorno de interacciones del usuario se captura a través del bus I2C desde el controlador del panel táctil.
+    \item \textbf{Distribución de Potencia Compartida:} El \textbf{Subsistema de Gestión de Energía (SGE)} actúa como la columna vertebral de la placa. Recibe los 12V externos y genera los rieles necesarios para todos los bloques. Se destaca la separación lógica de los rieles de alta corriente (12V/5V para audio y pantalla) frente a los rieles de bajo voltaje y alta estabilidad (1.2V/1.8V) exigidos por el núcleo del SoC.
+\end{itemize}
+
+Esta topología confirma la viabilidad técnica para enrutar los componentes en la PCB, previendo las necesidades de integridad de señal en los buses de alta velocidad (MIPI, USB) y protegiendo las trazas analógicas del códec.
+
+% ================================================================
+%  CAPÍTULO 6: MATRIZ REFINADA DE VERIFICACIÓN  ← NUEVO
+% ================================================================
+\chapter{Matriz Refinada de Verificación}
+\label{chap:verificacion}
+
+La siguiente tabla consolida, para cada requisito, el criterio de aceptación y el método de verificación refinados respecto al Entregable 1. Esta refinación es resultado del mayor nivel de detalle técnico alcanzado en el presente documento \cite{guia_entregable2}.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{1.6cm}|
+                   >{\raggedright\arraybackslash}p{6.2cm}|
+                   >{\raggedright\arraybackslash}p{6.2cm}|}
+\caption{Matriz refinada de criterios de aceptación y métodos de verificación} \label{tab:verificacion} \\
+
+\hline
+\rowcolor[HTML]{EFEFEF}
+\textbf{ID} & \textbf{Criterio de Aceptación Refinado} & \textbf{Método de Verificación Refinado} \\ \hline
+\endfirsthead
+
+\hline
+\rowcolor[HTML]{EFEFEF}
+\textbf{ID} & \textbf{Criterio de Aceptación Refinado} & \textbf{Método de Verificación Refinado} \\ \hline
+\endhead
+
+\hline \multicolumn{3}{r}{\small Continúa en la siguiente página\ldots} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+REQ-F-01 &
+THD+N $<$ 0.01\%, SNR $>$ 100 dB (A-pesado), respuesta en frecuencia plana $\pm$3 dB en 20 Hz–40 kHz a 24-bit/96 kHz y temperatura nominal. &
+Medición con analizador de audio de doble canal (conforme AES17). Barrido sinusoidal en todo el rango de frecuencia. \\ \hline
+
+REQ-F-02 &
+WER $\leq$ 5\% a 5 m con ruido de fondo de 60 dB SPL. Latencia de detección $<$ 500 ms y latencia de respuesta completa $<$ 2 s. &
+Prueba en entorno controlado: 200 locuciones del \textit{wake-word} desde 5 m con fuente de ruido rosa calibrada. Latencia medida con timestamps del sistema. \\ \hline
+
+REQ-F-03 &
+Configuración restaurada con integridad verificada por CRC-32 en $\leq$ 10 s tras corte abrupto de energía durante escritura. &
+Rutina automatizada de escritura con corte aleatorio de alimentación. Verificación CRC post-reinicio. Mínimo 50 ciclos. \\ \hline
+
+REQ-F-04 &
+PWM $\geq$ 200 Hz (sin parpadeo perceptible), $\geq$16M colores, transición entre estados $\leq$ 200 ms, consumo $\leq$ 1.5 W. &
+Medición de frecuencia PWM con osciloscopio. Verificación de gama de colores con colorímetro. Consumo con multímetro en el riel de 5V a brillo total. \\ \hline
+
+REQ-NF-01 &
+Resistencia $>$ 10 M$\Omega$ en la línea VCC de micrófonos con switch activo. LED rojo encendido sin dependencia del SoC. &
+Medición de continuidad con multímetro. Prueba de independencia del SW induciendo kernel panic y verificando estado del LED y VCC. \\ \hline
+
+REQ-NF-02 &
+Latencia de control IP $<$ 200 ms (p95). TLS 1.3 activo en todas las conexiones salientes. Velocidad OTA $\geq$ 10 Mbps a señal $\geq$ -70 dBm. &
+Medición de latencia a nivel de aplicación. Inspección de tráfico con Wireshark. Prueba de velocidad OTA con imagen de 100 MB. \\ \hline
+
+REQ-G-01 &
+Resolución $\geq$800$\times$480 px a 60 fps ($<$ 1\% de frames perdidos). Latencia táctil $<$ 100 ms. Brillo $>$ 300 cd/m². &
+Medición de frame rate con herramientas de debug Linux. Latencia táctil con cámara de alta velocidad (240 fps). Brillo con luxómetro a 10 cm. \\ \hline
+
+REQ-A-01 &
+$T_j$ del SoC $<$ 105 °C y carcasa $<$ 45 °C tras 60 min en carga máxima a 40 °C ambiente, sin \textit{thermal throttling}. &
+Termografía IR + termopares en puntos críticos. Monitoreo de frecuencia CPU con \texttt{cpufreq-info} durante la prueba. \\ \hline
+
+REQ-E-01 &
+Supera prueba \textit{hi-pot} a 500 V DC / 60 s sin fallo. Distancias de \textit{clearance} y \textit{creepage} según Tabla F.1 de IEC 62368-1. PPTC dispara en $<$ 5 s ante cortocircuito. &
+DRC en EDA con reglas de IEC 62368-1. Prueba \textit{hi-pot} con equipo certificado en prototipo. Medición de tiempo de disparo del PPTC con osciloscopio. \\ \hline
+
+REQ-E-02 &
+\textit{Secure Boot} funcional; credenciales únicas por dispositivo; OTA con firma verificada; cumplimiento de los 13 controles mandatorios de ETSI EN 303 645. &
+\textit{Pen-testing}: escaneo de puertos, intento de acceso con credenciales por defecto, intento de flash sin firma. Auditoría contra lista de verificación de ETSI EN 303 645. \\ \hline
+
+\end{longtable}
+\endgroup
+
+% ================================================================
+%  CAPÍTULO 7: SUPUESTOS, RIESGOS Y DECISIONES ABIERTAS  ← NUEVO
+% ================================================================
+\chapter{Supuestos, Riesgos y Decisiones Abiertas}
+\label{chap:supuestos}
+
+\section{Supuestos de Diseño}
+
+Los siguientes supuestos han sido adoptados para el desarrollo de las especificaciones técnicas. Si alguno de ellos cambia, deberá revisarse la sección correspondiente del documento:
+
+\begin{itemize}
+    \item \textbf{S-01:} El SoC ARM64 seleccionado contará con al menos 1$\times$ MIPI DSI (4 lanes), 2$\times$ I2S, 2$\times$ I2C, 1$\times$ PDM y 1$\times$ SDIO. Si el SoC seleccionado no dispone de todos estos periféricos, se requerirán expansores de bus externos.
+    \item \textbf{S-02:} El producto operará conectado a una fuente de 12V DC suministrada por un adaptador externo certificado bajo IEC 62368-1. No se contempla alimentación por batería en esta revisión.
+    \item \textbf{S-03:} La disipación térmica pasiva es suficiente para los 19 W estimados asumiendo que la carcasa metálica de aluminio actúa como disipador primario y que el entorno garantiza al menos 5 cm de separación lateral para circulación de aire natural.
+    \item \textbf{S-04:} OpenVoiceOS se ejecutará de forma completamente local (sin dependencia de servicios en la nube) para los comandos de domótica básica. Los servicios de nube son opcionales y no forman parte del alcance de los requisitos actuales.
+    \item \textbf{S-05:} El modelo de wake-word preentrenado disponible en OpenVoiceOS tiene una tasa de falsos positivos aceptable ($<$ 1 por hora) en condiciones de uso doméstico normal.
+\end{itemize}
+
+\section{Riesgos Identificados}
+
+\begin{itemize}
+    \item \textbf{R-01 — Disponibilidad del SoC (Alta probabilidad / Alto impacto):} La escasez global de semiconductores puede dificultar la obtención del SoC ARM64 de alto desempeño requerido. Mitigación: identificar al menos dos fabricantes alternativos (ej. NXP i.MX8 y Rockchip RK3399) con periféricos equivalentes antes de la fase de diseño de esquemáticos.
+    \item \textbf{R-02 — EMI entre subsistemas (Media probabilidad / Alto impacto):} La coexistencia de señales de alta velocidad (MIPI DSI, I2S) con el amplificador Clase D puede generar interferencias que degraden la SNR de los micrófonos y la integridad de la señal de video. Mitigación: diseño de PCB multicapa con planos de tierra dedicados y separación física de zonas analógica, digital y de potencia.
+    \item \textbf{R-03 — Disipación térmica insuficiente (Media probabilidad / Alto impacto):} Si la carcasa no puede actuar eficientemente como disipador pasivo, el SoC podría entrar en \textit{thermal throttling}, degradando la experiencia de voz. Mitigación: simulación térmica (CFD básico) antes de la fabricación del primer prototipo.
+    \item \textbf{R-04 — Latencia de voz fuera de especificación (Baja probabilidad / Alto impacto):} La carga simultánea de GUI + audio + procesamiento de lenguaje natural podría exceder la capacidad del SoC, elevando la latencia de respuesta por encima de los 2 s. Mitigación: definir perfiles de prioridad de procesos (RT scheduling) en el kernel Linux desde la etapa de integración de software.
+    \item \textbf{R-05 — Complejidad de cumplimiento normativo (Alta probabilidad / Medio impacto):} Las pruebas de certificación según IEC 62368-1 y ETSI EN 303 645 pueden revelar no conformidades que requieran revisiones de hardware. Mitigación: involucrar un laboratorio de pruebas desde la fase de prototipo.
+\end{itemize}
+
+\section{Decisiones Abiertas}
+
+\begin{itemize}
+    \item \textbf{D-01:} Modelo específico del SoC — condicionará el número de capas de la PCB (4 vs. 6) y el tipo de encapsulado (BGA vs. QFP).
+    \item \textbf{D-02:} Tipo de micrófonos (PDM digital vs. analógico con ADC externo) — afecta la complejidad del ruteo y los recursos del SoC.
+    \item \textbf{D-03:} Estrategia de integración del SoC (SoM vs. \textit{chip-down}) — impacta directamente el tiempo de desarrollo y el costo de manufactura.
+    \item \textbf{D-04:} Protocolos de domótica soportados por el cliente IP (Matter, Zigbee, HomeKit, etc.) — determinará los requisitos de procesamiento del stack de red y posiblemente añadirá hardware adicional (módulo Zigbee/Thread).
+    \item \textbf{D-05:} Mecanismo de implementación del Secure Element — TrustZone integrado en el SoC vs. IC dedicado (ej. ATECC608B) — con implicaciones en costo, área de PCB y garantías de seguridad.
+\end{itemize}
+
+% ================================================================
+%  CAPÍTULO 8: CONCLUSIONES  ← NUEVO
+% ================================================================
+\chapter{Conclusiones}
+
+El presente documento ha cumplido con el propósito definido en la guía del Entregable 2: transformar los requisitos del asistente de voz ALMA en una base técnica sólida para el diseño detallado posterior.
+
+Las principales conclusiones del trabajo son:
+
+\begin{enumerate}
+    \item \textbf{Trazabilidad completa:} Los diez requisitos del Entregable 1 fueron clasificados correctamente en categorías HW, SW o Mixto, con justificación técnica en cada caso. La clasificación revela que la mayoría de los requisitos funcionales son de naturaleza mixta, lo que anticipa la necesidad de una colaboración estrecha entre los equipos de hardware y software.
+
+    \item \textbf{Viabilidad técnica confirmada:} El presupuesto energético consolidado (19 W estimados) es viable con una fuente de 12V/2A (24 W), con margen del 20\%. La densidad de periféricos requerida (MIPI DSI, I2S, PDM, I2C, SDIO) es compatible con SoCs ARM64 industriales de amplia disponibilidad.
+
+    \item \textbf{Conflictos de diseño identificados y gestionables:} Los principales conflictos detectados (audio de alta potencia vs. sensibilidad de micrófonos, brillo de pantalla vs. disipación térmica) tienen soluciones conocidas de ingeniería (aislamiento mecánico, control adaptivo de brillo) que serán implementadas en el diseño detallado.
+
+    \item \textbf{Arquitectura modular coherente:} La partición en seis subsistemas (SPCA, SAA, SIVI, SGE, SCR y SPSF) surgió naturalmente del análisis de interdependencias y no de una decisión arbitraria. Esta modularidad facilitará el desarrollo paralelo y la verificación independiente de cada bloque.
+
+    \item \textbf{Criterios de verificación accionables:} Los criterios de aceptación refinados son ahora cuantificables y asociados a métodos de prueba específicos, lo que permitirá una validación objetiva del producto en fases posteriores.
+
+    \item \textbf{Decisiones abiertas registradas:} Se han identificado cinco decisiones pendientes de alto impacto (selección del SoC, tipo de micrófonos, estrategia de integración, protocolos de domótica y elemento de seguridad). Su resolución en la siguiente etapa del proyecto condicionará aspectos críticos del diseño de PCB y del stack de software.
+\end{enumerate}
+
+El equipo concluye que ALMA es un producto técnicamente realizable dentro de los parámetros definidos, y que las decisiones tomadas en este documento proporcionan una base consistente para iniciar la fase de diseño de esquemáticos y selección definitiva de componentes.
+
+% ================================================================
+%  BIBLIOGRAFÍA
+% ================================================================
+\begin{thebibliography}{99}
+
+\bibitem{guia_entregable2}
+Universidad de Antioquia, Laboratorio de Diseño de Productos Electrónicos. \textit{Guía de desarrollo -- Entregable 2: Documento de especificaciones técnicas del producto}. Medellín, Colombia, 2026.
+
+\bibitem{guia_proyecto_final}
+Universidad de Antioquia, Laboratorio de Diseño de Productos Electrónicos. \textit{Proyecto Final -- Asistente de Voz ALMA}. Medellín, Colombia, 2026.
+
+\bibitem{iec62368}
+International Electrotechnical Commission (IEC). \textit{IEC 62368-1: Audio/video, information and communication technology equipment -- Part 1: Safety requirements}. Tercera edición, 2018.
+
+\bibitem{etsi303645}
+European Telecommunications Standards Institute (ETSI). \textit{ETSI EN 303 645 V2.1.1: Cyber Security for Consumer Internet of Things: Baseline Requirements}. 2020.
+
+\end{thebibliography}
+
+\end{document}
