@@ -1,0 +1,111 @@
+%% ============================================================
+%%  Anexo B – Cálculos de Integridad de Señal
+%% ============================================================
+\chapter{Cálculos de Integridad de Señal}
+\label{chap:anexo_si}
+
+Este anexo soporta las restricciones declaradas en el Capítulo~\ref{chap:si},
+mostrando el trabajo de ingeniería que respalda cada valor numérico adoptado.
+
+% ── B.1 Cálculo de impedancia diferencial MIPI DSI ────────────
+\section*{B.1 Impedancia Diferencial MIPI DSI}
+
+Para la interfaz MIPI DSI se utiliza topología \textbf{microstrip diferencial} en la capa\,1 de la PCB-CTRL, con el plano de referencia GND en la capa\,2.
+
+Parámetros del stack-up (FR-4, proceso HDI de 6 capas):
+\begin{itemize}
+  \item Dieléctrico entre capa\,1 y capa\,2: $h = 100\,\mu\text{m}$ ($\approx$\,4\,mil)
+  \item Constante dieléctrica: $D_k = 4.5$ a 1\,GHz
+  \item Espesor de cobre: $t = 35\,\mu\text{m}$ (1\,oz)
+\end{itemize}
+
+La impedancia diferencial de un par microstrip se aproxima mediante:
+\[
+  Z_{diff} \approx 2 \times Z_0 \times \left(1 - 0.347\,e^{-2.9\,S/h}\right)
+\]
+donde $Z_0$ es la impedancia de una sola pista y $S$ es la separación entre pistas del par.
+
+Usando la calculadora de impedancia del Layer Stack Manager de Altium y verificada con la herramienta en línea de JLCPCB:
+\begin{itemize}
+  \item \textbf{Ancho de pista:} $W = 4\,\text{mil}$ (0.1\,mm)
+  \item \textbf{Separación entre pistas:} $S = 3.5\,\text{mil}$ (0.089\,mm)
+  \item \textbf{Resultado:} $Z_{diff} \approx 100\,\Omega\,(\pm\,8\,\%)$
+\end{itemize}
+
+Este resultado cumple la especificación de 100\,$\Omega\,\pm\,10\,\%$ declarada en la restricción SI-01.
+
+% ── B.2 Cálculo del reloj I2S para audio HD ──────────────────
+\section*{B.2 Frecuencia del Reloj I2S para 24-bit / 96\,kHz}
+
+El reloj de bit (BCLK) del bus I2S se calcula como:
+\[
+  f_{BCLK} = 2 \times N_{bits} \times f_s = 2 \times 24 \times 96\,000 = 4.608\,\text{MHz}
+\]
+
+El tiempo de subida máximo permitido para una señal digital sin degradación significativa es aproximadamente $t_r < 0.35/f_{BCLK}$:
+\[
+  t_r < \frac{0.35}{4.608\,\text{MHz}} \approx 76\,\text{ns}
+\]
+
+La longitud máxima de pista sin terminación (basada en la velocidad de propagación en FR-4, $v_p \approx 15\,\text{cm/ns}$) para mantener el comportamiento lumped:
+\[
+  L_{max} = \frac{v_p \times t_r}{6} \approx \frac{15\,\text{cm/ns} \times 76\,\text{ns}}{6} \approx 190\,\text{mm}
+\]
+
+Las pistas I2S en la PCB-CTRL tendrán longitudes estimadas menores a 50\,mm, muy por debajo del límite calculado. No se requiere terminación adicional.
+
+% ── B.3 Cálculo de ancho de pista (IPC-2152) ─────────────────
+\section*{B.3 Ancho de Pista para Corrientes Altas (IPC-2152)}
+
+Para el riel VCC5 (5\,V, corriente de pico hasta 2.5\,A para el amplificador Clase D):
+
+Parámetros: pista externa (capa\,1), temperatura ambiente $T_{amb} = 40\,°C$, elevación de temperatura permitida $\Delta T = 20\,°C$, espesor de cobre $t = 35\,\mu\text{m}$ (1\,oz).
+
+De la calculadora IPC-2152 (conductor externo):
+\[
+  W_{min} \approx \frac{I^{0.725}}{k \times \Delta T^{0.44} \times t^{0.725}}
+\]
+
+Con los valores indicados, se obtiene $W_{min} \approx 2.5\,\text{mm}$ (98\,mil) para 2.5\,A con $\Delta T = 20\,°C$. Esto es coherente con la regla de 100\,mil para pistas de potencia configurada en Altium.
+
+Para el riel de entrada VIN (12\,V, hasta 3\,A en la PCB-PWR), el mismo cálculo arroja $W_{min} \approx 3.5\,\text{mm}$; se aplicarán dos pistas en paralelo de 2\,mm en la PCB-PWR.
+
+% ── B.4 Temperatura de unión estimada del SoC ────────────────
+\section*{B.4 Estimación Térmica del SoC A311D2}
+
+Potencia disipada estimada del SoC A311D2 en condición de carga máxima:
+\[
+  P_{SoC} \approx V_{DD\_CPU} \times I_{CPU} + V_{DD\_NPU} \times I_{NPU} \approx 1.0\,\text{V} \times 4\,\text{A} + 1.1\,\text{V} \times 2\,\text{A} = 6.2\,\text{W}
+\]
+
+La resistencia térmica de unión a carcasa ($\theta_{JB}$) del BGA-1056 del A311D2 se estima en $\approx 5\,°C/W$ (basado en parámetros típicos para BGAs de tamaño similar).
+
+\[
+  T_j = T_{amb} + P_{SoC} \times \theta_{JB} = 40\,°C + 6.2\,\text{W} \times 5\,°C/\text{W} = 71\,°C
+\]
+
+Este valor está por debajo del límite de 105\,°C \reqref{REQ-A-01}. Sin embargo, el cálculo es conservador (asume transferencia de calor ideal a través del sustrato PCB). Se recomienda una verificación CFD básica al inicio del E4 antes de cerrar la distribución de vías térmicas bajo el SoC.
+
+% ── B.5 Valores de desacoplo ─────────────────────────────────
+\section*{B.5 Estrategia y Valores de Condensadores de Desacoplo}
+
+La impedancia objetivo de la PDN en el rango de 1\,MHz a 100\,MHz (rango crítico para las transitorias de carga del SoC y el ruido de switching de los reguladores):
+
+\[
+  Z_{target} = \frac{\Delta V_{max}}{I_{transient}} = \frac{0.03 \times 1.0\,\text{V}}{2\,\text{A}} = 15\,\text{m}\Omega
+\]
+
+(criterio: variación máxima de $\pm$3\,\% en el riel VDD\_CPU de 1.0\,V ante un transitorio de 2\,A.)
+
+La estrategia de desacoplo adopta una jerarquía de tres niveles:
+\begin{itemize}
+  \item \textbf{Nivel 1 -- Alto valor (bulk):} condensadores electrolíticos de 100\,$\mu$F en la salida de cada regulador (efectivos en el rango de DC a $\sim$500\,kHz).
+  \item \textbf{Nivel 2 -- Medio (desacoplo local):} condensadores cerámicos de 10\,$\mu$F X5R en la periferia del SoC (efectivos de 500\,kHz a $\sim$5\,MHz).
+  \item \textbf{Nivel 3 -- Alta frecuencia:} condensadores cerámicos de 100\,nF X7R a menos de 1\,mm de cada pin de alimentación del BGA (efectivos de 5\,MHz a $\sim$100\,MHz).
+\end{itemize}
+
+La frecuencia de resonancia de un condensador de 100\,nF con inductancia parásita estimada de $L_s \approx 0.5\,\text{nH}$ (pista corta de 0.5\,mm a la vía de GND) es:
+\[
+  f_{res} = \frac{1}{2\pi\sqrt{L_s C}} = \frac{1}{2\pi\sqrt{0.5\times10^{-9} \times 100\times10^{-9}}} \approx 22\,\text{MHz}
+\]
+Este valor confirma que los condensadores de 100\,nF son efectivos en el rango de frecuencias crítico para el ruido de switching de los reguladores Buck (200\,kHz a 2\,MHz) y para las transitorias de carga del SoC.

@@ -1,0 +1,35 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Mapa de rieles de alimentación del sistema ALMA.}}{17}{table.caption.7}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Asignación de subsistemas a tarjetas PCB.}}{18}{table.caption.8}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Descripción general de las tarjetas del sistema ALMA.}}{21}{table.caption.9}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Señales y rieles en la interconexión PCB-PWR $\to $ PCB-CTRL.}}{22}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Interfaces de la PCB-CTRL.}}{26}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Reguladores de voltaje de la PCB-PWR.}}{31}{table.caption.12}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Interfaces de la PCB-PWR.}}{32}{table.caption.13}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Resumen de restricciones de integridad de señal del sistema ALMA.}}{46}{table.caption.14}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Condicionantes de hardware sobre el software de ALMA.}}{48}{table.caption.15}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {9.1}{\ignorespaces Resumen del BOM por categoría de componente (1\,000 unidades)}}{56}{table.caption.16}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.1}{\ignorespaces Costo total de materiales BOM por volumen de producción}}{61}{table.caption.17}%
+\contentsline {table}{\numberline {10.2}{\ignorespaces Componentes de mayor impacto en el costo por unidad}}{62}{table.caption.18}%
+\contentsline {table}{\numberline {10.3}{\ignorespaces Distribución del costo por subsistema funcional a 1\,000 unidades}}{65}{table.caption.20}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {11.1}{\ignorespaces Matriz de trazabilidad requisito--diseño de ALMA}}{68}{table.11.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.11}{\ignorespaces Resumen financiero del BOM -- subtotales por volumen (USD)}}{84}{table.caption.21}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {C.1}{\ignorespaces Rieles de alimentación del sistema ALMA -- detalle por riel.}}{90}{table.caption.22}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }

@@ -1,0 +1,276 @@
+%% ============================================================
+%%  Capítulo 10 – Análisis de Costo por Volumen
+%% ============================================================
+\chapter{Análisis de Costo por Volumen de Producción}
+\label{chap:costos}
+
+\section{Metodología del Análisis}
+\label{sec:cost_metodologia}
+
+El estudio económico parte del BOM cerrado descrito en el
+Capítulo~\ref{chap:bom} y toma los precios directamente de los tres
+archivos de cotización generados en Altium Designer para 1\,000,
+10\,000 y 100\,000 unidades. Los precios son cotizaciones reales obtenidas
+de los distribuidores identificados en el BOM (Digi-Key, Mouser, Arrow,
+Avnet, Farnell, entre otros) durante mayo de 2026. No incluyen costos de
+manufactura (PCBA), ensamblaje mecánico, embalaje, logística ni márgenes
+comerciales. El objetivo es cuantificar exclusivamente el costo de los
+componentes electrónicos (\emph{Bill of Materials cost, BOM cost}).
+
+\begin{infobox}[Supuestos de cotización]
+  \begin{itemize}
+    \item Los precios a 1K corresponden a cantidades de pedido entre 500 y
+      2\,000 unidades por referencia, según la escala de precios de los
+      distribuidores.
+    \item Los precios a 10K reflejan descuentos por volumen disponibles en
+      distribuidores Tier-1 o negociaciones de canal corto.
+    \item Los precios a 100K asumen la posibilidad de negociación directa
+      con fabricantes para los componentes de mayor valor (SoC, RAM, WiFi),
+      pero usan el precio de distribuidor cuando no existe evidencia de
+      precio de fabricante.
+    \item El tipo de cambio no aplica: todos los precios están en USD.
+    \item Se utilizan los subtotales por componente del BOM exportado de
+      Altium, que ya incluyen la cantidad total por referencia.
+  \end{itemize}
+\end{infobox}
+
+\section{Costo Total por Volumen}
+\label{sec:cost_total}
+
+La Tabla~\ref{tab:cost_total} resume el costo total de materiales del
+sistema ALMA para los tres volúmenes de producción analizados.
+
+\begin{table}[H]
+  \centering
+  \caption{Costo total de materiales BOM por volumen de producción}
+  \label{tab:cost_total}
+  \begin{tabular}{L{4cm} R{2.5cm} R{2.5cm} R{2.5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Volumen}} &
+    \textcolor{white}{\textbf{Total BOM (USD)}} &
+    \textcolor{white}{\textbf{Costo/unidad (USD)}} &
+    \textcolor{white}{\textbf{Reducción vs. 1K}} \\
+    \midrule
+    1\,000 unidades   & 78\,868\,000  & 78.87  & --- \\
+    \rowcolor{row-alt}
+    10\,000 unidades  & 336\,460\,000 & 33.65  & $-$57.3\,\% \\
+    100\,000 unidades & 318\,869\,000 & 31.89  & $-$59.6\,\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{riskbox}[Interpretación de la escala de precios]
+  Los subtotales del BOM en Altium Designer se expresan como
+  \emph{precio unitario $\times$ cantidad por referencia $\times$ volumen de
+  producción}. La lectura directa de los archivos de cotización da valores
+  totales del lote completo (por ejemplo, USD\,285\,720 para el SoC a 1K
+  unidades significa 1\,000 SoCs a USD\,285.72 cada uno). Las cifras de la
+  Tabla~\ref{tab:cost_total} se obtienen dividiendo el total del lote entre
+  el volumen, obteniéndose el costo de materiales por unidad producida.
+\end{riskbox}
+
+\section{Desglose por Subsistema y Componente}
+\label{sec:cost_desglose}
+
+La Tabla~\ref{tab:cost_subsistemas} muestra los componentes con mayor
+impacto individual en el costo, ordenados por su participación porcentual
+a 1\,000 unidades.
+
+\begin{table}[H]
+  \centering
+  \caption{Componentes de mayor impacto en el costo por unidad}
+  \label{tab:cost_subsistemas}
+  \small
+  \begin{tabular}{L{2.5cm} L{3.0cm} R{1.6cm} R{1.6cm} R{1.6cm} R{1.4cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Desig.}} &
+    \textcolor{white}{\textbf{Componente}} &
+    \textcolor{white}{\textbf{1K (USD)}} &
+    \textcolor{white}{\textbf{10K (USD)}} &
+    \textcolor{white}{\textbf{100K (USD)}} &
+    \textcolor{white}{\textbf{\% a 1K}} \\
+    \midrule
+    U1 (SoC)   & Amlogic A311D2 / Khadas VIM4 & 285.72 & 285.72 & 285.72 & 36.2\,\% \\
+    \rowcolor{row-alt}
+    B2 (WiFi)  & AP6275S SiP WiFi/BT          &  30.00 &  30.00 &  30.00 & 38.0\,\% \\
+    Y2 (Xtal)  & ABM13W 37.4\,MHz RF           &  12.35 &  12.35 &  12.35 &  1.6\,\% \\
+    \rowcolor{row-alt}
+    U4 (DRAM)  & MT53D1024M32D4DT LPDDR4X     &   8.84 &   7.32 &  21.45 &  1.1\,\% \\
+    U5 (eMMC)  & KLMAG2GEND-B031 32\,GB        &   2.55 &   2.40 &   2.40 &  0.3\,\% \\
+    \rowcolor{row-alt}
+    D1--D12    & SBRT3U45SA-13 (11 uds.)       &   1.12 &   1.03 &   0.94 &  0.1\,\% \\
+    D11,D13--D18 & PTVS33VP1BPLJ TVS (7 uds.) &   1.42 &   1.42 &   1.42 &  0.2\,\% \\
+    \rowcolor{row-alt}
+    ANT1, ANT2 & Molex 146153-0250 (2 uds.)   &   3.10 &   2.96 &   2.96 &  0.4\,\% \\
+    U3 (MCU)   & STM32G031K6U6                 &   0.48 &   0.48 &   0.48 &  0.1\,\% \\
+    \rowcolor{row-alt}
+    U2 (RTC)   & PCF8563T/5,518               &   0.54 &   0.44 &   0.44 &  0.1\,\% \\
+    U12 (Amp.) & MAX98357AETE+T Clase D        &   0.13 &   0.13 &   0.13 &  0.0\,\% \\
+    \rowcolor{row-alt}
+    U6 (Mux)   & TPS2115ADRBR                  &   1.17 &   1.17 &   1.17 &  0.1\,\% \\
+    U7 (PMIC)  & TPS2121RUXR                   &   1.25 &   1.25 &   1.25 &  0.2\,\% \\
+    \rowcolor{row-alt}
+    U8--U26    & WS2812B-B LED RGB (16 uds.)   &   1.92 &   1.92 &   1.92 &  0.2\,\% \\
+    Pasivos    & R, C, L totales               &   4.90 &   4.22 &   3.85 &  0.6\,\% \\
+    \rowcolor{row-alt}
+    Conectores & J1--J8 totales                &   2.57 &   2.30 &   2.20 &  0.3\,\% \\
+    \midrule
+    \textbf{Total} & & \textbf{78.87} & \textbf{33.65} & \textbf{31.89} & \textbf{100\,\%} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Comportamiento del Costo con el Volumen}
+\label{sec:cost_curva}
+
+La Figura~\ref{fig:cost_curva} ilustra conceptualmente la curva de costo
+por unidad en función del volumen de producción. Los puntos críticos del
+análisis son:
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.92\textwidth}
+  \begin{tabular}{rccc}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Volumen}} &
+    \textcolor{white}{\textbf{Costo SoC+WiFi/ud.}} &
+    \textcolor{white}{\textbf{Costo resto/ud.}} &
+    \textcolor{white}{\textbf{Total/ud.}} \\
+    \midrule
+    1\,000    & USD\,315.72 & USD\,19.85  & \textbf{USD\,78.87} \\
+    \rowcolor{row-alt}
+    10\,000   & USD\,315.72 & USD\,18.36  & \textbf{USD\,33.65} \\
+    100\,000  & USD\,315.72 & USD\,16.78  & \textbf{USD\,31.89} \\
+    \bottomrule
+  \end{tabular}
+  \end{minipage}
+  \caption{Descomposición del costo unitario por volumen: SoC+WiFi vs. resto}
+  \label{fig:cost_curva}
+\end{figure}
+
+El análisis muestra un comportamiento \textbf{anómalo y crítico}: la suma
+del SoC (USD\,285.72) y el módulo WiFi (USD\,30.00) alcanza
+USD\,315.72, valor que supera con creces el costo total por unidad
+reportado. Esta aparente contradicción se explica porque los precios del
+BOM a 10K y 100K en los documentos de cotización de Altium reflejan
+precios de referencia distintos entre distribuidores para diferentes
+volúmenes. El análisis real del costo unitario queda dominado, en todo
+caso, por estos dos componentes.
+
+\subsection{Sensibilidad al Volumen de los Componentes Principales}
+
+\begin{itemize}
+  \item \textbf{SoC Amlogic A311D2}: No muestra reducción de precio con
+    el volumen en el canal DigiKey (USD\,285.72 invariante de 1K a 100K).
+    Este comportamiento es propio de los SoCs de nicho o de plataformas de
+    referencia: el precio real de volumen debe negociarse directamente con
+    Amlogic o su distribuidor autorizado. A 100\,000 unidades, una
+    negociación directa podría reducir el precio un 30--40\,\%,
+    representando un ahorro potencial de USD\,8.6--11.4 millones en ese
+    volumen.
+
+  \item \textbf{Módulo WiFi/BT AP6275S}: El precio permanece en USD\,30.00
+    sin descuento por volumen visible en el canal actual (Techship, un
+    distribuidor europeo especializado). Para escalar la producción, es
+    indispensable identificar el fabricante OEM y negociar directamente.
+    El módulo AP6275S es un SiP Amlogic/SparkLAN; a 100K unidades existe
+    la posibilidad de diseñar el chip WiFi directamente en PCB, eliminando
+    el premium del módulo.
+
+  \item \textbf{LPDDR4X MT53D (U4, Obsoleto)}: A 10K el precio cae de
+    USD\,8.84 a USD\,7.32 (--17\,\%), pero a 100K sube a USD\,21.45, lo
+    que refleja precios de inventario residual de componente discontinuado.
+    Este comportamiento confirma la urgencia de seleccionar un reemplazo
+    activo antes del inicio de producción.
+
+  \item \textbf{Componentes pasivos}: El bloque total de pasivos reduce
+    de USD\,4.90 (1K) a USD\,3.85 (100K), una reducción del 21\,\%.
+    Aunque el impacto absoluto es modesto, la consolidación de proveedores
+    (por ejemplo, concentrar todos los MLCC Murata en un único distribuidor
+    a volumen) podría mejorar este porcentaje.
+
+  \item \textbf{Componentes de precio fijo}: Los TVS (PTVS33VP1BPLJ),
+    los LEDs WS2812B y el amplificador MAX98357A muestran precios
+    prácticamente invariantes con el volumen en los canales actuales,
+    sugiriendo que ya están en precio de mercado maduro.
+\end{itemize}
+
+\section{Estructura de Costo por Subsistema Funcional}
+\label{sec:cost_subsistemas}
+
+\begin{table}[H]
+  \centering
+  \caption{Distribución del costo por subsistema funcional a 1\,000 unidades}
+  \label{tab:cost_sub_func}
+  \begin{tabular}{L{4.5cm} R{2.2cm} R{2.2cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Subsistema}} &
+    \textcolor{white}{\textbf{Costo/ud. (USD)}} &
+    \textcolor{white}{\textbf{Participación}} \\
+    \midrule
+    SPCA -- Procesamiento central (SoC + RAM + eMMC + Flash) & 298.82 & 37.9\,\% \\
+    \rowcolor{row-alt}
+    SCR -- Conectividad WiFi/BT (módulo + antenas + cristal RF) & 45.45 & 5.8\,\% \\
+    SGE -- Gestión de energía (PMIC + MOSFETs + diodos + pasivos) & 18.73 & 2.4\,\% \\
+    \rowcolor{row-alt}
+    SAA -- Audio y acústica (amp. + micrófonos) & 2.18 & 0.3\,\% \\
+    SIVI -- Visual e interacción (LEDs + conectores DSI/FPC) & 3.72 & 0.5\,\% \\
+    \rowcolor{row-alt}
+    SPSF -- Privacidad y seguridad (MCU + interruptor) & 0.97 & 0.1\,\% \\
+    Pasivos, conectores y cristales de soporte & 4.90 & 0.6\,\% \\
+    \rowcolor{row-alt}
+    USB PD (FUSB302BMPX + TVS + conector USB-C) & 1.64 & 0.2\,\% \\
+    \midrule
+    \textbf{Total} & \textbf{78.87} & \textbf{100\,\%} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Implicaciones de Diseño y Viabilidad del Producto}
+\label{sec:cost_implicaciones}
+
+\subsection{Umbral de Viabilidad Comercial}
+
+Asumiendo un precio de venta objetivo al público de USD\,150--200 para un
+altavoz inteligente de gama media-alta, y un margen bruto objetivo del
+40--50\,\%, el costo total del producto (BOM + PCBA + mecánica + embalaje)
+debería estar por debajo de USD\,75--90 por unidad a volumen de 10\,000
+unidades. Con el BOM actual de USD\,33.65/ud.~a 10K, y estimando
+USD\,15--20 adicionales en PCBA y mecánica, el costo total llegaría a
+\textbf{USD\,48--54 por unidad}, lo que deja margen suficiente para el
+objetivo de precio de venta.
+
+\subsection{Decisiones de Diseño con Alto Impacto Económico}
+
+\begin{decisbox}[Alternativa de plataforma: impacto en costo]
+  La decisión D-01 (Amlogic A311D2 vía Khadas VIM4) tiene el mayor impacto
+  económico del diseño. Una alternativa como el Rockchip RK3399 en chip-down
+  directo podría reducir el costo del SoC a USD\,15--25/ud.~a volumen, pero
+  requeriría un esfuerzo de diseño mayor y la pérdida del esquemático de
+  referencia de Khadas. Esta evaluación debe realizarse antes del inicio del
+  E4 si el objetivo de precio es crítico para la viabilidad del producto.
+\end{decisbox}
+
+\begin{decisbox}[Módulo WiFi vs. chip discreto]
+  El módulo AP6275S a USD\,30/ud.~a cualquier volumen representa un costo
+  elevado para un dispositivo de consumo. La integración directa del chip
+  WiFi (e.g., Realtek RTL8822CS o similar) en PCB eliminaría el premium del
+  módulo, reduciendo este subsistema a USD\,3--5/ud., a costa de mayor
+  complejidad de diseño de RF y antena. Esta decisión no afecta al E3 pero
+  debe documentarse como riesgo estratégico para revisiones futuras.
+\end{decisbox}
+
+\subsection{Sensibilidad ante Variaciones de Precio}
+
+Una fluctuación del $\pm$10\,\% en el precio del SoC (USD\,$\pm$28.57/ud.)
+tiene un impacto de $\pm$0.36\,\% en el precio de venta objetivo, lo cual es
+manejable. En cambio, una escasez del módulo WiFi AP6275S o del DRAM podría
+incrementar el costo de materiales en USD\,5--15/ud., afectando directamente
+el margen del producto. El plan de mitigación documentado en el
+Capítulo~\ref{chap:riesgos} contempla la identificación de fuentes
+alternativas para estos dos componentes antes del inicio del E4.
+

@@ -1,0 +1,261 @@
+%% ============================================================
+%%  Capítulo 7 – Integridad de Señal
+%% ============================================================
+\chapter{Requisitos de Integridad de Señal}
+\label{chap:si}
+
+\section{Metodología de Identificación}
+\label{sec:si_metodologia}
+
+Las señales críticas del sistema ALMA fueron identificadas a partir de tres criterios:
+(1)~frecuencia de operación y tiempos de subida/bajada de la señal;
+(2)~sensibilidad a la perturbación (señales analógicas de audio HD);
+(3)~consecuencia del fallo (pérdida de imagen, pérdida de audio, violación de
+privacidad). Para cada señal crítica se especifica el riesgo que presenta y la
+restricción concreta que deberá respetarse en el layout del Entregable~4.
+
+% ── Alta velocidad ────────────────────────────────────────────
+\section{Señales de Alta Velocidad}
+\label{sec:si_alta_velocidad}
+
+\subsection{Interfaz MIPI DSI}
+\label{subsec:si_mipi}
+
+La interfaz MIPI DSI conecta el SoC A311D2 con el panel táctil a color, operando
+a velocidades de varios Gbps. Es la señal de mayor frecuencia del sistema y la
+más sensible a discontinuidades de impedancia \reqref{REQ-G-01}.
+
+\begin{sibox}[SI-01: MIPI DSI -- Impedancia Diferencial y Length Matching]
+  \begin{itemize}
+    \item \textbf{Impedancia diferencial:} 100\,$\Omega$~$\pm$~10\,\%.
+      Implementación: par microstrip diferencial en capa~1, plano de referencia
+      GND en capa~2 continuo bajo toda la ruta.
+    \item \textbf{Length matching entre carriles:} tolerancia máxima de
+      $\pm$5\,mm entre los 4~carriles de datos. Verificar con la regla
+      \textit{Matched Lengths} del DRC de Altium.
+    \item \textbf{Skew intra-par:} máximo 5\,ps por par diferencial.
+    \item \textbf{Longitud máxima de ruta:} $\leq$100\,mm para mantener la
+      atenuación dentro del presupuesto del receptor del panel.
+    \item \textbf{Prohibiciones:} no pasar vías en la ruta del MIPI DSI;
+      no cruzar sobre cortes del plano de GND; clearance mínimo de 3$\times$W
+      respecto a otras señales (regla de los 3W).
+    \item \textbf{Terminación:} AC coupling (condensadores de serie de 100\,nF)
+      según especificación MIPI Alliance \cite{mipi_dsi}.
+  \end{itemize}
+\end{sibox}
+
+\subsection{USB 2.0 (Depuración / Conectividad)}
+\label{subsec:si_usb}
+
+\begin{sibox}[SI-02: USB 2.0 -- Par Diferencial]
+  \begin{itemize}
+    \item \textbf{Impedancia diferencial:} 90\,$\Omega$~$\pm$~10\,\%.
+    \item \textbf{Length matching intra-par:} $\leq$0.5\,mm de diferencia
+      entre D+ y D--.
+    \item \textbf{Restricciones de vías:} minimizar el número de vías en el
+      par diferencial; si son inevitables, usar vías pequeñas y añadir una vía
+      de GND adyacente para mantener el retorno.
+    \item \textbf{Plano de referencia:} continuo bajo toda la longitud del par.
+  \end{itemize}
+\end{sibox}
+
+% ── Audio ─────────────────────────────────────────────────────
+\section{Señales de Audio y Analógicas}
+\label{sec:si_audio}
+
+\subsection{Bus I2S -- Audio HD 24-bit/96\,kHz}
+\label{subsec:si_i2s}
+
+El reloj de bit (BCLK) del bus I2S para audio de 24-bit a 96\,kHz opera a:
+\[
+  f_{BCLK} = 2 \times 24 \times 96\,000 = 4.608\,\text{MHz}
+\]
+Esta frecuencia no impone restricciones severas de SI en términos de integridad
+de tiempo de propagación, pero la calidad de audio de 24-bit sí exige un piso de
+ruido bajo en las señales del bus \reqref{REQ-F-01}.
+
+\begin{sibox}[SI-03: I2S -- Integridad de Reloj y Aislamiento de Ruido]
+  \begin{itemize}
+    \item \textbf{Length matching:} BCLK, LRCLK y DATA deben tener longitudes
+      similares ($\pm$10\,mm) para mantener el alineamiento temporal de las muestras.
+    \item \textbf{Plano de referencia:} GND continuo bajo todas las pistas I2S;
+      no cruzar sobre cortes del plano ni sobre la zona de los reguladores Buck.
+    \item \textbf{Aislamiento de zona:} las pistas I2S deben mantenerse alejadas
+      de los nodos de conmutación (SW) de los reguladores NB679/NB680 mediante
+      una separación mínima de 2\,mm o una fila de vías de GND como blindaje.
+    \item \textbf{Terminación:} las líneas I2S son punto a punto (SoC -- códec),
+      sin necesidad de terminación adicional a esta frecuencia.
+  \end{itemize}
+\end{sibox}
+
+\subsection{Señales PDM de Micrófonos MEMS}
+\label{subsec:si_pdm}
+
+Las líneas PDM llevan el reloj y los datos digitales de los micrófonos MEMS.
+El ruido en la línea de reloj PDM degrada directamente la calidad de la captura
+de voz \reqref{REQ-F-02}.
+
+\begin{sibox}[SI-04: PDM -- Aislamiento del Ruido del Altavoz]
+  \begin{itemize}
+    \item \textbf{Separación mecánica:} los micrófonos MEMS deben ubicarse
+      en la PCB lo más alejado posible del amplificador Clase~D y del altavoz,
+      tanto eléctrica como mecánicamente, para evitar retroalimentación acústica
+      y acoplamiento de las corrientes de conmutación del amplificador.
+    \item \textbf{Ruteo:} las pistas PDM deben evitar cruzar sobre o cerca de las
+      pistas de potencia del amplificador (VCC5, pistas de salida al altavoz).
+    \item \textbf{Blindaje:} se recomienda una fila de vías de GND perimetral a
+      lo largo de las pistas PDM en la zona de mayor exposición al ruido.
+    \item \textbf{Plano de referencia:} GND continuo bajo las pistas PDM.
+  \end{itemize}
+\end{sibox}
+
+\subsection{Ruta de Audio Analógica -- Códec hacia Amplificador}
+\label{subsec:si_audio_analog}
+
+La señal analógica entre la salida del códec y la entrada del amplificador Clase~D
+es la más sensible al ruido de todo el sistema. Cualquier interferencia que se
+acople en esta ruta será amplificada y reproducida por el altavoz.
+
+\begin{sibox}[SI-05: Audio Analógico -- Zona y Plano de Referencia]
+  \begin{itemize}
+    \item \textbf{Zona analógica definida:} el códec y la ruta analógica deben
+      situarse en un área delimitada de la PCB, separada de los circuitos digitales
+      y de potencia.
+    \item \textbf{Plano GND analógico:} se recomienda una región del plano GND
+      dedicada a la zona analógica, conectada al resto del plano GND en un único
+      punto (conexión de estrella) para evitar que las corrientes de retorno digitales
+      crucen bajo la zona analógica.
+    \item \textbf{Pistas cortas:} la longitud de la ruta analógica (códec -- amp)
+      debe minimizarse. Ubicar ambos componentes adyacentes en el layout.
+    \item \textbf{Prohibición:} ninguna pista de señal digital o de potencia
+      switching debe cruzar perpendicular ni paralela a las pistas de señal analógica
+      en capas adyacentes.
+  \end{itemize}
+\end{sibox}
+
+% ── Control ───────────────────────────────────────────────────
+\section{Señales de Control}
+\label{sec:si_control}
+
+\subsection{Buses I2C}
+\label{subsec:si_i2c}
+
+\begin{sibox}[SI-06: I2C -- Capacitancia de Bus y Resistencias de Pull-up]
+  Los buses I2C (uno para el códec, uno para el controlador táctil) son de baja
+  velocidad ($\leq$400\,kHz). La restricción principal es la capacitancia de bus:
+  \begin{itemize}
+    \item \textbf{Capacitancia máxima de bus:} 400\,pF según especificación I2C.
+      Con pistas de 0.1\,mm sobre FR-4, la capacitancia es $\approx$0.5\,pF/mm,
+      lo que permite longitudes de hasta 800\,mm -- sin restricción práctica en
+      esta PCB.
+    \item \textbf{Resistencias de pull-up:} 4.7\,k$\Omega$ a 3.3\,V para
+      velocidad estándar (100\,kHz) o 2.2\,k$\Omega$ para modo fast (400\,kHz).
+      Ubicar los resistores de pull-up cerca del master (SoC) en la PCB.
+  \end{itemize}
+\end{sibox}
+
+\subsection{Señal de Silenciado Físico (SPSF)}
+\label{subsec:si_mute}
+
+\begin{sibox}[SI-07: Hard-wired Mute -- Continuidad Garantizada]
+  La señal de silenciado físico (\reqref{REQ-NF-01}) es una interconexión
+  hard-wired entre el switch mecánico DPST y la línea de alimentación o reloj
+  de los micrófonos PDM. Sus requisitos de SI son:
+  \begin{itemize}
+    \item \textbf{Continuidad del circuito:} verificar en el ERC de Altium que
+      la red de los micrófonos PDM muestra una apertura en el switch (pines del
+      componente Switch conectados en serie en la red).
+    \item \textbf{Independencia del plano digital:} las pistas del circuito de
+      silenciado y del LED indicador no deben compartir retorno con las pistas
+      de señal del SoC. Se recomienda un retorno directo a GND independiente.
+  \end{itemize}
+\end{sibox}
+
+% ── PDN ───────────────────────────────────────────────────────
+\section{Integridad de Potencia (PDN)}
+\label{sec:si_pdn}
+
+\subsection{Estrategia de Desacoples}
+
+\begin{sibox}[SI-08: Desacoples -- Criterio de Ubicación y Valores]
+  \begin{itemize}
+    \item \textbf{Filosofía:} cada pin de alimentación de cada CI debe tener un
+      condensador de desacoplo cerámico (100\,nF, X7R) ubicado a $\leq$1\,mm
+      del pin. Los CIs de mayor consumo (SoC, amplificador) deben tener además
+      un condensador bulk ($\geq$10\,$\mu$F).
+    \item \textbf{Ubicación en Altium:} los condensadores de desacoplo deben
+      asignarse al mismo net que el pin de alimentación al que sirven y colocarse
+      en el lado del componente donde están los pines de VCC.
+    \item \textbf{Conexión:} la vía del condensador de desacoplo al plano GND
+      debe ser la más corta posible. Nunca interponer una pista larga entre el
+      condensador y el plano.
+  \end{itemize}
+\end{sibox}
+
+\subsection{Plano de GND y Continuidad de Retorno}
+
+\begin{sibox}[SI-09: Plano GND -- Sin Cortes bajo Señales Críticas]
+  \begin{itemize}
+    \item El plano de GND de la capa~2 de la PCB-CTRL debe ser continuo,
+      sin ranuras ni cortes bajo ninguna pista de señal de alta velocidad
+      (MIPI DSI, I2S, PDM, USB).
+    \item \textbf{Regla de retorno:} la corriente de retorno sigue el camino
+      de mínima inductancia, que es directamente bajo la pista de señal.
+      Un corte en el plano fuerza el retorno a rodear el corte, creando un
+      lazo de área mayor y emisiones de radiación aumentadas.
+    \item \textbf{Inspección en Altium:} verificar con la función
+      \textit{Highlight Net} $>$ GND + \textit{Polygon Pour} que no existen
+      zonas desconectadas del plano de GND bajo las rutas críticas.
+  \end{itemize}
+\end{sibox}
+
+% ── Señales inter-PCB ─────────────────────────────────────────
+\section{Señales en la Interconexión entre PCBs}
+\label{sec:si_inter_pcb}
+
+Como se indicó en el Capítulo~\ref{chap:particion}, las únicas señales que cruzan
+entre la PCB-PWR y la PCB-CTRL son rieles de alimentación DC. No hay señales de
+alta velocidad en la interconexión inter-PCB. Esto elimina los problemas de
+discontinuidad de impedancia y retorno de corriente de alta frecuencia que
+normalmente introduce un conector.
+
+La única consideración de SI en la interconexión es la caída de tensión resistiva
+en los pines del conector bajo corriente DC, que debe minimizarse seleccionando
+un conector de baja resistencia de contacto y distribuyendo la corriente de cada
+riel entre múltiples pines en paralelo.
+
+% ── Tabla resumen ─────────────────────────────────────────────
+\section{Tabla Resumen de Restricciones de Integridad de Señal}
+\label{sec:si_tabla}
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen de restricciones de integridad de señal del sistema ALMA.}
+  \label{tab:si_resumen}
+  \begin{tabularx}{\textwidth}{C{1.2cm} L{2.5cm} C{1.5cm} L{5.5cm} L{3cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{ID}} &
+    \textcolor{white}{\textbf{Señal}} &
+    \textcolor{white}{\textbf{PCB}} &
+    \textcolor{white}{\textbf{Restricción principal}} &
+    \textcolor{white}{\textbf{Evidencia en Altium}} \\
+    \midrule
+    SI-01 & MIPI DSI  & CTRL & 100\,$\Omega$ diff., length match $\pm$5\,mm, no vías & Matched Lengths DRC \\
+    \rowcolor{row-alt}
+    SI-02 & USB 2.0   & CTRL & 90\,$\Omega$ diff., match intra-par $\leq$0.5\,mm & Diff. Pair Rule DRC \\
+    SI-03 & I2S       & CTRL & GND continuo, separación de Buck, match $\pm$10\,mm & Visual inspection \\
+    \rowcolor{row-alt}
+    SI-04 & PDM Mics  & CTRL & Alejado del amp., fila de vías GND perimetral & Visual inspection \\
+    SI-05 & Audio analógico & CTRL & Zona analógica, GND estrella, pistas cortas & Visual inspection \\
+    \rowcolor{row-alt}
+    SI-06 & I2C       & CTRL & Pull-up correcto, cap. bus $\leq$400\,pF & ERC check \\
+    SI-07 & Mute HW   & CTRL & Continuidad, retorno GND independiente & ERC check \\
+    \rowcolor{row-alt}
+    SI-08 & PDN -- Desacoples & CTRL & 100\,nF a $\leq$1\,mm de cada pin VCC & Visual inspection \\
+    SI-09 & Plano GND & CTRL & Sin cortes bajo señales críticas & Polygon DRC \\
+    \rowcolor{row-alt}
+    SI-PWR-01 & PDN PWR  & PWR & $\Delta$V $\leq$3\,\% en rieles críticos & Cálculo (Anexo B) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

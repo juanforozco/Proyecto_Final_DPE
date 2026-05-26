@@ -1,0 +1,37 @@
+%% ============================================================
+%%  Capítulo 13 – Conclusiones
+%% ============================================================
+\chapter{Conclusiones}
+\label{chap:conclusiones}
+
+\section{1. Cierre de Arquitectura}
+
+Las cinco decisiones abiertas del Entregable 2 (D-01 a D-05) han sido resueltas con criterios técnicos cuantificables y documentados. El SoC Amlogic A311D2 fue seleccionado por su integración nativa de todas las interfaces requeridas (MIPI DSI, I2S/PDM, TrustZone) y el respaldo del esquemático de referencia público de Khadas VIM4. La implementación Chip-Down representa un ahorro de \$22--37 por unidad frente a un enfoque SoM equivalente. Los micrófonos MEMS PDM eliminan la ruta analógica en la PCB, reduciendo el riesgo de acoplamiento de ruido. El TrustZone integrado del A311D2 cubre los 13 controles mandatorios de ETSI\,EN\,303\,645 para el alcance del proyecto, con la adición de un Secure Element externo registrada como mejora para una versión comercial futura.
+
+\section{2. Partición Física}
+
+La distribución del hardware en dos tarjetas independientes (PCB-CTRL de 6\,capas HDI y PCB-PWR de 4\,capas estándar) es la decisión de arquitectura física con mayor impacto en la calidad del producto final. Esta partición aísla los bucles de conmutación de alta corriente de los reguladores Buck de las señales de audio HD de 24-bit y las interfaces diferenciales de alta velocidad (MIPI DSI, LPDDR4). Permite fabricar la PCB-PWR en un proceso de menor costo y facilita la prueba independiente de la etapa de potencia antes de conectarla al SoC.
+
+\section{3. Esquemáticos y BOM}
+
+Los esquemáticos de la PCB-CTRL y la PCB-PWR han pasado la verificación ERC sin errores críticos. El BOM está cerrado al 100\,\%, con 26 referencias únicas de componentes activos seleccionados con número de parte concreto y verificados en distribuidores de referencia (Digi-Key, Mouser). El costo estimado de hardware en el escenario de producción de 100\,000 unidades es de \$60.07 USD por unidad, comparable con productos comerciales de la categoría.
+
+\section{4. Fabricante y Restricciones de Diseño}
+
+Las restricciones del fabricante seleccionado (JLCPCB) han sido traducidas íntegramente a reglas DRC en el proyecto de Altium Designer: ancho mínimo de pista 0.1\,mm, clearance de 0.1\,mm general (0.5\,mm para la entrada de 12\,V), control de impedancia 100\,$\Omega$ diferencial (MIPI DSI) y 90\,$\Omega$ diferencial (USB-C), y stack-up de 6\,capas con planos de GND continuos en la PCB-CTRL. Las restricciones de integridad de señal (SI-01 a SI-09) están configuradas como net classes y reglas de length matching verificables mediante DRC automático.
+
+\section{5. Interacción HW--SW}
+
+La arquitectura lógica del software ha sido vinculada explícitamente al hardware real: cada decisión de componente tiene una implicación directa en el driver, middleware o servicio de OVOS correspondiente. Los tres flujos críticos (detección y respuesta por voz, silenciado físico y arranque seguro) han sido documentados capa por capa, demostrando que el hardware de ALMA soporta técnicamente todas las funciones del producto definidas en el E1.
+
+\section{6. Trazabilidad}
+
+Los diez requisitos del E1 tienen trazabilidad completa hacia componentes concretos, decisiones de diseño documentadas y secciones verificables en este informe. No existe ningún requisito sin componente asignado al cierre del E3.
+
+\section{7. Análisis de Costos}
+
+El diseño de ALMA es viable económicamente en escenarios de producción industrial. La palanca de costo más significativa es la negociación directa del SoC y la RAM con fabricantes Tier-1 en volúmenes de 100K unidades. La estrategia Chip-Down, aunque más compleja de diseñar, es económicamente superior al enfoque SoM para producciones superiores a 10\,000 unidades.
+
+\section{8. Estado del Proyecto hacia el Entregable 4}
+
+El proyecto está en estado \textbf{Ready for Routing}. Los puntos de mayor riesgo técnico a resolver al inicio del enrutamiento son: (a)~la revisión cruzada obligatoria del netlist del A311D2 contra el esquemático de Khadas VIM4 (Riesgo R-06, crítico), (b)~la definición de la estrategia de fan-out del BGA-1056 y la confirmación de que el stack-up de 6\,capas es suficiente (Riesgo R-07), y (c)~la ubicación física de los micrófonos MEMS maximizando la distancia al amplificador Clase D. Con estas decisiones resueltas, el enrutamiento puede proceder con los criterios de integridad de señal documentados en el Capítulo~\ref{chap:si}.

@@ -1,0 +1,202 @@
+%% ============================================================
+%%  Capítulo 5 – Descripción Técnica: PCB-PWR
+%% ============================================================
+\chapter{Descripción Técnica: PCB-PWR}
+\label{chap:pcb_pwr}
+
+\section{Función Principal}
+\label{sec:pwr_funcion}
+
+La PCB-PWR es el módulo de gestión de energía de ALMA. Su función es convertir la
+entrada de 12\,V DC proveniente del adaptador externo en los rieles de baja tensión
+regulados que alimentan todos los subsistemas de la PCB-CTRL. Adicionalmente,
+concentra las protecciones de entrada del sistema: fusible PPTC, diodo TVS y
+protección contra polaridad inversa. El subsistema alojado es el \textbf{SGE}
+(Gestión de Energía) \reqref{REQ-E-01}.
+
+\section{Bloques Funcionales Incluidos}
+\label{sec:pwr_bloques}
+
+\subsection{Etapa de Entrada y Protección}
+
+La entrada de 12\,V VIN incorpora las siguientes protecciones, en el orden en que
+aparecen en la señal de entrada:
+
+\begin{itemize}
+  \item \textbf{Protección de polaridad inversa:} diodo Schottky de baja caída en
+    serie, o MOSFET-P como interruptor controlado, para prevenir daño por conexión
+    inversa del adaptador.
+  \item \textbf{Fusible PPTC resetable:} limita la corriente en caso de
+    cortocircuito y se recupera al retirar la falla. Disparo en $<$5\,s según
+    \reqref{REQ-E-01}.
+  \item \textbf{Diodo TVS:} supresión de transitorios de tensión en la entrada,
+    protegiendo todos los reguladores aguas abajo \reqref{REQ-E-01}.
+  \item \textbf{Condensadores bulk de entrada:} capacidad suficiente para absorber
+    los picos de corriente de los reguladores Buck durante transitorios de carga.
+\end{itemize}
+
+\subsection{Reguladores de Voltaje}
+
+El árbol de potencia replica la topología del diseño de referencia Khadas VIM4,
+adaptada a las necesidades de ALMA. La Tabla~\ref{tab:reguladores} resume los
+reguladores implementados.
+
+\begin{table}[H]
+  \centering
+  \caption{Reguladores de voltaje de la PCB-PWR.}
+  \label{tab:reguladores}
+  \begin{tabularx}{\textwidth}{L{2.2cm} C{2.5cm} C{1.8cm} C{2cm} L{4cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Componente}} &
+    \textcolor{white}{\textbf{Fabricante}} &
+    \textcolor{white}{\textbf{Topología}} &
+    \textcolor{white}{\textbf{V salida}} &
+    \textcolor{white}{\textbf{Destino / Función}} \\
+    \midrule
+    SY88003   & Silergy          & Buck síncrono & 1.1\,V   & VDD\_NPU: núcleo de IA del A311D2 \\
+    \rowcolor{row-alt}
+    TL76701   & Texas Instruments & LDO          & 1.8\,V   & VDD\_IO: bancos de E/S y buses lógicos \\
+    MPU8756   & Monolithic Power  & Buck síncrono & Variable & VDD\_CPU: clústeres CPU-A y CPU-B \\
+    \rowcolor{row-alt}
+    NB679     & Monolithic Power  & Buck síncrono & 5.0\,V   & Amplificador Clase~D, backlight, LEDs \\
+    NB680     & Monolithic Power  & Buck síncrono & 3.3\,V   & WiFi/BT, eMMC, GPIO, sensores \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Estrategia de Ajuste de Voltaje (Red de Feedback)}
+
+Los reguladores Buck SY88003 y MPU8756 utilizan redes de resistencias de
+\textit{feedback} (RFB) para definir con precisión el voltaje de salida. Esta es una
+característica crítica del diseño:
+
+\begin{itemize}
+  \item El \textbf{SY88003} se emplea en múltiples instancias del esquemático
+    (una por riel), cada una con valores de RFB calculados individualmente para
+    entregar la tensión exacta requerida por cada dominio del A311D2. Por ejemplo,
+    la instancia del riel NPU usa una red que entrega exactamente 1.1\,V, siguiendo
+    los valores del esquemático de referencia de Khadas.
+  \item El \textbf{MPU8756} gestiona los rieles variables de los clústeres CPU-A
+    y CPU-B del A311D2 (arquitectura big.LITTLE). Sus voltajes se ajustan
+    dinámicamente; los valores de RFB definen el rango de operación.
+\end{itemize}
+
+\begin{riskbox}[Mandato de Diseño: No Copiar-Pegar Componentes de Potencia]
+  Cada instancia del SY88003 en el esquemático requiere valores de resistencias de
+  feedback \textbf{calculados individualmente}. Copiar una instancia sin actualizar
+  los valores pasivos resultaría en un voltaje de salida incorrecto, con riesgo de
+  daño permanente al A311D2. Todos los valores de RFB deben verificarse contra la
+  tabla de voltajes del esquemático de referencia Khadas VIM4 antes del cierre
+  del esquemático.
+\end{riskbox}
+
+\subsection{Conector de Interconexión hacia PCB-CTRL}
+
+Todos los rieles regulados se conducen desde la PCB-PWR hacia la PCB-CTRL a través
+de un único conector de interconexión de alta corriente. Los pines del conector
+se distribuyen de forma que los rieles de mayor corriente (VCC5 para el amplificador,
+VDD\_CPU para los núcleos del SoC) dispongan de múltiples pines en paralelo para
+reducir la resistencia de contacto y minimizar la caída de tensión.
+
+\section{Interfaces de la PCB-PWR}
+\label{sec:pwr_interfaces}
+
+\begin{table}[H]
+  \centering
+  \caption{Interfaces de la PCB-PWR.}
+  \label{tab:interfaces_pwr}
+  \begin{tabularx}{\textwidth}{L{3cm} C{3cm} L{7cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Interfaz}} &
+    \textcolor{white}{\textbf{Tipo}} &
+    \textcolor{white}{\textbf{Descripción}} \\
+    \midrule
+    Entrada VIN    & Conector DC Jack o Molex & 12\,V DC desde adaptador externo \\
+    \rowcolor{row-alt}
+    Salida a CTRL  & Conector inter-PCB       & Rieles regulados: 1.1V, 1.8V, 5V, 3.3V, VDD\_CPU, GND \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Señales y Rieles Críticos}
+\label{sec:pwr_senales}
+
+\subsection{Rieles VDD\_CPU y VDD\_NPU (1.1\,V)}
+
+Son los rieles más críticos de toda la plataforma. Una desviación de $\pm$5\,\%
+puede provocar inestabilidad o daño al SoC. Requieren:
+\begin{itemize}
+  \item Condensadores de salida de baja ESR directamente en la salida del regulador.
+  \item Pistas de potencia de ancho suficiente para la corriente máxima de los
+    núcleos (calcular con IPC-2152, ver Anexo~\ref{chap:anexo_si}).
+  \item Plano de cobre en capa interna dedicado a este riel, con múltiples vías de
+    conexión al plano.
+\end{itemize}
+
+\subsection{Riel VCC5 -- Amplificador Clase~D}
+
+El amplificador de audio Clase~D tiene corrientes pico elevadas durante la
+reproducción a máxima potencia. Este riel debe contar con condensadores bulk
+de alta capacitancia (electrolíticos + cerámicos) cerca del amplificador en la
+PCB-CTRL para absorber los transitorios, evitando que se propaguen hacia atrás
+hasta la PCB-PWR.
+
+\subsection{Ruido de Switching}
+
+Los reguladores Buck generan ruido de conmutación en frecuencias típicas de
+200\,kHz a 2\,MHz. Este ruido es el motivo principal de la separación física de la
+PCB-PWR. En la PCB-PWR misma, se deben seguir las siguientes buenas prácticas:
+\begin{itemize}
+  \item El lazo de alta corriente (inductor -- diodo/MOSFET -- condensador de salida)
+    debe ser mínimo en área.
+  \item Las pistas del nodo de conmutación (SW) deben ser cortas y no actuar
+    como antenas.
+  \item El plano de GND de la PCB-PWR debe ser continuo bajo los reguladores.
+\end{itemize}
+
+\section{Restricciones del Fabricante Aplicables a PCB-PWR}
+\label{sec:pwr_fabricante}
+
+La PCB-PWR puede fabricarse en un proceso estándar de \textbf{4~capas}. Las
+restricciones relevantes del fabricante (documentadas en detalle en el
+Capítulo~\ref{chap:fabricante}) son:
+
+\begin{fabbox}[Restricciones Fabricante -- PCB-PWR]
+  \begin{itemize}
+    \item \textbf{Ancho mínimo de pista:} 0.1\,mm (aplicable a pistas de señal;
+      las pistas de potencia de alta corriente requieren mayor ancho según IPC-2152).
+    \item \textbf{Clearance:} 0.1\,mm general; distancias IEC\,62368-1 para la
+      entrada de 12\,V \reqref{REQ-E-01}.
+    \item \textbf{Acabado superficial:} ENIG recomendado para mejorar soldabilidad
+      de componentes SMD de potencia.
+    \item \textbf{Thermal relief en pads de componentes de potencia:} configurar
+      según recomendación del fabricante para asegurar soldabilidad en reflow.
+  \end{itemize}
+\end{fabbox}
+
+\section{Restricciones de Integridad de Señal -- PCB-PWR}
+\label{sec:pwr_si}
+
+Las señales en la PCB-PWR son exclusivamente DC y baja frecuencia de control.
+Las restricciones de SI se centran en integridad de potencia (PDN):
+
+\begin{sibox}[SI-PWR-01: PDN -- Estabilidad de Rieles Críticos]
+  Los rieles VDD\_CPU y VDD\_NPU requieren una impedancia de PDN suficientemente baja
+  para evitar caídas de tensión durante transitorios de carga del SoC.
+  Criterio: variación máxima de $\pm$3\,\% en el riel bajo carga transitoria.
+  Implementación: condensadores de salida de baja ESR en paralelo (cerámico 100\,nF
+  + electrolítico 100\,$\mu$F mínimo en cada riel crítico).
+\end{sibox}
+
+\section{Captura en Altium Designer}
+\label{sec:pwr_altium}
+
+El esquemático de la PCB-PWR está estructurado por regulador individual, siguiendo
+la organización del esquemático de referencia de Khadas VIM4. Cada regulador ocupa
+una hoja esquemática independiente con su red de feedback, componentes pasivos de
+filtrado y etiquetas de red (Net Labels) que coinciden con los nombres de riel de
+la Tabla~\ref{tab:rieles_sistema}. Los pines del conector de interconexión
+están etiquetados con los mismos nombres de red para garantizar la trazabilidad
+entre las dos tarjetas en el entorno multi-board de Altium.

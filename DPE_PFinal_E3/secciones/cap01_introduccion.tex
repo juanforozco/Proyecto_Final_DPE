@@ -1,0 +1,56 @@
+%% ============================================================
+%%  Capítulo 1 – Introducción
+%% ============================================================
+\chapter{Introducción}
+\label{chap:introduccion}
+
+\section{Propósito del Documento}
+\label{sec:intro_proposito}
+
+Este documento constituye la consolidación técnica definitiva del hardware de ALMA correspondiente al Entregable 3 (E3) del proyecto. Su propósito es responder a la pregunta central de esta etapa: \textbf{¿Cómo queda técnicamente definido ALMA antes del diseño físico final?}
+
+El E3 marca el cierre formal de la fase de definición de arquitectura y selección de componentes, y da paso a la fase de enrutamiento físico (Entregable 4). A diferencia de los entregables anteriores, que establecían requisitos y especificaciones funcionales, este documento presenta decisiones de ingeniería concretas: componentes seleccionados con número de parte real, esquemáticos completados al 100\,\%, restricciones de fabricación configuradas en Altium Designer y reglas de integridad de señal listas para su aplicación en el layout.
+
+El diseño aquí presentado es técnicamente defendible, ha pasado la verificación ERC (Electrical Rule Check) sin errores críticos, y está optimizado para la manufactura (Design for Manufacturing, DFM) con el proceso de fabricación del fabricante seleccionado.
+
+\section{Relación con los Entregables Anteriores}
+\label{sec:intro_relacion}
+
+El Entregable 1 (E1) estableció los \textbf{requisitos funcionales, no funcionales, de interfaz y de restricción} del sistema ALMA. El Entregable 2 (E2) transformó esos requisitos en especificaciones técnicas cuantitativas y abrió cinco decisiones de diseño (D-01 a D-05) que no podían resolverse sin un análisis arquitectónico más profundo. El presente E3 cierra las cinco decisiones abiertas:
+
+\begin{itemize}
+  \item \textbf{D-01} -- Plataforma de cómputo: Amlogic A311D2 en implementación Chip-Down (\S\ref{sec:arq_soc}).
+  \item \textbf{D-02} -- Tipo de micrófonos: MEMS digitales con interfaz PDM (\S\ref{sec:arq_audio}).
+  \item \textbf{D-03} -- Estrategia de integración: Chip-Down vs. SoM (\S\ref{sec:arq_integracion}).
+  \item \textbf{D-04} -- Conectividad y protocolo de domótica: WiFi + cliente IP (\S\ref{sec:arq_conectividad}).
+  \item \textbf{D-05} -- Elemento de seguridad criptográfica: TrustZone integrado del A311D2 (\S\ref{sec:arq_seguridad}).
+\end{itemize}
+
+\section{Alcance y Exclusiones}
+\label{sec:intro_alcance}
+
+\textbf{El presente documento incluye:}
+\begin{itemize}
+  \item Esquemáticos completados al 100\,\% para la PCB-CTRL y la PCB-PWR.
+  \item Lista de materiales (BOM) cerrada con números de parte concretos y precios de referencia.
+  \item Árbol de potencia detallado con componentes generadores y cargas por riel.
+  \item Restricciones del fabricante de PCB traducidas a reglas DRC en Altium Designer.
+  \item Requisitos de integridad de señal (SI) e integridad de potencia (PI) para cada interfaz crítica.
+  \item Arquitectura lógica del software y flujos de operación clave vinculados al hardware.
+  \item Trazabilidad completa de los requisitos del E1 hacia las decisiones de diseño.
+  \item Análisis de costos por volumen de producción.
+  \item Registro de riesgos actualizado y decisiones sensibles para el enrutamiento.
+\end{itemize}
+
+\textbf{Quedan fuera del alcance de este entregable:}
+\begin{itemize}
+  \item El layout final de las PCBs (enrutamiento), que corresponde al Entregable 4.
+  \item Los archivos de fabricación (Gerber, ODB++, IPC-2581).
+  \item Las pruebas eléctricas sobre prototipo físico.
+  \item La implementación del stack de software o firmware.
+\end{itemize}
+
+\section{Organización del Documento}
+\label{sec:intro_organizacion}
+
+El documento está estructurado en trece capítulos y cinco anexos. Los Capítulos~\ref{chap:arquitectura} y~\ref{chap:particion} describen la arquitectura final del sistema y la justificación de la partición en dos PCBs. Los Capítulos~\ref{chap:pcb_ctrl} y~\ref{chap:pcb_pwr} detallan cada tarjeta por separado. Los Capítulos~\ref{chap:fabricante} y~\ref{chap:si} documentan las restricciones de manufactura e integridad de señal. El Capítulo~\ref{chap:hw_sw} desarrolla la arquitectura lógica del software. Los Capítulos~\ref{chap:bom} a~\ref{chap:riesgos} cubren la lista de materiales, análisis de costos, trazabilidad de requisitos y gestión de riesgos. El Capítulo~\ref{chap:conclusiones} sintetiza el estado del proyecto y los puntos críticos para el enrutamiento. Los Anexos A--E contienen el BOM detallado, los cálculos de SI, el árbol de potencia completo y los esquemáticos exportados de Altium Designer.

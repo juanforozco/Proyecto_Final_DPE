@@ -1,0 +1,70 @@
+%% ============================================================
+%%  Anexo C – Árbol de Potencia Detallado
+%% ============================================================
+\chapter{Árbol de Potencia Detallado}
+\label{chap:anexo_potencia}
+
+\begin{table}[H]
+  \centering
+  \caption{Rieles de alimentación del sistema ALMA -- detalle por riel.}
+  \label{tab:potencia_detalle}
+  \begin{tabularx}{\textwidth}{L{2cm} C{1.5cm} C{1.5cm} C{1.8cm} C{1.8cm} L{2.5cm} L{2.5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Riel}} &
+    \textcolor{white}{\textbf{V nom.}} &
+    \textcolor{white}{\textbf{Tol.}} &
+    \textcolor{white}{\textbf{I típica}} &
+    \textcolor{white}{\textbf{I pico}} &
+    \textcolor{white}{\textbf{Generado por}} &
+    \textcolor{white}{\textbf{Consumido por}} \\
+    \midrule
+    VIN      & 12\,V   & $\pm$5\,\%  & 1.6\,A    & 2.5\,A    & USB C & PCB-PWR (todos los Buck) \\
+    \rowcolor{row-alt}
+    VDD\_NPU & 1.1\,V  & $\pm$2\,\%  & 1.0\,A    & 2.0\,A    & SY88003 (Silergy) & Núcleo NPU A311D2 \\
+    VDD\_CPU & Variable & $\pm$2\,\% & 2.0\,A    & 4.0\,A    & MPU8756 (MPS)     & CPU-A, CPU-B A311D2 \\
+    \rowcolor{row-alt}
+    VDD\_IO  & 1.8\,V  & $\pm$2\,\%  & 0.5\,A    & 1.0\,A    & TL76701 (TI)      & E/S SoC, buses lógicos \\
+    VCC5     & 5.0\,V  & $\pm$3\,\%  & 0.8\,A    & 2.5\,A    & NB679 (MPS)       & Amp. Clase~D, Boost backlight \\
+    \rowcolor{row-alt}
+    VCC3V3   & 3.3\,V  & $\pm$3\,\%  & 0.6\,A    & 1.0\,A    & NB680 (MPS)       & WiFi/BT, eMMC, GPIO \\
+    VLED     & 5.0\,V  & ---         & 0.3\,A    & 1.1\,A    & NB679 (compartido) & LEDs RGB \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\textit{Nota: los valores de corriente típica y pico son estimaciones basadas en
+los datasheets de los componentes seleccionados y en el presupuesto energético del
+Entregable~2 (19\,W totales). Los anchos de pista se calcularon con IPC-2152
+\cite{ipc2152} -- ver Anexo~\ref{chap:anexo_si}, Sección~B.3.}
+
+\section*{C.1 Presupuesto Energético Total}
+
+Siguiendo la estimación del Entregable~2, el consumo máximo del sistema en
+condiciones de carga pico es de aproximadamente 19\,W. Con la entrada de 12\,V:
+
+\[
+  I_{total} \approx \frac{19\,\text{W}}{12\,\text{V}} \approx 1.6\,\text{A}
+\]
+
+El adaptador externo seleccionado debe tener una corriente nominal mínima de 2\,A
+(24\,W) para proveer un margen de seguridad del $\approx$20\,\% sobre la carga
+máxima, tal como se definió en el Entregable~2. Se recomienda un adaptador de 2.5\,A
+para absorber los picos transitorios del amplificador Clase~D.
+
+\section*{C.2 Notas sobre la Red de Feedback del SY88003}
+
+El regulador SY88003 se utiliza en múltiples instancias del esquemático de la
+PCB-PWR, cada una configurada para un voltaje de salida diferente mediante la red
+de resistencias de feedback (RFB). La relación entre los valores de la red y el
+voltaje de salida es:
+
+\[
+  V_{out} = V_{ref} \times \left(1 + \frac{R_{top}}{R_{bot}}\right)
+\]
+
+donde $V_{ref}$ es el voltaje de referencia interno del SY88003 (verificar en
+datasheet). Los valores exactos de $R_{top}$ y $R_{bot}$ para cada instancia
+(NPU~1.1\,V, GPU, CPU, etc.) están tomados del esquemático de referencia
+de Khadas VIM4 y deben preservarse sin modificación para garantizar la
+estabilidad del SoC.

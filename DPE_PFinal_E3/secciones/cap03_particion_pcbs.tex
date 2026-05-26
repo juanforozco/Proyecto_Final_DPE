@@ -1,0 +1,148 @@
+%% ============================================================
+%%  Capítulo 3 – Partición Física del Diseño en PCBs
+%% ============================================================
+\chapter{Partición Física del Diseño en PCBs}
+\label{chap:particion}
+
+\section{Análisis de la Decisión de Partición}
+\label{sec:part_analisis}
+
+La elección entre implementar ALMA en una sola tarjeta o distribuirla en varias
+no se basó en criterios de comodidad o conveniencia, sino en un análisis técnico
+de los riesgos de coexistencia entre subsistemas con naturalezas eléctricas
+incompatibles.
+
+\subsection{Coexistencia de Dominios Ruidosos y Sensibles}
+
+El hardware de ALMA combina tres tipos de circuitos con exigencias radicalmente
+distintas de integridad de señal:
+
+\begin{itemize}
+  \item \textbf{Reguladores Buck conmutados} (NB679, NB680, MPU8756, SY88003):
+    generan armónicos de ruido desde decenas de kHz hasta decenas de MHz, tanto
+    por conducción como por radiación. Sus corrientes de conmutación son del orden
+    de amperios.
+  \item \textbf{Señales de audio HD} (I2S 24-bit/96\,kHz, ruta analógica del códec):
+    operan en el rango de 20\,Hz a 40\,kHz con relaciones señal-ruido objetivo
+    superiores a 100\,dB. Un piso de ruido elevado en el plano de alimentación del
+    códec degrada directamente la calidad de audio medible con \reqref{REQ-F-01}.
+  \item \textbf{Interfaces de alta velocidad} (MIPI DSI a varios Gbps, PDM):
+    son simultáneamente susceptibles al ruido de los reguladores y fuente de
+    emisiones que pueden interferir con el audio analógico.
+\end{itemize}
+
+Colocar estos tres dominios en una sola tarjeta sin separación física impone
+restricciones de ruteo extremadamente severas: zonas de exclusión de ruteo de
+señales de audio rodeando los reguladores, múltiples particiones del plano de
+GND con unión de estrella, e inevitables compromisos en el stack-up. Para un BGA
+de 1056 pines que ya exige un proceso HDI, añadir estas restricciones en la misma
+tarjeta aumenta significativamente el riesgo de re-diseño.
+
+\subsection{Restricciones Mecánicas y Complejidad del Stack-up}
+
+El A311D2 en BGA-1056 requiere un stack-up de mínimo 6~capas exclusivamente para
+el fan-out de sus señales. Un stack-up de 6~a~8~capas tiene un costo
+de fabricación sensiblemente mayor que un stack-up de 4~capas. Si los reguladores
+de potencia coexisten en la misma tarjeta, se requiere el mismo stack-up costoso
+para los componentes de potencia, que no necesitan de él. La separación en dos
+tarjetas permite que la PCB-PWR se fabrique en un proceso estándar de 4~capas,
+reduciendo su costo de manufactura sin compromiso técnico.
+
+\subsection{Testabilidad y Mantenibilidad}
+
+Con dos tarjetas independientes es posible verificar el árbol de potencia (PCB-PWR)
+antes de conectarlo a la PCB-CTRL. Esto reduce el riesgo de dañar el SoC por un
+riel fuera de especificación. En campo, un fallo en la etapa de potencia permite
+reemplazar solo la PCB-PWR sin desechar la tarjeta principal.
+
+\subsection{Impacto en Costo y Manufactura}
+
+\begin{itemize}
+  \item PCB-CTRL: proceso HDI de 6--8~capas justificado por el BGA-1056.
+  \item PCB-PWR: proceso estándar de 4~capas, costo de fabricación significativamente
+    menor.
+  \item Costo adicional: conector inter-PCB de alta corriente. Este costo es compensado
+    por el ahorro en el proceso de fabricación de la PCB-PWR.
+\end{itemize}
+
+% ── Decisión adoptada ─────────────────────────────────────────
+\section{Decisión Adoptada y Justificación}
+\label{sec:part_decision}
+
+\begin{decisbox}[Decisión de Partición: 2 PCBs -- PCB-CTRL y PCB-PWR]
+  El hardware de ALMA se distribuye en \textbf{dos tarjetas independientes}.
+  El argumento técnico determinante es la mitigación del ruido de conmutación de
+  los reguladores Buck (NB679, NB680, SY88003, MPU8756) sobre la ruta de audio
+  de 24-bit y las señales diferenciales de alta velocidad (MIPI DSI). La separación
+  física garantiza que los planos de retorno de la PCB-CTRL se mantengan libres de
+  corrientes de conmutación, y permite optimizar el stack-up de cada tarjeta
+  de forma independiente según sus requisitos reales.
+\end{decisbox}
+
+% ── Resumen de las PCBs ───────────────────────────────────────
+\section{Resumen de las PCBs del Sistema}
+\label{sec:part_resumen}
+
+\begin{table}[H]
+  \centering
+  \caption{Descripción general de las tarjetas del sistema ALMA.}
+  \label{tab:resumen_pcbs}
+  \begin{tabularx}{\textwidth}{C{2cm} L{4cm} C{2cm} L{5.5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{PCB}} &
+    \textcolor{white}{\textbf{Función principal}} &
+    \textcolor{white}{\textbf{Stack-up}} &
+    \textcolor{white}{\textbf{Subsistemas alojados}} \\
+    \midrule
+    PCB-CTRL & Procesamiento, audio, interfaz visual, conectividad y privacidad
+              & 6--8 capas (HDI) & SPCA, SAA, SIVI, SCR, SPSF \\
+    \rowcolor{row-alt}
+    PCB-PWR  & Regulación y distribución de potencia, protección de entrada
+              & 4 capas (estándar) & SGE \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% ── Interconexiones entre tarjetas ────────────────────────────
+\section{Interconexiones entre Tarjetas}
+\label{sec:part_interconexiones}
+
+La PCB-PWR entrega los rieles regulados a la PCB-CTRL mediante un
+\textbf{conector de alta corriente} dedicado. Las señales que cruzan entre tarjetas
+son exclusivamente rieles de alimentación DC; no hay señales de alta velocidad
+en la interconexión inter-PCB, lo cual elimina los problemas de retorno de
+corriente de alta frecuencia en el conector.
+
+\begin{table}[H]
+  \centering
+  \caption{Señales y rieles en la interconexión PCB-PWR $\to$ PCB-CTRL.}
+  \label{tab:interconexion}
+  \begin{tabularx}{\textwidth}{C{2.5cm} C{2cm} C{2.5cm} L{5.5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Señal / Riel}} &
+    \textcolor{white}{\textbf{Tensión}} &
+    \textcolor{white}{\textbf{Corriente máx.}} &
+    \textcolor{white}{\textbf{Destino en PCB-CTRL}} \\
+    \midrule
+    VDD\_NPU  & 1.1\,V & 2.0\,A (pico) & Núcleo NPU del A311D2 \\
+    \rowcolor{row-alt}
+    VDD\_IO   & 1.8\,V & 1.0\,A (pico) & Bancos de E/S del SoC \\
+    VDD\_CPU  & Variable & 4.0\,A (pico) & Clústeres CPU-A y CPU-B \\
+    \rowcolor{row-alt}
+    VCC5      & 5\,V   & 2.5\,A (pico) & Amplificador Clase~D, Boost DSI \\
+    VCC3V3    & 3.3\,V & 1.0\,A (pico) & WiFi/BT, eMMC, GPIO \\
+    \rowcolor{row-alt}
+    GND       & 0\,V   & Retorno total & Plano de referencia PCB-CTRL \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{infobox}[Criterio de diseño del conector inter-PCB]
+  El conector inter-PCB debe seleccionarse con una corriente nominal total
+  suficiente para la suma de todos los rieles (estimado $\approx$19\,W a 12\,V
+  $\approx$ 1.6\,A). Se recomienda un tipo de conector de baja resistencia de
+  contacto para minimizar la caída de tensión en los rieles críticos del SoC
+  (VDD\_CPU, VDD\_NPU).
+\end{infobox}

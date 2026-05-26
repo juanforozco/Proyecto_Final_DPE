@@ -1,0 +1,183 @@
+%% ============================================================
+%%  Capítulo 2 – Arquitectura Final del Sistema
+%% ============================================================
+\chapter{Arquitectura Final del Sistema}
+\label{chap:arquitectura}
+
+\section{Descripción General}
+\label{sec:arq_descripcion}
+
+ALMA es un altavoz inteligente de mesa basado en arquitectura ARM64 que ejecuta Linux con
+el stack de OpenVoiceOS (OVOS). El sistema integra procesamiento de voz en tiempo real,
+reproducción de audio de alta fidelidad (24-bit/96\,kHz), interfaz gráfica táctil MIPI DSI e
+iluminación ambiental RGB.
+
+A nivel físico, el hardware de ALMA se distribuye en dos tarjetas de circuito impreso:
+la \textbf{PCB-CTRL} (tarjeta principal de control) y la \textbf{PCB-PWR} (tarjeta de
+gestión de energía). Esta partición, justificada en el Capítulo~\ref{chap:particion},
+permite aislar los dominios de alta velocidad y señal analógica sensible de los circuitos de
+conmutación de potencia.
+
+% ── Plataforma de cómputo ────────────────────────────────────
+\section{Plataforma de Cómputo Seleccionada}
+\label{sec:arq_soc}
+
+\begin{decisbox}[D-01 Cerrada: Selección de Plataforma de Cómputo]
+  \textbf{Componente seleccionado:} Amlogic A311D2 (basado en la plataforma de
+  referencia Khadas VIM4, 8\,GB).\\[4pt]
+  \textbf{Justificación técnica:} El A311D2 es un SoC ARM64 big.LITTLE que incluye
+  nativamente todos los periféricos requeridos por ALMA: interfaz MIPI DSI de 4 carriles,
+  buses I2S y PDM para audio, I2C, SDIO y soporte para arranque seguro mediante TrustZone.
+  El esquemático de referencia público de Khadas VIM4 permite validar el mapeo de pines y
+  los circuitos de soporte, reduciendo el riesgo de errores de conexión.\\[4pt]
+  \textbf{Impacto en PCB:} Encapsulado BGA de 1056 pines. Requiere un stack-up de mínimo
+  6~capas y estrategia de escape HDI para el fan-out del BGA.
+\end{decisbox}
+
+\subsection{Configuración del SoC en Altium Designer}
+
+Dada la complejidad del encapsulado BGA de 1056 pines, el componente fue segmentado en
+\textbf{21 bloques esquemáticos (partes)} de aproximadamente 50 pines cada uno, organizados
+secuencialmente desde los bancos de pines \texttt{A1} hasta \texttt{UA/UV}. Esta estrategia
+sigue la referencia de Khadas y optimiza la legibilidad del esquemático.
+
+\begin{infobox}[Mandato de Diseño: Pines tipo Pasivo]
+  Todos los pines del A311D2 se configuraron como tipo \textbf{Pasivo} en la biblioteca
+  de Altium Designer. Esta decisión es una estrategia deliberada de mitigación de riesgo:
+  ante la ausencia de un modelo IBIS completo del fabricante, la configuración pasiva
+  suprime los errores masivos de ERC (Electrical Rule Check) que se generarían por
+  direccionalidad incorrecta de pines, trasladando la responsabilidad de validación
+  a una revisión manual del netlist contra el esquemático de referencia de Khadas VIM4.
+\end{infobox}
+
+% ── Estrategia de audio ──────────────────────────────────────
+\section{Estrategia de Audio y Micrófonos}
+\label{sec:arq_audio}
+
+\begin{decisbox}[D-02 Cerrada: Tipo de Micrófonos -- PDM Digital]
+  \textbf{Selección:} Matriz de micrófonos MEMS digitales con interfaz PDM
+  (Pulse Density Modulation).\\[4pt]
+  \textbf{Justificación:} Los micrófonos PDM ofrecen mayor inmunidad al ruido
+  electromagnético respecto a los analógicos con ADC externo, al trasladar la
+  conversión A/D al interior del propio micrófono. Esto elimina la ruta de señal
+  analógica en la PCB, reduce el riesgo de acoplamiento de ruido proveniente del
+  amplificador Clase~D y del conmutador Buck, y simplifica el ruteo al tratarse de
+  líneas digitales. El A311D2 dispone de interfaz PDM nativa, sin necesidad de
+  hardware adicional.
+\end{decisbox}
+
+Para la salida de audio, se utiliza un \textbf{códec externo} conectado mediante bus
+I2S, configurado para resolución de 24-bit a 96\,kHz. La configuración del códec se
+realiza por bus I2C desde el SoC. El amplificador de potencia es de \textbf{Clase~D},
+seleccionado por su eficiencia energética elevada ($>$85\,\%), reduciendo la potencia
+disipada como calor dentro del enclosure \reqref{REQ-A-01}.
+
+
+
+% ── Conectividad ─────────────────────────────────────────────
+\section{Conectividad y Protocolos Soportados}
+\label{sec:arq_conectividad}
+
+\begin{decisbox}[D-04 Cerrada: Conectividad WiFi/BT -- Protocolo IP]
+  \textbf{Selección:} Módulo WiFi dual-band 802.11ac (2.4/5\,GHz) con Bluetooth\,5.0 integrado,
+  conectado al SoC mediante interfaz SDIO o USB.\\[4pt]
+  \textbf{Protocolo de domótica:} ALMA opera exclusivamente como \textbf{cliente IP}
+  en la red local. No actúa como hub de Zigbee, Thread ni Matter de forma directa;
+  la interoperabilidad con ecosistemas domóticos se realiza vía red IP, interactuando
+  con un hub doméstico existente. Toda comunicación saliente se cifra con TLS\,1.3
+  \reqref{REQ-NF-02}.
+\end{decisbox}
+
+% ── Elemento de seguridad ────────────────────────────────────
+\section{Elemento de Seguridad Criptográfica}
+\label{sec:arq_seguridad}
+
+\begin{decisbox}[D-05 Cerrada: TrustZone del A311D2]
+  \textbf{Selección:} Se utiliza la implementación de ARM TrustZone integrada en
+  el A311D2 como mecanismo principal de arranque seguro y gestión de claves.\\[4pt]
+  \textbf{Justificación:} El TrustZone del A311D2 está documentado en el esquemático
+  de referencia y no requiere componente adicional en PCB, reduciendo el BOM y el área
+  de la tarjeta. Para el alcance del proyecto académico, este mecanismo cubre los
+  13~controles mandatorios de ETSI\,EN\,303\,645 \reqref{REQ-E-02}. La adición de
+  un Secure Element dedicado (p.\,ej. ATECC608B) se registra como decisión abierta
+  para una eventual versión comercial.
+\end{decisbox}
+
+% ── Árbol de potencia ────────────────────────────────────────
+\section{Árbol de Potencia del Sistema}
+\label{sec:arq_potencia}
+
+El sistema opera con una entrada nominal de \textbf{12\,V DC} provista por un adaptador
+externo certificado bajo IEC\,62368-1 \reqref{REQ-E-01} medainte el protocolo de PD. La PCB-PWR convierte esta
+tensión de entrada en los rieles regulados requeridos por cada subsistema. La
+Tabla~\ref{tab:rieles_sistema} presenta el mapa completo de rieles; el detalle de
+cálculos y componentes generadores se desarrolla en el Capítulo~\ref{chap:pcb_pwr}
+y en el Anexo~\ref{chap:anexo_potencia}.
+
+\begin{table}[H]
+  \centering
+  \caption{Mapa de rieles de alimentación del sistema ALMA.}
+  \label{tab:rieles_sistema}
+  \begin{tabularx}{\textwidth}{C{1.8cm} C{1.8cm} C{1.5cm} L{4cm} L{4cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Riel}} &
+    \textcolor{white}{\textbf{Tensión}} &
+    \textcolor{white}{\textbf{Tol.}} &
+    \textcolor{white}{\textbf{Componente generador}} &
+    \textcolor{white}{\textbf{Consumidores principales}} \\
+    \midrule
+    VIN    & 12\,V  & $\pm$5\,\%  & Conector USB C        & PCB-PWR (entrada) \\
+    \rowcolor{row-alt}
+    VDD\_NPU & 1.1\,V & $\pm$2\,\% & SY88003 (Silergy)       & NPU del A311D2 \\
+    VDD\_IO  & 1.8\,V & $\pm$2\,\% & TL76701 (Texas Instr.)   & E/S SoC, buses lógicos \\
+    \rowcolor{row-alt}
+    VDD\_CPU & Variable & $\pm$2\,\% & MPU8756 (Mono. Power) & Clústeres CPU-A y CPU-B \\
+    VCC5    & 5\,V   & $\pm$3\,\%  & NB679 (Mono. Power)      & Amplificador Clase~D, Boost pantalla \\
+    \rowcolor{row-alt}
+    VCC3V3  & 3.3\,V & $\pm$3\,\%  & NB680 (Mono. Power)     & WiFi/BT, eMMC, GPIO, sensores \\
+    VLED    & 5\,V   & ---         & NB679 (compartido)       & LEDs RGB \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{riskbox}[Dispersión de Pines de Voltaje en el BGA]
+  Los pines de alimentación del A311D2 (VDD\_CPU, VDD\_GPU, VDD\_NPU, etc.) están
+  físicamente dispersos a lo largo del BGA de 1056 pines. Esta dispersión complica el
+  diseño de los planos de potencia (Power Planes) en el layout y podría requerir capas
+  adicionales dedicadas a distribución de potencia. Este riesgo se gestiona mediante
+  un stack-up mínimo de 6~capas, con al menos dos capas internas dedicadas a GND y
+  distribución de potencia (ver Capítulo~\ref{chap:fabricante}).
+\end{riskbox}
+
+% ── Organización de subsistemas ──────────────────────────────
+\section{Organización de Subsistemas}
+\label{sec:arq_subsistemas}
+
+La Tabla~\ref{tab:subsistemas_pcb} resume la asignación de los seis subsistemas
+identificados en el Entregable~2 a las dos tarjetas físicas del sistema.
+
+\begin{table}[H]
+  \centering
+  \caption{Asignación de subsistemas a tarjetas PCB.}
+  \label{tab:subsistemas_pcb}
+  \begin{tabularx}{\textwidth}{C{1.5cm} L{3.5cm} C{2cm} L{5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{ID}} &
+    \textcolor{white}{\textbf{Subsistema}} &
+    \textcolor{white}{\textbf{PCB}} &
+    \textcolor{white}{\textbf{Requisitos que satisface}} \\
+    \midrule
+    SPCA & Procesamiento Central y Almacenamiento & CTRL & \reqref{REQ-F-02}, \reqref{REQ-F-03}, \reqref{REQ-E-02} \\
+    \rowcolor{row-alt}
+    SAA  & Audio y Acústica           & CTRL & \reqref{REQ-F-01}, \reqref{REQ-F-02} \\
+    SIVI & Interfaz Visual e Interacción & CTRL & \reqref{REQ-G-01}, \reqref{REQ-F-04} \\
+    \rowcolor{row-alt}
+    SGE  & Gestión de Energía         & PWR  & \reqref{REQ-E-01}, \reqref{REQ-A-01} \\
+    SCR  & Conectividad y Red         & CTRL & \reqref{REQ-NF-02} \\
+    \rowcolor{row-alt}
+    SPSF & Privacidad y Seguridad Física & CTRL & \reqref{REQ-NF-01} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
