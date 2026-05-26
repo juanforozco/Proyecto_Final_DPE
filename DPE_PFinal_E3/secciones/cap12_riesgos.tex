@@ -1,0 +1,113 @@
+%% ============================================================
+%%  Capítulo 12 – Riesgos y Decisiones Sensibles Residuales
+%% ============================================================
+\chapter{Riesgos y Decisiones Sensibles Residuales}
+\label{chap:riesgos}
+
+\section{Estado Actualizado de los Riesgos Identificados en el Entregable~2}
+\label{sec:risk_actualizacion}
+
+\begin{riskbox}[R-01: Disponibilidad del SoC -- Estado: Mitigado]
+  \textbf{Acción tomada en E3:} Se seleccionó el Amlogic A311D2 con el
+  esquemático de referencia público de Khadas VIM4 como guía de diseño. La
+  disponibilidad del A311D2 se verificó en distribuidores de referencia
+  (Digi-Key, Mouser). Se identifica como alternativa el Rockchip RK3399.\\
+  \textbf{Riesgo residual para E4:} Bajo. El A311D2 tiene disponibilidad
+  en distribuidores estándar al momento del diseño.
+\end{riskbox}
+
+\begin{riskbox}[R-02: EMI entre Subsistemas -- Estado: Mitigado por Partición]
+  \textbf{Acción tomada en E3:} La partición en dos PCBs (Capítulo~\ref{chap:particion})
+  aisla físicamente los reguladores Buck de las rutas de audio y señales
+  de alta velocidad. En la PCB-CTRL, las zonas analógica, digital y de potencia
+  están definidas en el esquemático con criterios de SI documentados
+  (Capítulo~\ref{chap:si}).\\
+  \textbf{Riesgo residual para E4:} Medio. La efectividad del aislamiento depende
+  de la implementación correcta de las zonas en el layout. Las restricciones de SI
+  del Capítulo~\ref{chap:si} deben trasladarse fielmente a las reglas de ruteo.
+\end{riskbox}
+
+\begin{riskbox}[R-03: Disipación Térmica -- Estado: Pendiente de Verificación]
+  \textbf{Acción tomada en E3:} Se definió la estrategia de disipación pasiva
+  mediante planos de cobre y vías térmicas bajo el SoC. La estimación del E2
+  (19\,W totales) sigue vigente con los componentes seleccionados.\\
+  \textbf{Riesgo residual para E4:} Medio-alto. Se requiere confirmación mediante
+  simulación térmica (CFD básico) o cálculo analítico con el Theta\_JB del A311D2
+  antes de cerrar el layout (ver Anexo~\ref{chap:anexo_si}).
+\end{riskbox}
+
+\begin{riskbox}[R-04: Latencia de Voz Fuera de Especificación -- Estado: No Aplica en E3]
+  La latencia de voz depende principalmente del stack de software (OVOS,
+  PipeWire, drivers de audio). El hardware está dimensionado con la potencia
+  de cómputo del A311D2 (big.LITTLE) para cumplir con $<$2\,s de latencia
+  de respuesta \reqref{REQ-F-02}. La validación final corresponde a la fase
+  de integración de software (fuera del alcance del proyecto académico).
+\end{riskbox}
+
+\begin{riskbox}[R-05: Complejidad Normativa -- Estado: Documentado]
+  Los requisitos de fabricante y SI están documentados en los Capítulos~\ref{chap:fabricante}
+  y~\ref{chap:si}, y configurados como reglas DRC en Altium. Las distancias de
+  clearance de IEC\,62368-1 \reqref{REQ-E-01} están establecidas para la entrada de
+  12\,V. La verificación en prototipo físico corresponde al Entregable~4 y más allá.
+\end{riskbox}
+
+\section{Nuevos Riesgos Identificados en Este Entregable}
+\label{sec:risk_nuevos}
+
+\begin{riskbox}[R-06 (Crítico): Consistencia del Pinout del A311D2]
+  \textbf{Descripción:} El componente del A311D2 en Altium Designer fue construido
+  manualmente a partir del esquemático de referencia de Khadas, ya que no se dispone
+  de un modelo de biblioteca oficial del fabricante. La configuración de todos los
+  pines como tipo ``Pasivo'' suprime la validación automática de ERC, trasladando
+  la responsabilidad de verificación a una revisión manual.\\
+  \textbf{Probabilidad:} Alta (el error humano en la asignación de pines de un
+  BGA-1056 es estadísticamente probable en al menos un subconjunto de pines).\\
+  \textbf{Impacto:} Crítico. Un error de netlist en el SoC no detectado hasta el
+  prototipo implicaría una revisión completa de la PCB-CTRL.\\
+  \textbf{Mitigación obligatoria antes del layout:} Realizar una revisión cruzada
+  sistemática del netlist generado por Altium contra el esquemático fuente de
+  Khadas VIM4, verificando al menos: (a)~pines de alimentación y GND,
+  (b)~interfaz MIPI DSI, (c)~buses I2S/PDM, (d)~buses I2C y SDIO.
+\end{riskbox}
+
+\begin{riskbox}[R-07: Dispersión de Pines de Voltaje en el BGA-1056]
+  \textbf{Descripción:} Los pines de alimentación del A311D2 (VDD\_CPU-A,
+  VDD\_CPU-B, VDD\_GPU, VDD\_NPU, etc.) están físicamente dispersos a lo largo
+  del BGA. Esta dispersión complica la distribución de los planos de potencia
+  en el layout y podría requerir una capa adicional exclusivamente para
+  distribución de potencia.\\
+  \textbf{Mitigación:} Durante el layout del E4, analizar la distribución de los
+  pines de potencia del BGA y determinar si el stack-up de 6~capas es suficiente
+  o si se requieren 8~capas. Decidir antes de iniciar el fan-out.
+\end{riskbox}
+
+\begin{riskbox}[R-08: Componentes con Riesgo de EOL o Disponibilidad Restringida]
+  \textbf{Descripción:} Algunos componentes del BOM presentan disponibilidad
+  limitada o estado End-of-Life (EOL) en los distribuidores consultados.
+  Esto afecta principalmente a ciertos componentes pasivos de valores específicos
+  para las redes de feedback de los reguladores.\\
+  \textbf{Mitigación:} Identificar alternativas pin-compatible para los componentes
+  en riesgo. Verificar stock disponible en Digi-Key y Mouser antes del cierre
+  definitivo del BOM.
+\end{riskbox}
+
+\section{Decisiones Técnicas Sensibles para el Enrutamiento (E4)}
+\label{sec:risk_e4}
+
+Los siguientes puntos deben resolverse al inicio del Entregable~4, antes de
+comenzar el ruteo de cualquier señal crítica:
+
+\begin{enumerate}
+  \item \textbf{Revisión cruzada del netlist del A311D2} (R-06): validación
+    manual obligatoria contra el esquemático de Khadas.
+  \item \textbf{Definición del fan-out del BGA-1056}: estrategia de escape de
+    señales del SoC hacia las capas internas. Decidir uso de microvías (blind vias)
+    si el proceso HDI de JLCPCB lo permite a costo aceptable.
+  \item \textbf{Asignación de capas}: qué señales van en qué capa; confirmar
+    que el stack-up de 6~capas es suficiente (R-07).
+  \item \textbf{Ubicación de micrófonos MEMS}: posición física en la PCB-CTRL
+    maximizando la distancia al amplificador y respetando las restricciones
+    acústicas del enclosure.
+  \item \textbf{Posición de la antena WiFi}: zona de exclusión de cobre bajo
+    la antena del módulo WiFi/BT para no degradar la eficiencia de radiación.
+\end{enumerate}

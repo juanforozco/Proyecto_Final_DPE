@@ -1,0 +1,176 @@
+%% ============================================================
+%%  Capítulo 6 – Requisitos del Fabricante de la PCB
+%% ============================================================
+\chapter{Requisitos del Fabricante de la PCB}
+\label{chap:fabricante}
+
+\section{Fabricante de Referencia}
+\label{sec:fab_fabricante}
+
+Se toma como fabricante de referencia \textbf{JLCPCB} (Shenzhen JLCPCB Co.,
+Ltd.), seleccionado por los siguientes criterios:
+
+\begin{itemize}
+  \item Disponibilidad de proceso HDI con control de impedancia, necesario para
+    la PCB-CTRL con BGA de 1056 pines.
+  \item Documentación pública de design rules con valores numéricos concretos,
+    que permite configurar las reglas directamente en Altium Designer.
+  \item Costo competitivo para volúmenes de prototipo (1--10 unidades) y producción
+    piloto (1\,000 unidades).
+  \item Herramienta en línea de calculadora de impedancia controlada, utilizada
+    para verificar el stack-up del Capítulo~\ref{sec:fab_stackup}.
+\end{itemize}
+
+\section{Capacidades Geométricas del Proceso}
+\label{sec:fab_geometria}
+
+Las restricciones geométricas que condicionan directamente el diseño de ALMA
+son las siguientes. Estos valores han sido configurados como reglas DRC en el
+proyecto de Altium Designer.
+
+\begin{fabbox}[Reglas Geométricas del Fabricante -- JLCPCB]
+  \begin{itemize}
+    \item \textbf{Ancho mínimo de pista (track width):} 0.1\,mm (4\,mil).
+      Determinante para el fan-out del BGA-1056 en la PCB-CTRL.
+    \item \textbf{Separación mínima entre pistas (clearance):} 0.1\,mm (4\,mil).
+    \item \textbf{Diámetro mínimo de perforación (drill hole):} 0.2\,mm
+      (vías mecánicas con broca).
+    \item \textbf{Anillo de cobre mínimo (annular ring):} 0.1\,mm.
+    \item \textbf{Relación de aspecto de vías (aspect ratio):} máximo 8:1.
+      Para un espesor de tarjeta de 1.6\,mm, el diámetro mínimo de perforación
+      es $1.6/8 = 0.2$\,mm, consistente con el valor anterior.
+    \item \textbf{Vías de paso (through-hole):} proceso estándar disponible en
+      ambas PCBs.
+    \item \textbf{Microvías (laser drill):} disponibles en proceso HDI para
+      la PCB-CTRL (diámetro $\geq$0.1\,mm); no necesarias en PCB-PWR.
+  \end{itemize}
+\end{fabbox}
+
+\begin{infobox}[Impacto en el diseño de la PCB-CTRL]
+  El fan-out del BGA-1056 del A311D2 es el criterio geométrico más exigente del
+  proyecto. Con un paso (pitch) de BGA de 0.65\,mm, el espacio disponible entre
+  bolas es de 0.65\,$-$\,0.35 (diámetro bola)\,$=$\,0.30\,mm. Con el clearance
+  mínimo de 0.1\,mm, es posible pasar \textbf{una pista de 0.1\,mm} entre dos
+  bolas adyacentes del BGA, lo cual requiere disciplina máxima en el enrutamiento
+  de la zona de escape.
+\end{infobox}
+
+\section{Stack-up y Número de Capas}
+\label{sec:fab_stackup}
+
+\subsection{Stack-up de PCB-CTRL}
+
+El SoC A311D2 en BGA-1056 requiere un stack-up de alta densidad para:
+(a)~rutar las señales de escape del BGA, (b)~proveer planos de referencia continuos
+para MIPI DSI, y (c)~distribuir los múltiples rieles de alimentación dispersos en
+el BGA.
+
+\begin{fabbox}[Stack-up PCB-CTRL: 6 Capas]
+  \begin{tabular}{cll}
+    \toprule
+    \textbf{Capa} & \textbf{Función} & \textbf{Tipo} \\
+    \midrule
+    1 (Top)    & Señales, componentes SMD       & Signal \\
+    2          & Plano GND continuo             & Ground Plane \\
+    3          & Señales internas (alta vel.)   & Signal \\
+    4          & Plano de distribución potencia & Power Plane \\
+    5          & Señales internas               & Signal \\
+    6 (Bottom) & Señales, componentes SMD       & Signal \\
+    \bottomrule
+  \end{tabular}\\[6pt]
+  \textbf{Espesor total:} 1.6\,mm (estándar) o 2.0\,mm (si se requiere mayor
+  rigidez para el BGA).\\
+  \textbf{Material:} FR-4, Dk~$\approx$~4.5 a 1\,GHz (para el cálculo de
+  impedancias).
+\end{fabbox}
+
+\subsection{Stack-up de PCB-PWR}
+
+La PCB-PWR no aloja señales de alta velocidad. Un stack-up de 4~capas es suficiente
+y reduce el costo de fabricación.
+
+\begin{fabbox}[Stack-up PCB-PWR: 4 Capas]
+  \begin{tabular}{cll}
+    \toprule
+    \textbf{Capa} & \textbf{Función} & \textbf{Tipo} \\
+    \midrule
+    1 (Top)    & Componentes, pistas de potencia    & Signal/Power \\
+    2          & Plano GND                          & Ground Plane \\
+    3          & Plano de potencia (rieles DC)      & Power Plane \\
+    4 (Bottom) & Pistas de retorno y pads térmicos  & Signal \\
+    \bottomrule
+  \end{tabular}\\[6pt]
+  \textbf{Espesor total:} 1.6\,mm.
+\end{fabbox}
+
+\section{Control de Impedancia}
+\label{sec:fab_impedancia}
+
+JLCPCB ofrece control de impedancia con tolerancia de $\pm$10\,\%, suficiente para
+los requisitos de ALMA.
+
+\begin{fabbox}[Control de Impedancia -- PCB-CTRL]
+  Las siguientes interfaces requieren control de impedancia activo en la PCB-CTRL:
+  \begin{itemize}
+    \item \textbf{MIPI DSI:} impedancia diferencial de 100\,$\Omega$~$\pm$~10\,\%
+      en los 4~carriles (8~pistas en total). Topología microstrip diferencial en
+      capa~1 con plano de referencia en capa~2 (GND).
+    \item \textbf{USB 2.0:} impedancia diferencial de 90\,$\Omega$~$\pm$~10\,\%.
+    \item \textbf{I2S / PDM:} rutas single-ended de 50\,$\Omega$ no requieren
+      control de impedancia activo del fabricante, pero sí plano de referencia
+      continuo.
+  \end{itemize}
+  La calculadora de impedancia del Layer Stack Manager de Altium Designer fue
+  utilizada para determinar el ancho de pista~(W) y la separación~(S) de los pares
+  diferenciales, verificados contra la calculadora en línea de JLCPCB.
+\end{fabbox}
+
+\section{Acabados Superficiales y Solder Mask}
+\label{sec:fab_acabados}
+
+\begin{itemize}
+  \item \textbf{Acabado superficial:} ENIG (Electroless Nickel Immersion Gold)
+    para ambas PCBs. Justificación: planitud superior para el montaje del BGA-1056
+    y los componentes de paso fino (QFN, LGA) de los reguladores.
+  \item \textbf{Solder mask:} verde, ambas caras. Apertura de solder mask sobre
+    pads del BGA con expansión de $-$0.05\,mm (NSMD -- Non-Solder Mask Defined)
+    según práctica recomendada para BGA de paso 0.65\,mm.
+  \item \textbf{Serigrafía:} blanca, capa superior (mínimo para identificación de
+    componentes y orientación).
+\end{itemize}
+
+\section{Perforación y Restricciones de Vías}
+\label{sec:fab_vias}
+
+\begin{itemize}
+  \item \textbf{Vías de paso (through-hole):} diámetro de perforación mínimo
+    0.2\,mm; se utiliza en ambas PCBs.
+  \item \textbf{Vías térmicas (thermal vias):} en los pads de exposición térmica
+    (EP) del amplificador Clase~D y los reguladores Buck con pad térmico. Diámetro
+    0.3\,mm, rellenas o tapadas con solder mask para evitar fuga de soldadura
+    durante el proceso de reflow.
+  \item \textbf{Blind/buried vias:} no requeridas en esta iteración del diseño.
+    El stack-up de 6~capas con through-hole vias es suficiente para el fan-out del
+    BGA con el proceso de 0.1\,mm mínimo disponible.
+\end{itemize}
+
+\section{Configuración en Altium Designer}
+\label{sec:fab_altium}
+
+Las restricciones del fabricante han sido trasladadas a reglas DRC en el proyecto
+de Altium Designer de la siguiente forma:
+
+\begin{itemize}
+  \item \textbf{Width Constraint:} mínimo 0.1\,mm configurado como regla global;
+    regla específica de mayor ancho para las redes de potencia (VCC5, VDD\_CPU)
+    calculadas con IPC-2152.
+  \item \textbf{Clearance Constraint:} 0.1\,mm regla global; 0.5\,mm para redes
+    de entrada de 12\,V respecto a redes de baja tensión (IEC\,62368-1).
+  \item \textbf{Hole Size Constraint:} mínimo 0.2\,mm.
+  \item \textbf{Annular Ring:} mínimo 0.1\,mm.
+  \item \textbf{Impedance Profiles:} definidos en el Layer Stack Manager de Altium
+    para los perfiles diferencial de 100\,$\Omega$ (MIPI) y 90\,$\Omega$ (USB).
+  \item \textbf{Directiva SET PARAMETER:} se anotan en el esquemático de la
+    PCB-CTRL los parámetros de fabricante relevantes (fabricante de referencia,
+    número de capas, acabado superficial, control de impedancia requerido).
+\end{itemize}

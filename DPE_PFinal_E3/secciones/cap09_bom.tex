@@ -1,0 +1,192 @@
+%% ============================================================
+%%  Capítulo 9 – Lista de Materiales (BOM)
+%% ============================================================
+\chapter{Lista de Materiales (BOM)}
+\label{chap:bom}
+
+\section{Metodología y Estado del BOM}
+\label{sec:bom_metodologia}
+
+El BOM fue exportado desde Altium Designer mediante el generador estándar
+(\texttt{Reports > Bill of Materials}) y validado contra los esquemáticos
+completos de la PCB-CTRL y la PCB-PWR. Cada línea del BOM contiene número de
+parte del fabricante, fabricante, distribuidor de referencia, número de parte
+del distribuidor y precio unitario para tres volúmenes de producción (1\,000,
+10\,000 y 100\,000 unidades). Los precios fueron consultados directamente en los
+distribuidores electrónicos referenciados durante mayo de 2026.
+
+\begin{infobox}[Criterios de completitud]
+  El BOM se considera cerrado al 100\,\% cuando: (a)~no existen designadores
+  sin número de parte asignado, (b)~cada componente tiene al menos un
+  distribuidor con precio verificado, y (c)~los campos \emph{Revision State}
+  y \emph{Revision Status} de Altium están en estado \texttt{Up to date}.
+  El BOM actual cumple las tres condiciones para todos los componentes excepto
+  la LPDDR4X~(U4, marcada \texttt{Obsolete} por el fabricante Micron), para
+  la cual se documenta una alternativa de reemplazo en la Sección~\ref{sec:bom_riesgos}.
+\end{infobox}
+
+\section{Resumen por Categoría de Componente}
+\label{sec:bom_resumen}
+
+El sistema ALMA integra un total de \textbf{271 referencias} de componentes
+distribuidas entre las dos tarjetas. La Tabla~\ref{tab:bom_resumen_cat} muestra
+el desglose por categoría funcional con la cantidad de posiciones y el subtotal
+estimado para 1\,000 unidades.
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen del BOM por categoría de componente (1\,000 unidades)}
+  \label{tab:bom_resumen_cat}
+  \begin{tabular}{L{4.2cm} R{1.5cm} R{2.0cm} R{2.2cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Categoría}} &
+    \textcolor{white}{\textbf{Pos.}} &
+    \textcolor{white}{\textbf{Qty total}} &
+    \textcolor{white}{\textbf{Subtotal 1K (USD)}} \\
+    \midrule
+    Circuitos integrados activos  & 27 &  27 & 32\,087 \\
+    \rowcolor{row-alt}
+    Condensadores                 & 38 & 186 &  1\,560 \\
+    Resistencias                  & 26 & 147 &  2\,976 \\
+    \rowcolor{row-alt}
+    Inductores                    &  7 &  10 &    366 \\
+    Diodos y TVS                  &  3 &  18 &  2\,533 \\
+    \rowcolor{row-alt}
+    Transistores / MOSFET         &  2 &   6 &    542 \\
+    Conectores                    &  8 &  10 &  2\,573 \\
+    \rowcolor{row-alt}
+    Interruptores                 &  4 &   4 &  1\,044 \\
+    Cristales / Osciladores       &  3 &   3 &  1\,371 \\
+    \rowcolor{row-alt}
+    Antenas                       &  1 &   2 &  3\,106 \\
+    Memoria Flash QSPI            &  1 &   1 &    710 \\
+    \rowcolor{row-alt}
+    Módulo WiFi/BT                &  1 &   1 & 30\,000 \\
+    \midrule
+    \textbf{Total general}        & \textbf{121} & \textbf{415} &
+    \textbf{78\,868} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Componentes Activos Dominantes en Costo}
+\label{sec:bom_dominantes}
+
+El análisis del BOM revela que cuatro componentes concentran más del
+\textbf{82\,\%} del costo total de materiales a 1\,000 unidades:
+
+\begin{enumerate}
+  \item \textbf{Amlogic A311D2 / Khadas VIM4 (U1)} --- El SoC se adquiere
+    a través de la plataforma de referencia Khadas KVIM4-N-01 a
+    USD\,285.72 por unidad a 1\,000 unidades. Este componente representa por
+    sí solo el \textbf{36\,\%} del costo de materiales y constituye el mayor
+    riesgo de costo del sistema.
+
+  \item \textbf{Módulo WiFi/BT AP6275S (B2)} --- El módulo SiP de
+    SparkLAN/AMPAK tiene un precio de USD\,30.00 por unidad a 1\,000
+    unidades, representando el \textbf{38\,\%} del costo en esa misma
+    escala, debido a su falta de descuentos por volumen en distribuidores
+    actuales (ciclo de vida: \emph{Unknown}).
+
+  \item \textbf{LPDDR4X 4\,GB Micron MT53D1024M32D4DT (U4)} ---
+    La memoria DRAM tiene un precio de USD\,8.84 a 1\,000 unidades.
+    Su estado \emph{Obsolete} en el ciclo de vida del fabricante exige
+    una solución de reemplazo antes del inicio de producción.
+
+  \item \textbf{Cristal RF 37.4\,MHz ABM13W (Y2)} --- Con un precio de
+    USD\,12.35 por unidad, este cristal para el módulo WiFi tiene
+    un costo desproporcionado para su función. Se recomienda evaluar
+    alternativas antes del E4.
+\end{enumerate}
+
+\begin{decisbox}[Implicación de diseño: costo del SoC]
+  La elección del Amlogic A311D2 vía módulo Khadas VIM4 fue técnicamente
+  justificada (D-01) por sus periféricos integrados y su esquemático de
+  referencia público. Sin embargo, el precio actual de USD\,285.72/ud.~a~1K
+  convierte este componente en el cuello de botella económico del producto.
+  A 100\,000 unidades, el precio no muestra reducción significativa en el
+  canal actual (DigiKey), lo que sugiere que una negociación directa con
+  Amlogic o con un distribuidor autorizado en China sería necesaria antes
+  de escalar la producción.
+\end{decisbox}
+
+\section{Componentes con Riesgos de Disponibilidad}
+\label{sec:bom_riesgos}
+
+\begin{riskbox}[Componentes con ciclo de vida crítico]
+  \begin{itemize}
+    \item \textbf{MT53D1024M32D4DT (U4)} -- Estado: \texttt{Obsolete}
+      (Micron). Alternativa directa: Micron LPDDR4X con misma densidad
+      y footprint compatible, pendiente de confirmar número de parte con
+      el fabricante. El diseño del BGA en PCB-CTRL debe contemplar la
+      compatibilidad de footprint con al menos dos fuentes.
+    \item \textbf{AP6275S (B2)} -- Ciclo de vida: \texttt{Unknown}.
+      Distribuidor único identificado (Techship). Se recomienda identificar
+      al menos un segundo distribuidor calificado antes del E4.
+    \item \textbf{HC-TYPE-C-16P-CB1.0 (J7)} -- Ciclo de vida:
+      \texttt{Unknown}. Componente de fuente única (HCTL). Considerar
+      alternativa certificada de Amphenol o Molex.
+    \item \textbf{KLMAG2GEND-B031 (U5)} -- Ciclo de vida: \texttt{Unknown}
+      (Samsung). Proveedor: ICPartonline (no distribuidor autorizado).
+      Debe verificarse disponibilidad en canal autorizado Samsung o
+      seleccionarse alternativa Kingston/Micron de ciclo de vida activo.
+    \item \textbf{ABM13W-37.4\,MHz (Y2)} -- El número de parte del
+      fabricante referenciado en el BOM (\texttt{ABM13W-38.4000MHZ-8-NH7U-T5})
+      no coincide con la descripción del designador (37.4\,MHz). Debe
+      resolverse esta discrepancia antes del E4.
+  \end{itemize}
+\end{riskbox}
+
+\section{Análisis de Componentes Pasivos}
+\label{sec:bom_pasivos}
+
+Los componentes pasivos (condensadores, resistencias e inductores) suman
+\textbf{343 posiciones} en el BOM. Aunque su precio unitario es reducido,
+su impacto total a 1\,000 unidades asciende a aproximadamente
+USD\,4\,902. Los principales puntos de atención son:
+
+\begin{itemize}
+  \item \textbf{Resistencias jumper 0\,$\Omega$ HCJ0201ZT0R00 (R5, R21, etc.)}:
+    Con 11 unidades a USD\,0.0835 cada una, el subtotal es USD\,918.50 a 1K,
+    inusualmente alto para un resistor de paso. A 100\,000 unidades el precio
+    cae a USD\,0.0734, confirmando que son componentes con baja sensibilidad
+    al volumen por su precio base. Se recomienda consolidar estos puentes con
+    un único proveedor a precio de volumen real.
+
+  \item \textbf{RT0201BRE0710KL (R14--R68, 20 unidades)}: Resistencias de
+    película delgada de precisión al 0.1\,\% con 50\,ppm/°C. Su precio de
+    USD\,0.0818/ud.~a~1K genera un subtotal de USD\,1\,636. Son necesarias
+    para los divisores de tensión de alimentación del SoC; no sustituir
+    por tipo thick-film estándar.
+
+  \item \textbf{Condensadores electrolíticos GRM186R60J226ME15D (19 unidades)}:
+    Condensadores 22\,$\mu$F/6.3\,V en 0603. El precio de USD\,0.041 a 1K
+    cae a USD\,0.036 a 100K, representando una oportunidad de ahorro moderada.
+
+  \item \textbf{GRM155R60G106ME47D (14 unidades)}: Condensadores de
+    desacople 10\,$\mu$F/4\,V críticos para los rieles de alimentación
+    del SoC. Precio estable entre volúmenes; se prioriza la disponibilidad
+    de Murata sobre el costo.
+\end{itemize}
+
+\section{Componentes de Protección y Conectividad}
+\label{sec:bom_proteccion}
+
+\begin{itemize}
+  \item \textbf{Diodos SBR SBRT3U45SA-13 (D1--D12, 11 unidades)}: Usados
+    en la etapa de rectificación y protección de la PCB-PWR. A 1K cuestan
+    USD\,0.10 c/u (subtotal USD\,1\,116). Su precio cae un 7\,\% entre 1K y
+    100K, con disponibilidad confirmada en Avnet.
+
+  \item \textbf{TVS PTVS33VP1BPLJ (D11, D13--D18, 7 unidades)}: Supresores
+    de transitorios 600\,W para protección de los puertos de E/S. A 1K el
+    subtotal es USD\,1\,417; a 100K cae solo un 2\,\%, indicando precio
+    prácticamente fijo. Disponible en Farnell con ciclo de vida activo.
+
+  \item \textbf{Conectores FFC/FPC HIROSE FH34SRJ (J2, J4, J3)}: Los tres
+    conectores para la pantalla y el táctil tienen un precio de
+    USD\,0.80--0.20 a 1K. Su disponibilidad depende del proceso de montaje
+    SMD en ángulo recto; confirmar con el fabricante de PCBA.
+\end{itemize}
+

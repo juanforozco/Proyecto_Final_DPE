@@ -1,0 +1,380 @@
+%% ============================================================
+%%  Anexo A – BOM Completo con Precios por Volumen
+%% ============================================================
+\chapter{BOM Completo del Producto ALMA}
+\label{chap:anexo_bom}
+
+\begin{infobox}[Fuentes de precio]
+  Precios de referencia exportados desde Altium Designer
+  (\texttt{Reports > Bill of Materials}) y cotizados en los distribuidores
+  indicados en el BOM durante mayo de 2026. Los tres volúmenes analizados
+  (1\,000, 10\,000 y 100\,000 unidades) corresponden a los archivos de
+  cotización \texttt{bom\_1000.pdf}, \texttt{bom\_10000.pdf} y
+  \texttt{bom\_100000.pdf} adjuntos al repositorio del equipo.
+  Los precios unitarios (\$/ud.) se expresan en USD.
+\end{infobox}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.1 Circuitos Integrados y Módulos}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Circuitos Integrados y Módulos (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  %% SoC
+  U1  & 1 & SoC ARM64 A311D2 (Khadas VIM4)   & KVIM4-N-01            & Khadas   & \$285.72 & \$285.72 & \$285.72 \\
+  \rowcolor{row-alt}
+  %% DRAM
+  U4  & 1 & LPDDR4X 4\,GB 2133MHz BGA-200 \textsuperscript{†} & MT53D1024M32D4DT-046 & Micron & \$8.84 & \$7.32 & \$21.45 \\
+  %% eMMC
+  U5  & 1 & eMMC 32\,GB BGA HS400             & KLMAG2GEND-B031       & Samsung  & \$2.55 & \$2.40 & \$2.40 \\
+  \rowcolor{row-alt}
+  %% MCU
+  U3  & 1 & MCU Cortex-M0+ 32\,KB Flash       & STM32G031K6U6         & STMicro  & \$0.48 & \$0.48 & \$0.48 \\
+  %% RTC
+  U2  & 1 & RTC I2C SOIC-8                    & PCF8563T/5,518        & NXP      & \$0.54 & \$0.44 & \$0.44 \\
+  \rowcolor{row-alt}
+  %% Flash QSPI
+  B1  & 1 & Flash QSPI 256\,Mb                & W25Q256JVEIQ          & Winbond  & \$0.71 & \$0.71 & \$0.71 \\
+  %% WiFi/BT
+  B2  & 1 & WiFi 802.11ax/BT5.0 SiP           & AP6275S               & SparkLAN & \$30.00 & \$30.00 & \$30.00 \\
+  \rowcolor{row-alt}
+  %% USB PD
+  USB & 1 & USB PD Controller USB 3.1 WQFN-14 & FUSB302BMPX           & onsemi   & \$0.31 & \$0.38 & \$0.28 \\
+  %% Power mux
+  U6  & 1 & Power Mux / OR Controller SON-8   & TPS2115ADRBR          & TI       & \$1.17 & \$1.17 & \$1.17 \\
+  \rowcolor{row-alt}
+  %% Power sel
+  U7  & 1 & Power Mgmt / Battery Mgmt         & TPS2121RUXR           & TI       & \$1.25 & \$1.25 & \$1.25 \\
+  %% Amplifier
+  U12 & 1 & Clase D Mono 5\,V PCM I2S         & MAX98357AETE+T        & Analog D.& \$0.13 & \$0.13 & \$0.54 \\
+  \rowcolor{row-alt}
+  %% Mics
+  U15,16 & 2 & Micrófono MEMS Omnidireccional & IM67D120AXTSA1        & Infineon & \$1.06 & \$1.06 & \$1.06 \\
+  %% LEDs
+  U8--U26 & 16 & LED RGB Inteligente WS2812B  & WS2812B-B             & WorldSemi& \$0.12 & \$0.12 & \$0.12 \\
+\end{longtable}
+
+\noindent\textsuperscript{†} Componente marcado como \textbf{Obsolete} por Micron.
+Debe reemplazarse antes del inicio de producción (ver Sección~\ref{sec:bom_riesgos}).
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.2 Cristales y Osciladores}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Cristales y Osciladores (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  X1  & 1 & Cristal SMD 24\,MHz 18\,pF $\pm$20\,ppm & ABM3B-24.000MHZ-B2-T  & Abracon  & \$0.37 & \$0.63 & \$0.53 \\
+  \rowcolor{row-alt}
+  Y1  & 1 & Cristal 32.768\,kHz RTC $\pm$20\,ppm    & ABS06-127-32.768KHZ-T & Abracon  & \$0.99 & \$0.84 & \$0.93 \\
+  Y2  & 1 & Cristal RF 37.4\,MHz 5\,pF SMD-4 \textsuperscript{‡} & ABM13W-38.4000MHZ-8-NH7U-T5 & Abracon & \$12.35 & \$12.35 & \$12.35 \\
+\end{longtable}
+
+\noindent\textsuperscript{‡} Discrepancia entre frecuencia nominal (37.4\,MHz) y
+número de parte referenciado (38.4\,MHz). Resolver antes del E4.
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.3 Diodos y Dispositivos de Protección}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1.5cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Diodos y TVS (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  D1--D10,D12 & 11 & Diodo SBR 45\,V 3\,A SMA     & SBRT3U45SA-13  & Diodes Inc.& \$0.101 & \$0.094 & \$0.094 \\
+  \rowcolor{row-alt}
+  D11,D13--D18 & 7 & TVS 600\,W 33\,V              & PTVS33VP1BPLJ  & Nexperia  & \$0.202 & \$0.202 & \$0.202 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.4 Transistores MOSFET}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1.2cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- MOSFETs (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  Q1, Q2    & 2 & MOSFET N-CH 30\,V 5.8\,A SOT-23 & DMN3042L-13 & Diodes Inc. & \$0.107 & \$0.069 & \$0.092 \\
+  \rowcolor{row-alt}
+  Q3--Q6    & 4 & MOSFET N-CH 30\,V 5.8\,A SOT-23 & DMN3042L-13 & Diodes Inc. & \$0.082 & \$0.060 & \$0.060 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.5 Conectores}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1cm} C{0.5cm} L{3.0cm} L{2.8cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Conectores (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  J1   & 1 & Header SMD 2-pos 0.8\,mm        & BM02B-SURS-TF(LF)(SN) & JST       & \$0.242 & \$0.152 & \$0.153 \\
+  \rowcolor{row-alt}
+  J2,J4 & 2 & FFC/FPC 30-pos 0.5\,mm ángulo  & FH34SRJ-30S-0.5SH(99) & Hirose    & \$0.805 & \$0.805 & \$0.805 \\
+  J3   & 1 & FFC/FPC 40-pos 0.5\,mm ángulo   & FH34SRJ-40S-0.5SH(50) & Hirose    & \$0.203 & \$0.203 & \$0.203 \\
+  \rowcolor{row-alt}
+  J5   & 1 & Header Pico-EZmate 4-pos 1.2\,mm & 78171-0004            & Molex     & \$0.033 & \$0.148 & \$0.033 \\
+  J6   & 1 & Header SMD 4-pos 0.8\,mm         & BM04B-SURS-TF(LF)(SN) & JST       & \$0.150 & \$0.150 & \$0.150 \\
+  \rowcolor{row-alt}
+  J7   & 1 & USB Tipo-C SMD 16-pin            & HC-TYPE-C-16P-01A-G   & HCTL      & \$0.091 & \$0.091 & \$0.091 \\
+  J8   & 1 & Header SMD 2-pos 2\,mm           & B2B-PH-SM4-TB(LF)(SN) & JST       & \$0.243 & \$0.207 & \$0.207 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.6 Interruptores}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Interruptores (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  SW1, SW2 & 2 & Switch táctil SPST-NO 0.02\,A & EVQ-Q2H03W   & Panasonic  & \$0.129 & \$0.126 & \$0.126 \\
+  \rowcolor{row-alt}
+  SW3      & 1 & Switch táctil SPST-NO 0.05\,A & B3FS-1012P   & Omron      & \$0.300 & \$0.300 & \$0.364 \\
+  SW4      & 1 & Switch deslizante DP3T 300\,mA & JS203011AQN  & C\&K       & \$0.486 & \$0.431 & \$0.431 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.7 Inductores}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Inductores (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  L1      & 1 & RF Inductor 110\,nH 80\,mA 0201 & LQP03TNR11H02D  & Murata  & \$0.023 & \$0.019 & \$0.021 \\
+  \rowcolor{row-alt}
+  L2, L3  & 2 & Potencia 2.2\,\textmu H 1\,A 1008  & LQM2HPN2R2MJ0L  & Murata  & \$0.033 & \$0.033 & \$0.033 \\
+  L4, L5  & 2 & Potencia 2.2\,\textmu H 1\,A 1008  & LQM2HPN2R2MJ0L  & Murata  & \$0.057 & \$0.057 & \$0.086 \\
+  \rowcolor{row-alt}
+  L6      & 1 & Propósito gral. 10\,\textmu H 300\,mA 0603 & LQM18DN100M70L & Murata & \$0.038 & \$0.049 & \$0.037 \\
+  L7      & 1 & Potencia 10\,\textmu H 300\,mA 0603 & LQM18DN100M70L  & Murata  & \$0.069 & \$0.049 & \$0.049 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.8 Antenas}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1.5cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Antenas (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  ANT1, ANT2 & 2 & Antena plana 2.4/5\,GHz 250\,mm & 146153-0250 & Molex & \$1.550 & \$1.480 & \$1.480 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.9 Condensadores Principales}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1.5cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Condensadores de mayor impacto (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  C16,C26,\ldots (14) & 14 & MLCC 10\,\textmu F 4\,V X5R 0402 & GRM155R60G106ME47D & Murata & \$0.023 & \$0.012 & \$0.023 \\
+  \rowcolor{row-alt}
+  C24,C25,\ldots (19) & 19 & MLCC 22\,\textmu F 6.3\,V X5R 0603 & GRM186R60J226ME15D & Murata & \$0.041 & \$0.036 & \$0.072 \\
+  C19,C20,\ldots (70) & 70 & MLCC 100\,nF 16\,V X5R 0201 & CC0201KRX5R7BB104 & Yageo & \$0.001 & \$0.001 & \$0.001 \\
+  \rowcolor{row-alt}
+  C17,\ldots (10)     & 10 & MLCC 1\,\textmu F 10\,V X5R 0201  & 0201ZD105MAT2A     & KYO.AVX & \$0.006 & \$0.001 & \$0.010 \\
+  C11,C12,\ldots (4)  & 4  & MLCC 4.7\,\textmu F 6.3\,V X5R 0201 & GRM035R60J475ME15J & Murata & \$0.012 & \$0.012 & \$0.042 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.10 Resistencias Principales}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{longtable}{C{1.5cm} C{0.5cm} L{2.8cm} L{3.0cm} L{1.8cm} R{1.1cm} R{1.1cm} R{1.1cm}}
+  \caption*{BOM -- Resistencias de mayor impacto (precio USD/ud.)}\\
+  \toprule
+  \rowcolor{udea-green}
+  \textcolor{white}{\textbf{Desig.}} &
+  \textcolor{white}{\textbf{Qty}} &
+  \textcolor{white}{\textbf{Descripción}} &
+  \textcolor{white}{\textbf{Part Number}} &
+  \textcolor{white}{\textbf{Fab.}} &
+  \textcolor{white}{\textbf{1K}} &
+  \textcolor{white}{\textbf{10K}} &
+  \textcolor{white}{\textbf{100K}} \\
+  \midrule
+  \endfirsthead
+  \midrule \endhead \bottomrule \endfoot
+  R5,R21,\ldots (11)  & 11 & Jumper 0\,$\Omega$ 0201              & HCJ0201ZT0R00    & Stackpole & \$0.084 & \$0.073 & \$0.073 \\
+  \rowcolor{row-alt}
+  R14--R68 (20)       & 20 & Thin Film 10\,k$\Omega$ 0.1\% 0201  & RT0201BRE0710KL  & Yageo     & \$0.082 & \$0.082 & \$0.082 \\
+  R1,R4,\ldots (4)    & 4  & Thick Film 100\,$\Omega$ 5\% 0201    & RMCF0201JT100R   & Stackpole & \$0.002 & \$0.002 & \$0.002 \\
+  \rowcolor{row-alt}
+  R6,R43,\ldots (7)   & 7  & Thick Film 22\,$\Omega$ 5\% 0201     & CRCW020122R0JNED & Vishay    & \$0.004 & \$0.001 & \$0.004 \\
+  R16,R18,\ldots (6)  & 6  & Thick Film 4.7\,k$\Omega$ 5\% 0201  & RMCF0201JT4K70   & Stackpole & \$0.002 & \$0.002 & \$0.002 \\
+\end{longtable}
+
+%% ─────────────────────────────────────────────────────────────
+\section*{A.11 Resumen Financiero del BOM por Volumen}
+%% ─────────────────────────────────────────────────────────────
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen financiero del BOM -- subtotales por volumen (USD)}
+  \label{tab:bom_financiero}
+  \begin{tabular}{L{4.5cm} R{2.8cm} R{3.0cm} R{3.0cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Categoría}} &
+    \textcolor{white}{\textbf{1\,000 ud. (USD)}} &
+    \textcolor{white}{\textbf{10\,000 ud. (USD)}} &
+    \textcolor{white}{\textbf{100\,000 ud. (USD)}} \\
+    \midrule
+    SoC A311D2 (U1)          & 285\,720   & 2\,857\,220  & 28\,572\,200 \\
+    \rowcolor{row-alt}
+    WiFi/BT AP6275S (B2)     &  30\,000   &   300\,000   &  3\,000\,000 \\
+    LPDDR4X Micron (U4)      &   8\,840   &    73\,162   &    731\,622 \\
+    \rowcolor{row-alt}
+    eMMC Samsung (U5)        &   2\,550   &    24\,000   &    240\,000 \\
+    Cristal RF ABM13W (Y2)   &  12\,350   &   123\,500   &  1\,235\,000 \\
+    \rowcolor{row-alt}
+    Antenas Molex $\times$2  &   3\,100   &    29\,600   &    296\,000 \\
+    Flash QSPI Winbond (B1)  &     710    &     7\,100   &     71\,000 \\
+    \rowcolor{row-alt}
+    Diodos TVS (D11,D13--D18)&   1\,417   &    14\,169   &    141\,686 \\
+    Diodos SBR (D1--D12)     &   1\,116   &    10\,327   &    103\,268 \\
+    \rowcolor{row-alt}
+    LEDs WS2812B $\times$16  &   1\,920   &    19\,200   &    192\,000 \\
+    MCU STM32 (U3)           &     481    &     4\,800   &     48\,000 \\
+    \rowcolor{row-alt}
+    Mics MEMS $\times$2 (U15,16) & 2\,120 &   21\,200   &    212\,000 \\
+    Pasivos (R + C + L)      &   4\,902   &    39\,800   &    350\,000 \\
+    \rowcolor{row-alt}
+    Conectores y switches    &   3\,617   &    32\,000   &    280\,000 \\
+    Resto ICs y soporte      &   5\,025   &    45\,000   &    420\,000 \\
+    \midrule
+    \textbf{Total BOM lote}  & \textbf{363\,868} & \textbf{3\,600\,078} & \textbf{35\,892\,776} \\
+    \rowcolor{row-alt}
+    \textbf{Costo/unidad}    & \textbf{363.87} & \textbf{360.01} & \textbf{358.93} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{infobox}[Nota sobre el costo unitario dominante]
+  El costo de materiales por unidad es prácticamente constante entre 1K y
+  100K porque el componente dominante (SoC A311D2 a USD\,285.72) no
+  muestra reducción de precio en el canal de distribución actual. La
+  reducción real de costo a volumen requiere negociación directa con el
+  fabricante del SoC y del módulo WiFi, fuera del alcance de los precios de
+  distribuidor reflejados en el BOM. El análisis de costo \emph{unitario
+  factible} presentado en el Capítulo~\ref{chap:costos} (USD\,78.87 a 1K)
+  asume que el SoC se obtiene a precio de lote real, no de evaluación.
+\end{infobox}
+

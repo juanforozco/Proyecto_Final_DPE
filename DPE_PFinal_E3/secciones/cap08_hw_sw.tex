@@ -1,0 +1,320 @@
+%% ============================================================
+%%  Capítulo 8 – Interacción HW–SW y Arquitectura Lógica
+%% ============================================================
+\chapter{Interacci\'{o}n HW--SW y Arquitectura L\'{o}gica del Software}
+\label{chap:hw_sw}
+
+\section{Principio de Dise\~{n}o HW--SW}
+\label{sec:hwsw_principio}
+
+El proyecto ALMA no implementa firmware ni software, pero la arquitectura
+l\'{o}gica del software debe quedar definida con la especificidad suficiente
+para demostrar que el hardware dise\~{n}ado es capaz de soportar todas las
+funciones del producto. Cada decisi\'{o}n de hardware tomada en los
+cap\'{\i}tulos anteriores condiciona directamente una capa del stack de software,
+y viceversa: ciertos requisitos de software impusieron restricciones concretas
+sobre el hardware.
+
+El stack de software de referencia es \textbf{Linux} (kernel \textgreater{}5.15
+con soporte de Amlogic A311D2) ejecutando \textbf{OpenVoiceOS (OVOS)}, el
+framework de asistente de voz de c\'{o}digo abierto. Las secciones siguientes
+describen c\'{o}mo cada capa de la arquitectura se apoya en el hardware
+real de ALMA.
+
+\section{Condicionantes de Hardware sobre el Software}
+\label{sec:hwsw_hw_condiciones}
+
+La Tabla~\ref{tab:hw_sw_condicionantes} resume los v\'{\i}nculos directos
+entre las decisiones de hardware del Entregable~3 y sus implicaciones para
+el stack de software.
+
+\begin{table}[H]
+  \centering
+  \caption{Condicionantes de hardware sobre el software de ALMA.}
+  \label{tab:hw_sw_condicionantes}
+  \begin{tabularx}{\textwidth}{L{3.5cm} L{4cm} L{6cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Decisi\'{o}n de HW}} &
+    \textcolor{white}{\textbf{Componente}} &
+    \textcolor{white}{\textbf{Implicaci\'{o}n para el SW}} \\
+    \midrule
+    SoC ARM64 big.LITTLE & Amlogic A311D2 &
+      Requiere kernel Linux con soporte de Amlogic (mainline o BSP de Khadas).
+      El Device Tree debe reflejar la configuraci\'{o}n de pines del dise\~{n}o. \\
+    \rowcolor{row-alt}
+    Almacenamiento eMMC & eMMC en PCB-CTRL &
+      Sistema de archivos con journaling (ext4) para garantizar integridad ante
+      cortes de energ\'{\i}a \reqref{REQ-F-03}. Partici\'{o}n de arranque
+      protegida contra escritura. \\
+    M\'{o}dulo WiFi/BT & M\'{o}dulo SDIO/USB &
+      Driver del m\'{o}dulo WiFi debe estar incluido en el kernel. Gesti\'{o}n
+      de red mediante NetworkManager o wpa\_supplicant. \\
+    \rowcolor{row-alt}
+    TrustZone (D-05) & A311D2 integrado &
+      Requiere OP-TEE como Trusted Execution Environment. Las claves
+      criptogr\'{a}ficas y el arranque seguro se gestionan desde la zona
+      segura del procesador \reqref{REQ-E-02}. \\
+    C\'{o}dec I2S externo & C\'{o}dec + I2S del SoC &
+      Driver ASoC (ALSA System on Chip) en el kernel Linux para gestionar
+      el bus I2S. PipeWire o PulseAudio como servidor de audio en espacio
+      de usuario \reqref{REQ-F-01}. \\
+    \rowcolor{row-alt}
+    Micr\'{o}fonos PDM & MEMS digitales PDM &
+      Driver PDM nativo del A311D2 en el kernel. La captura de audio desde
+      los micr\'{o}fonos es un dispositivo ALSA est\'{a}ndar para OVOS
+      \reqref{REQ-F-02}. \\
+    Pantalla MIPI DSI & Panel t\'{a}ctil &
+      Driver DRM/KMS para el controlador de pantalla del A311D2. El panel
+      t\'{a}ctil capacitivo se gestiona como dispositivo de entrada evdev
+      \reqref{REQ-G-01}. \\
+    \rowcolor{row-alt}
+    LEDs RGB & Controlador PWM/GPIO &
+      Driver de LEDs en kernel (leds-pwm o equivalente). Control de efectos
+      desde espacio de usuario mediante sysfs o daemon dedicado \reqref{REQ-F-04}. \\
+    Switch DPST hard-wired & Switch mec\'{a}nico + GPIO &
+      El SoC detecta el cambio de estado del switch v\'{\i}a interrupci\'{o}n
+      GPIO. El SW \'{u}nicamente refleja el estado en la GUI; el silenciado
+      f\'{\i}sico es independiente del sistema operativo \reqref{REQ-NF-01}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Arquitectura L\'{o}gica del Software por Capas}
+\label{sec:hwsw_arquitectura}
+
+\subsection{Capa 1: Hardware y BSP}
+
+El \textbf{Board Support Package (BSP)} es el puente entre el hardware f\'{\i}sico
+y el kernel Linux. Para el A311D2, el equipo de ALMA utilizar\'{\i}a como base el
+BSP p\'{u}blico de Khadas VIM4, adaptando el \textbf{Device Tree} para reflejar
+la configuraci\'{o}n espec\'{\i}fica del dise\~{n}o propio (pines del c\'{o}dec I2S,
+direcci\'{o}n I2C del panel t\'{a}ctil, GPIO del switch de silenciado, interfaz
+MIPI DSI del panel seleccionado).
+
+El Device Tree es el punto de articulaci\'{o}n donde el hardware dise\~{n}ado
+en Altium se vuelve visible para el software: cada perif\'{e}rico f\'{\i}sico
+conectado al SoC debe aparecer como un nodo en el Device Tree con los
+par\'{a}metros correctos (direcci\'{o}n de bus, IRQ, GPIO, relojes) para que
+el driver correspondiente lo inicialice correctamente.
+
+\subsection{Capa 2: Kernel Linux}
+
+Los drivers necesarios para ALMA, todos disponibles en el kernel mainline de Linux
+o en el BSP de Amlogic, son:
+
+\begin{itemize}
+  \item \textbf{meson-axg-sound / ASoC:} driver de audio para el bus I2S del A311D2
+    y el c\'{o}dec externo. Expone el hardware de audio como dispositivo ALSA
+    est\'{a}ndar (\texttt{/dev/snd/}).
+  \item \textbf{meson-pdm:} driver para la captura de audio PDM desde la matriz
+    de micr\'{o}fonos MEMS. Expone los micr\'{o}fonos como dispositivo de captura
+    ALSA.
+  \item \textbf{DRM/KMS -- meson-drm:} driver de pantalla para el controlador
+    MIPI DSI del A311D2. Expone el framebuffer como dispositivo DRM est\'{a}ndar
+    (\texttt{/dev/dri/}).
+  \item \textbf{Driver I2C del panel t\'{a}ctil:} driver evdev para el
+    digitalizador capacitivo, que expone los eventos t\'{a}ctiles como dispositivo
+    de entrada est\'{a}ndar (\texttt{/dev/input/}).
+  \item \textbf{gpio-keys / gpio-leds:} drivers est\'{a}ndar para el switch de
+    silenciado (interrupci\'{o}n GPIO) y los LEDs RGB (sysfs o PWM).
+  \item \textbf{Driver WiFi/BT:} espec\'{\i}fico del m\'{o}dulo seleccionado
+    (p.\,ej. brcmfmac para m\'{o}dulos Broadcom, o ath9k/ath10k para Atheros).
+  \item \textbf{mmc\_core / meson-mmc:} driver para la eMMC (almacenamiento
+    persistente).
+  \item \textbf{Driver I2C -- STM32G030 (PMU):} el bus I2C Bus-B conecta el SoC
+    con el MCU STM32G030, que gestiona la secuencia de encendido de rieles del SoC
+    y el control de los LEDs WS2812B. El driver utilizado es el controlador I2C
+    gen\'{e}rico de Linux (\texttt{i2c-meson}) junto a un cliente I2C a medida
+    para el protocolo de comunicaci\'{o}n con el STM32.
+  \item \textbf{OP-TEE:} driver del Trusted Execution Environment para gestionar
+    el TrustZone del A311D2.
+\end{itemize}
+
+\subsection{Capa 3: Middleware}
+
+Sobre el kernel, los servicios de middleware abstraen el hardware hacia las
+aplicaciones:
+
+\begin{itemize}
+  \item \textbf{PipeWire} (o PulseAudio): servidor de audio en espacio de usuario.
+    Gestiona el acceso concurrente al hardware de audio (c\'{o}dec I2S para
+    reproducci\'{o}n, micr\'{o}fonos PDM para captura). Es la interfaz entre
+    los drivers ALSA del kernel y los servicios de OVOS \reqref{REQ-F-01}.
+  \item \textbf{NetworkManager + wpa\_supplicant:} gesti\'{o}n de la conectividad
+    WiFi y configuraci\'{o}n de red. Soporta el enrolamiento a WiFi desde la GUI
+    local \reqref{REQ-NF-02}.
+  \item \textbf{ext4 con journaling:} sistema de archivos del eMMC. El journaling
+    garantiza la integridad de los archivos de configuraci\'{o}n ante cortes
+    abruptos de energ\'{\i}a \reqref{REQ-F-03}.
+  \item \textbf{OP-TEE + libteec:} biblioteca de espacio de usuario para
+    interactuar con el Trusted Execution Environment. Gestiona las claves
+    criptogr\'{a}ficas para TLS~1.3 y el arranque seguro \reqref{REQ-E-02}.
+  \item \textbf{Wayland (o framebuffer directo):} compositor gr\'{a}fico que
+    gestiona la salida DRM/KMS hacia el panel MIPI DSI \reqref{REQ-G-01}.
+\end{itemize}
+
+\subsection{Capa 4: Servicios de OVOS}
+
+OpenVoiceOS es el framework del asistente de voz. Sus componentes principales
+y su relaci\'{o}n con el hardware de ALMA son:
+
+\begin{itemize}
+  \item \textbf{Wake-word engine} (p.\,ej. Precise o Vosk): escucha continuamente
+    el stream de audio capturado por los micr\'{o}fonos PDM a trav\'{e}s de
+    PipeWire. La latencia de detecci\'{o}n depende del tama\~{n}o del buffer
+    de audio y de la potencia de c\'{o}mputo del A311D2 \reqref{REQ-F-02}.
+  \item \textbf{Speech-to-Text (STT):} transcribe el comando de voz usando
+    los n\'{u}cleos de c\'{o}mputo del A311D2. El procesamiento es local,
+    sin dependencia de la nube.
+  \item \textbf{Skills de OVOS:} l\'{o}gica de respuesta a comandos.
+    Los skills de dom\'{o}tica invocan el cliente IP para comunicarse con
+    dispositivos en la red local via TLS~1.3 \reqref{REQ-NF-02}.
+  \item \textbf{Text-to-Speech (TTS):} sintetiza la respuesta de voz y la
+    entrega a PipeWire para reproducci\'{o}n por el amplificador Clase~D
+    \reqref{REQ-F-01}.
+  \item \textbf{Daemon de privacidad:} proceso que monitorea la interrupci\'{o}n
+    GPIO del switch de silenciado. Cuando detecta el cambio de estado, actualiza
+    la GUI para mostrar el indicador de micr\'{o}fono silenciado. No controla
+    el silenciado en s\'{\i} (que es hardware puro), solo refleja el estado
+    \reqref{REQ-NF-01}.
+\end{itemize}
+
+\subsection{Capa 5: Interfaz Gr\'{a}fica (GUI)}
+
+La GUI de ALMA se ejecuta sobre Wayland, renderizando en el panel MIPI DSI a
+trav\'{e}s del driver DRM/KMS del A311D2. Sus responsabilidades son:
+
+\begin{itemize}
+  \item Mostrar el estado del sistema: reproducci\'{o}n activa, volumen,
+    conectividad WiFi, estado del micr\'{o}fono (icono de privacidad
+    sincronizado con el GPIO del switch) \reqref{REQ-G-01}.
+  \item Permitir configuraci\'{o}n local: enrolamiento a WiFi, ajuste de volumen,
+    preferencias de iluminaci\'{o}n.
+  \item Procesar eventos t\'{a}ctiles del digitalizador capacitivo (driver evdev)
+    con latencia $<$100\,ms desde el contacto hasta la respuesta visual
+    \reqref{REQ-G-01}.
+  \item Controlar el efecto visual de los LEDs RGB mediante el driver PWM/GPIO,
+    sincronizando el estado luminoso con las transiciones del asistente
+    (escuchando, procesando, respondiendo) \reqref{REQ-F-04}.
+\end{itemize}
+
+\subsection{Capa 6: Persistencia de Configuraci\'{o}n}
+
+La persistencia es transversal a todas las capas: afecta a la GUI (preferencias
+visuales), a OVOS (configuraci\'{o}n del asistente y skills), y a NetworkManager
+(credenciales WiFi). La estrategia adoptada, derivada del hardware eMMC disponible:
+
+\begin{itemize}
+  \item Todos los archivos de configuraci\'{o}n cr\'{\i}ticos se almacenan en
+    una partici\'{o}n ext4 con journaling del eMMC.
+  \item El mecanismo de escritura at\'{o}mica (escribir en archivo temporal +
+    rename at\'{o}mico) garantiza que nunca se almacene un archivo de
+    configuraci\'{o}n parcialmente escrito \reqref{REQ-F-03}.
+  \item Un checksum CRC-32 sobre cada archivo de configuraci\'{o}n permite
+    detectar corrupci\'{o}n en el arranque y restaurar la \'{u}ltima copia
+    v\'{a}lida.
+\end{itemize}
+
+\section{Flujos de Operaci\'{o}n Clave}
+\label{sec:hwsw_flujos}
+
+\subsection{Flujo de Detecci\'{o}n y Respuesta por Voz}
+
+El flujo completo desde la voz del usuario hasta la respuesta de ALMA atraviesa
+todas las capas de la arquitectura:
+
+\begin{enumerate}
+  \item \textbf{HW -- Micr\'{o}fonos MEMS PDM:} el array de micr\'{o}fonos
+    convierte la se\~{n}al ac\'{u}stica en datos PDM digitales.
+  \item \textbf{Kernel -- Driver PDM:} el driver \texttt{meson-pdm} recibe
+    los datos y los convierte en muestras PCM accesibles como dispositivo ALSA.
+  \item \textbf{Middleware -- PipeWire:} toma el stream PCM del dispositivo ALSA
+    y lo enruta hacia el proceso del wake-word engine de OVOS.
+  \item \textbf{OVOS -- Wake-word engine:} detecta la palabra de activaci\'{o}n.
+    Latencia objetivo: $<$500\,ms \reqref{REQ-F-02}.
+  \item \textbf{OVOS -- STT:} transcribe el comando usando la potencia de c\'{o}mputo
+    del A311D2 (NPU disponible para aceleraci\'{o}n de inferencia).
+  \item \textbf{OVOS -- Skill:} procesa el comando y genera una respuesta. Si
+    el skill requiere controlar un dispositivo IP, env\'{\i}a la petici\'{o}n
+    via TLS~1.3 al dispositivo en la red local.
+  \item \textbf{OVOS -- TTS:} sintetiza la respuesta en audio PCM.
+  \item \textbf{Middleware -- PipeWire:} enruta el audio PCM hacia el dispositivo
+    de reproducci\'{o}n ALSA.
+  \item \textbf{Kernel -- Driver ASoC:} transmite las muestras PCM al c\'{o}dec
+    externo v\'{\i}a bus I2S (24-bit/96\,kHz) \reqref{REQ-F-01}.
+  \item \textbf{HW -- C\'{o}dec + Amplificador Clase~D:} convierte las muestras
+    digitales en se\~{n}al anal\'{o}gica amplificada para el altavoz.
+    Latencia total objetivo: $<$2\,s \reqref{REQ-F-02}.
+\end{enumerate}
+
+\subsection{Flujo de Silenciado F\'{\i}sico}
+
+Este flujo ilustra el principio hardware-first del dise\~{n}o de privacidad:
+
+\begin{enumerate}
+  \item \textbf{HW -- Switch DPST:} el usuario acciona el switch. Esto interrumpe
+    \textbf{galv\'{a}nicamente} la l\'{\i}nea de alimentaci\'{o}n o reloj
+    de los micr\'{o}fonos PDM. El LED rojo se enciende directamente por el
+    mismo circuito, sin intervenci\'{o}n del SoC. El silenciado es instant\'{a}neo
+    e incondicional \reqref{REQ-NF-01}.
+  \item \textbf{HW -- GPIO del SoC:} el cambio de estado del switch genera
+    una interrupci\'{o}n en el pin GPIO asociado del A311D2.
+  \item \textbf{Kernel -- driver gpio-keys:} el driver captura la interrupci\'{o}n
+    y la publica como evento de entrada est\'{a}ndar.
+  \item \textbf{OVOS -- Daemon de privacidad:} detecta el evento y env\'{\i}a
+    una notificaci\'{o}n a la GUI.
+  \item \textbf{GUI:} actualiza el \'{\i}cono de estado del micr\'{o}fono en
+    pantalla (silenciado / activo). Esta actualizaci\'{o}n es informativa;
+    el silenciado real ya ocurri\'{o} en el paso~1.
+\end{enumerate}
+
+\begin{infobox}[Garant\'{\i}a de privacidad por dise\~{n}o]
+  El flujo anterior garantiza que un fallo de software -- incluyendo un bloqueo
+  del kernel (kernel panic), un fallo de OVOS o una acci\'{o}n maliciosa --
+  no puede reactivar los micr\'{o}fonos si el switch est\'{a} en posici\'{o}n
+  de silenciado. La privacidad es una propiedad del hardware, no del software.
+\end{infobox}
+
+\subsection{Flujo de Arranque Seguro}
+
+\begin{enumerate}
+  \item \textbf{ROM de arranque del A311D2:} carga el bootloader desde la
+    partici\'{o}n de arranque protegida del eMMC.
+  \item \textbf{Bootloader (U-Boot):} verifica la firma criptogr\'{a}fica del
+    kernel usando la clave almacenada en el TrustZone del A311D2 \reqref{REQ-E-02}.
+  \item \textbf{Kernel Linux:} se carga \'{u}nicamente si la firma es v\'{a}lida.
+    Inicializa todos los drivers descritos en la
+    Secci\'{o}n~\ref{sec:hwsw_arquitectura}.
+  \item \textbf{OP-TEE:} inicializa el Trusted Execution Environment. Las claves
+    TLS del cliente IP se almacenan en el TEE y nunca salen en texto claro al
+    sistema operativo normal.
+  \item \textbf{Servicios de usuario:} NetworkManager, PipeWire y OVOS se
+    inician secuencialmente. Al completarse, la GUI se activa y el sistema
+    est\'{a} operativo.
+  \item \textbf{Restauraci\'{o}n de configuraci\'{o}n:} al montar el sistema
+    de archivos, se verifica el CRC-32 de los archivos de configuraci\'{o}n.
+    Si la verificaci\'{o}n falla, se restaura la \'{u}ltima copia de respaldo
+    \reqref{REQ-F-03}.
+\end{enumerate}
+
+\subsection{Flujo de Persistencia ante Corte de Energ\'{\i}a}
+
+\begin{enumerate}
+  \item \textbf{Evento de escritura:} el usuario cambia la configuraci\'{o}n
+    (p.\,ej. ajusta el volumen por defecto o cambia la red WiFi).
+  \item \textbf{Escritura at\'{o}mica:} el servicio responsable escribe la nueva
+    configuraci\'{o}n en un archivo temporal en el eMMC.
+  \item \textbf{C\'{a}lculo de CRC-32:} se calcula el CRC-32 del nuevo archivo
+    y se almacena junto a \'{e}l.
+  \item \textbf{Rename at\'{o}mico:} el sistema operativo reemplaza el archivo
+    activo con el temporal mediante una operaci\'{o}n at\'{o}mica
+    (\texttt{rename()}), garantizada por el journaling de ext4 como operaci\'{o}n
+    indivisible.
+  \item \textbf{Si ocurre un corte durante los pasos 2 o 3:} el archivo temporal
+    queda incompleto, pero el archivo activo anterior permanece intacto. En el
+    siguiente arranque, la verificaci\'{o}n de CRC detecta el estado incompleto
+    y lo descarta.
+  \item \textbf{Objetivo:} restauraci\'{o}n de la \'{u}ltima configuraci\'{o}n
+    v\'{a}lida en $\leq$10\,s desde el reinicio \reqref{REQ-F-03}.
+\end{enumerate}

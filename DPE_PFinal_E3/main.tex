@@ -1,0 +1,174 @@
+%% ============================================================
+%%  ALMA – Entregable 3: Documento de Diseño HW/SW
+%%  Diseño de Productos Electrónicos – Grupo 04
+%%  Universidad de Antioquia
+%% ============================================================
+\documentclass[12pt, letterpaper]{report}
+
+\usepackage{amsmath}
+
+%% ── Codificación e idioma ───────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{lmodern}
+
+%% ── Geometría ───────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm]{geometry}
+
+%% ── Tipografía ──────────────────────────────────────────────
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+
+%% ── Colores ─────────────────────────────────────────────────
+\usepackage[dvipsnames, table]{xcolor}
+\definecolor{udea-green}{RGB}{0, 103, 71}
+\definecolor{udea-light}{RGB}{230, 245, 238}
+\definecolor{row-alt}{RGB}{245, 250, 247}
+\definecolor{warn-bg}{RGB}{255, 251, 235}
+\definecolor{req-bg}{RGB}{235, 245, 255}
+
+%% ── Gráficos ────────────────────────────────────────────────
+\usepackage{graphicx}
+\graphicspath{{figuras/}}
+\usepackage{float}
+\usepackage{subcaption}
+%% tikz y pgfplots: descomentar solo cuando haya figuras TikZ definitivas
+% \usepackage{tikz}
+% \usepackage{pgfplots}
+%% pdfpages: descomentar solo cuando los esquemáticos PDF de Altium estén listos
+% \usepackage{pdfpages}
+
+%% ── Tablas ──────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{makecell}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%% ── Listas ──────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=4pt}
+\setlist[enumerate]{noitemsep, topsep=4pt}
+
+%% ── Encabezados y pies de página ────────────────────────────
+\setlength{\headheight}{14pt}
+\addtolength{\topmargin}{-2pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{udea-green}{\textit{Producto ALMA -- Diseño HW/SW}}}
+\fancyhead[R]{\small\textcolor{udea-green}{Grupo 04}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%% ── Títulos ─────────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries\color{udea-green}}{\thechapter.}{1em}{}
+  [\vspace{-0.5em}\textcolor{udea-green}{\rule{\linewidth}{1.5pt}}]
+\titlespacing*{\chapter}{0pt}{10pt}{20pt}
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{udea-green}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+%% ── Hipervínculos ───────────────────────────────────────────
+\usepackage[colorlinks=true, linkcolor=udea-green,
+            citecolor=udea-green, urlcolor=blue]{hyperref}
+%% Suprimir warnings de hyperref con lmodern en bookmarks PDF
+\pdfstringdefDisableCommands{%
+  \def\leavevmode@ifvmode{}%
+  \def\kern#1{}%
+}
+
+%% ── Bibliografía ────────────────────────────────────────────
+\usepackage[numbers, sort&compress]{natbib}
+\bibliographystyle{ieeetr}
+
+%% ── Cajas de contenido ──────────────────────────────────────
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+\newtcolorbox{infobox}[1][]{
+  colback=udea-light, colframe=udea-green,
+  fonttitle=\bfseries, title={#1}, breakable}
+
+\newtcolorbox{decisbox}[1][Decisi\'{o}n de Dise\~{n}o]{
+  colback=yellow!10, colframe=orange!70!black,
+  fonttitle=\bfseries, title={#1}, breakable}
+
+\newtcolorbox{riskbox}[1][Riesgo / Restricci\'{o}n]{
+  colback=red!5, colframe=red!60!black,
+  fonttitle=\bfseries, title={#1}, breakable}
+
+\newtcolorbox{fabbox}[1][Requisito del Fabricante]{
+  colback=req-bg, colframe=blue!60!black,
+  fonttitle=\bfseries, title={#1}, breakable}
+
+\newtcolorbox{sibox}[1][Requisito de Integridad de Se\~{n}al]{
+  colback=warn-bg, colframe=orange!80!black,
+  fonttitle=\bfseries, title={#1}, breakable}
+
+%% ── Comando de trazabilidad ─────────────────────────────────
+\newcommand{\reqref}[1]{\textcolor{udea-green}{\textbf{[#1]}}}
+
+%% ── Numeración por capítulo ─────────────────────────────────
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+%% ============================================================
+%%  DOCUMENTO
+%% ============================================================
+\begin{document}
+
+\input{secciones/portada}
+\input{secciones/control_versiones}
+
+{
+  \hypersetup{linkcolor=black}
+  \tableofcontents  \clearpage
+  \listoffigures    \clearpage
+  \listoftables     \clearpage
+}
+
+\input{secciones/acronimos}
+\clearpage
+
+%% ── Capítulos ───────────────────────────────────────────────
+\input{secciones/cap01_introduccion}
+\input{secciones/cap02_arquitectura_final}
+\input{secciones/cap03_particion_pcbs}
+\input{secciones/cap04_pcb_ctrl}
+\input{secciones/cap05_pcb_pwr}
+\input{secciones/cap06_requisitos_fabricante}
+\input{secciones/cap07_integridad_senal}
+\input{secciones/cap08_hw_sw}
+\input{secciones/cap09_bom}
+\input{secciones/cap10_analisis_costos}
+\input{secciones/cap11_trazabilidad}
+\input{secciones/cap12_riesgos}
+\input{secciones/cap13_conclusiones}
+
+\bibliography{referencias}
+
+%% ── Anexos ──────────────────────────────────────────────────
+\appendix
+\renewcommand{\chaptername}{Anexo}
+
+\input{secciones/anexo_a_bom_detallado}
+\input{secciones/anexo_b_calculos_si}
+\input{secciones/anexo_c_arbol_potencia}
+\input{secciones/anexo_d_esquematicos_ctrl}
+\input{secciones/anexo_e_esquematicos_pwr}
+
+\end{document}

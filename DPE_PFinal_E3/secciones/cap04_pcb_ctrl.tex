@@ -1,0 +1,158 @@
+%% ============================================================
+%%  Capítulo 4 – Descripción Técnica: PCB Principal (CTRL)
+%% ============================================================
+\chapter{Descripción Técnica: PCB-CTRL}
+\label{chap:pcb_ctrl}
+
+\section{Función Principal}
+\label{sec:ctrl_funcion}
+
+La PCB-CTRL es el núcleo funcional del sistema ALMA. Aloja el SoC ARM64, la memoria de alta velocidad, los periféricos de audio y visualización, el subsistema de conectividad inalámbrica y el circuito de privacidad física. Su función es ejecutar el stack de software completo (Linux + OVOS), procesar las señales de voz, reproducir audio de alta fidelidad, gestionar la interfaz visual táctil y mantener la conectividad WiFi/Bluetooth del dispositivo.
+
+Los subsistemas del E2 alojados en esta tarjeta son: \textbf{SPCA} (Procesamiento Central y Almacenamiento), \textbf{SAA} (Audio y Acústica), \textbf{SIVI} (Interfaz Visual e Interacción), \textbf{SCR} (Conectividad y Red) y \textbf{SPSF} (Privacidad y Seguridad Física). Recibe los rieles de alimentación regulados de la PCB-PWR a través del conector de interconexión inter-PCB.
+
+\section{Bloques Funcionales Incluidos}
+\label{sec:ctrl_bloques}
+
+\subsection{Bloque de Procesamiento Central (SPCA)}
+
+El bloque SPCA está centrado en el \textbf{SoC Amlogic A311D2} en encapsulado BGA-1056, acompañado de:
+
+\begin{itemize}
+  \item \textbf{Memoria RAM:} módulo LPDDR4 Micron MT53D (4\,GB, 2133\,MHz). Conectada directamente al SoC mediante buses diferenciales con control estricto de longitud (\textit{length matching}). Los condensadores de desacoplo de 100\,nF y 1\,µF se ubican en el lado del componente, a menos de 1\,mm de los pines de alimentación del BGA \reqref{REQ-F-02}.
+  \item \textbf{Almacenamiento eMMC:} Samsung de 32\,GB soldada directamente a la PCB (sin ranura), gestionada por el controlador de potencia dedicado TPS2115 para estabilidad de los rieles durante ciclos de escritura intensivos \reqref{REQ-F-03}.
+  \item \textbf{Flash QSPI:} 256\,MB dedicada al bootloader y al sector de arranque seguro. Su interfaz de cuatro líneas SPI se conecta directamente al SoC sin buffers adicionales.
+  \item \textbf{MCU de gestión (PMU):} STM32G030 (Cortex-M0) actúa como unidad de gestión de potencia y control de periféricos de baja latencia. Gestiona la secuencia de arranque de los rieles del SoC, el control PWM de los ventiladores de refrigeración y el control de los 18 LEDs WS2812, liberando al SoC de la carga de bit-banging \reqref{REQ-F-04}.
+\end{itemize}
+
+\begin{infobox}[MCU STM32 como PMU]
+  La decisión de usar el STM32G030 como controlador de potencia es determinante para la fiabilidad del arranque. El SoC A311D2 requiere una secuencia de encendido específica para sus rieles (VDD\_NPU, VDD\_IO, VDD\_CPU en orden definido). El STM32 ejecuta esta secuencia de forma autónoma, garantizando que el SoC nunca se energice con los rieles fuera de orden.
+\end{infobox}
+
+\subsection{Bloque de Audio y Acústica (SAA)}
+
+\begin{itemize}
+  \item \textbf{Amplificador Clase D:} salida mono, alimentación a 5\,V (riel VCC5). Su topología Clase~D garantiza alta eficiencia ($>$85\,\%) y fidelidad en reproducción HD mediante interfaz I2S (24-bit/96\,kHz). La interfaz I2S se configura mediante bus I2C desde el SoC \reqref{REQ-F-01}.
+  \item \textbf{Micrófonos MEMS:} arreglo dual de micrófonos MEMS con interfaz PDM digital, sensibilidad de $-$26\,dB. La configuración dual permite algoritmos de cancelación de ruido (AEC). Su línea de alimentación pasa directamente a través del interruptor del bloque SPSF, garantizando el silenciado físico \reqref{REQ-NF-01}.
+\end{itemize}
+
+\subsection{Bloque de Interfaz Visual (SIVI)}
+
+\begin{itemize}
+  \item \textbf{Conector MIPI DSI:} interfaz de 4 carriles diferenciales a varios Gbps para el panel táctil a color. Las pistas diferenciales se rutean como par acoplado con impedancia controlada de 100\,$\Omega$ y sin vías en toda la longitud del tramo \reqref{REQ-G-01}.
+  \item \textbf{Controlador táctil:} gestionado por bus I2C desde el SoC, expone los eventos capacitivos al kernel Linux como dispositivo de entrada estándar (evdev).
+  \item \textbf{LEDs RGB WS2812:} 18 LEDs direccionables controlados mediante un único pin GPIO del STM32. El STM32 recibe los comandos de patrón lumínico por bus I2C/UART desde el SoC y genera la señal de control de un hilo (single-wire) hacia la cadena de LEDs \reqref{REQ-F-04}.
+\end{itemize}
+
+\subsection{Bloque de Conectividad (SCR)}
+
+\begin{itemize}
+  \item \textbf{Módulo WiFi/BT:} dual-band (2.4/5\,GHz) con Bluetooth\,5.0, conectado al SoC mediante interfaz SDIO para WiFi y UART/PCM para Bluetooth.
+  \item \textbf{Antenas:} dos antenas externas tipo U.FL para maximizar la ganancia en ambas bandas. Las pistas de RF desde el módulo hasta los conectores U.FL se rutas con impedancia de 50\,$\Omega$ y sin ninguna vía en su recorrido, siguiendo la restricción SI-RF (\S\ref{chap:si}).
+  \item \textbf{USB-C:} único conector externo de la PCB-CTRL, reservado para depuración (UART) y actualización de firmware. Su par diferencial D+/D- se rutas con impedancia diferencial de 90\,$\Omega$.
+\end{itemize}
+
+\textbf{Periféricos eliminados del diseño de referencia:} HDMI (salida visual exclusivamente por MIPI DSI), Ethernet/RJ45 (conectividad exclusivamente WiFi), ranura MicroSD (reemplazada por eMMC soldada), hubs USB tipo A, header GPIO de 40 pines y botones S1/Reset. Estas eliminaciones reducen el área de la PCB y simplifican el esquemático sin sacrificar ninguna funcionalidad definida en el E1.
+
+\subsection{Bloque de Privacidad y Seguridad Física (SPSF)}
+
+\begin{itemize}
+  \item \textbf{Interruptor DPST (Double Pole Single Throw):} interrumpe galvánicamente la línea de alimentación de los micrófonos MEMS cuando el usuario activa la posición de silenciado. Al ser un corte en el riel de alimentación (no una señal de control), ningún componente de software puede reactivar los micrófonos con el interruptor en posición de silenciado \reqref{REQ-NF-01}.
+  \item \textbf{LED indicador rojo:} conectado directamente al mismo circuito del interruptor, se enciende sincrónicamente con el corte de los micrófonos, sin intervención del SoC.
+\end{itemize}
+
+\section{Interfaces de la PCB-CTRL}
+\label{sec:ctrl_interfaces}
+
+\begin{table}[H]
+  \centering
+  \caption{Interfaces de la PCB-CTRL.}
+  \label{tab:interfaces_ctrl}
+  \begin{tabularx}{\textwidth}{L{3cm} C{2.5cm} C{2cm} L{5cm}}
+    \toprule
+    \rowcolor{udea-green}
+    \textcolor{white}{\textbf{Interfaz}} &
+    \textcolor{white}{\textbf{Protocolo}} &
+    \textcolor{white}{\textbf{Conector}} &
+    \textcolor{white}{\textbf{Destino / Función}} \\
+    \midrule
+    MIPI DSI (4 lanes) & MIPI DSI & FPC ZIF & Panel táctil a color \\
+    \rowcolor{row-alt}
+    I2S (Códec + Amp.) & I2S 24-bit & Pistas PCB & Amplificador Clase D \\
+    PDM (Micrófonos) & PDM digital & Pistas PCB & Array MEMS dual \\
+    \rowcolor{row-alt}
+    I2C Bus-A & I2C 400\,kHz & Pistas PCB & Códec + controlador táctil \\
+    I2C Bus-B & I2C 100\,kHz & Pistas PCB & STM32 (PMU) \\
+    \rowcolor{row-alt}
+    SDIO & SDIO 3.0 & Pistas PCB & Módulo WiFi \\
+    Bluetooth & UART/PCM & Pistas PCB & Módulo BT 5.0 \\
+    \rowcolor{row-alt}
+    Antenas RF & RF 50\,$\Omega$ & 2$\times$ U.FL & Antenas externas WiFi/BT \\
+    USB-C & USB 2.0 & USB-C & Debug UART / firmware update \\
+    \rowcolor{row-alt}
+    SPI (Flash QSPI) & SPI x4 & Pistas PCB & Flash QSPI (bootloader) \\
+    GPIO LEDs & Single-wire & Pistas PCB & Cadena WS2812 \\
+    \rowcolor{row-alt}
+    GPIO SPSF & GPIO / HW & Switch DPST & Corte físico micrófonos \\
+    Alimentación (entrada) & DC regulado & Conector inter-PCB & Desde PCB-PWR \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Señales Críticas}
+\label{sec:ctrl_senales}
+
+\subsection{MIPI DSI (4 carriles diferenciales)}
+La interfaz MIPI DSI opera a velocidades de varios Gbps y es la señal de mayor frecuencia del sistema. Exige impedancia diferencial de 100\,$\Omega$ con tolerancia $\pm$10\,\%, length matching entre los 4 carriles de $\pm$5\,mm, ausencia total de vías en el recorrido y un plano de GND continuo como referencia en la capa inmediatamente inferior \reqref{REQ-G-01}.
+
+\subsection{Bus I2S (Audio HD 24-bit/96\,kHz)}
+El reloj de bit (BCLK) opera a 4.608\,MHz. Aunque la frecuencia no es alta, la calidad de 24-bit exige un piso de ruido muy bajo. Las pistas BCLK, LRCLK y DATA deben mantener longitudes similares ($\pm$10\,mm) y estar separadas al menos 2\,mm de los nodos de conmutación de los reguladores Buck para evitar acoplamiento de ruido audible \reqref{REQ-F-01}.
+
+\subsection{PDM (Micrófonos MEMS)}
+Las líneas PDM llevan el reloj y los datos digitales desde los micrófonos. Deben ubicarse tan alejadas como sea posible del amplificador Clase D, tanto eléctrica como mecánicamente, y rodearse de una fila de vías de GND como blindaje perimetral \reqref{REQ-F-02}.
+
+\subsection{Alimentación del SoC (VDD\_IO 1.8\,V / VDD\_CPU variable)}
+Son los rieles más sensibles de la PCB-CTRL. Requieren condensadores de desacoplo de 100\,nF a menos de 1\,mm de cada pin de alimentación del BGA, más condensadores bulk de 10\,µF agrupados en la periferia del SoC. El plano de GND de la capa\,2 debe ser completamente continuo bajo la huella del BGA.
+
+\subsection{Señal de Silenciado Físico (SPSF)}
+La red de silenciado debe tener continuidad verificable en el ERC de Altium (el switch aparece como elemento en serie en la red de alimentación de los micrófonos). Su ruta de retorno a GND debe ser independiente de las pistas del SoC para evitar compartir corrientes de retorno digital \reqref{REQ-NF-01}.
+
+\section{Restricciones del Fabricante Aplicables a PCB-CTRL}
+\label{sec:ctrl_fabricante}
+
+La PCB-CTRL requiere proceso HDI de \textbf{6\,capas mínimo} (ver Capítulo~\ref{chap:fabricante}). Las restricciones que impactan específicamente esta tarjeta son:
+
+\begin{fabbox}[Restricciones del Fabricante -- PCB-CTRL]
+  \begin{itemize}
+    \item \textbf{Ancho mínimo de pista:} 0.1\,mm (4\,mil), determinante en el fan-out del BGA-1056. Las pistas de potencia siguen la calculadora IPC-2152.
+    \item \textbf{Clearance:} 0.1\,mm general; 0.5\,mm para la entrada de 12\,V (IEC\,62368-1).
+    \item \textbf{Control de impedancia:} 100\,$\Omega$ diferencial (MIPI DSI) y 90\,$\Omega$ diferencial (USB-C).
+    \item \textbf{Acabado superficial:} ENIG para soldabilidad del BGA-1056 y componentes de paso fino.
+    \item \textbf{Apertura de solder mask en BGA:} NSMD con expansión de $-$0.05\,mm (Non-Solder Mask Defined).
+  \end{itemize}
+\end{fabbox}
+
+\section{Restricciones de Integridad de Señal Aplicables a PCB-CTRL}
+\label{sec:ctrl_si}
+
+Las restricciones de SI documentadas en el Capítulo~\ref{chap:si} (SI-01 a SI-09) se aplican íntegramente a la PCB-CTRL. Las de mayor impacto en el layout son:
+\begin{itemize}
+  \item SI-01 (MIPI DSI): par diferencial 100\,$\Omega$, sin vías, length match $\pm$5\,mm.
+  \item SI-03 (I2S): GND continuo, separación de Buck, length match $\pm$10\,mm.
+  \item SI-04 (PDM): alejado del amplificador, vías GND perimetrales.
+  \item SI-08 (Desacoples): 100\,nF a menos de 1\,mm de cada pin VCC del BGA.
+  \item SI-09 (Plano GND): sin cortes bajo señales críticas.
+\end{itemize}
+
+\section{Captura en Altium Designer}
+\label{sec:ctrl_altium}
+
+El esquemático de la PCB-CTRL está organizado en hojas jerárquicas por subsistema (SPCA, SAA, SIVI, SCR, SPSF). El SoC A311D2 está segmentado en 21 bloques lógicos (partes A a U) con todos sus pines configurados como tipo Pasivo, siguiendo el mandato documentado en la \S\ref{sec:arq_soc}.
+
+Las reglas de diseño han sido configuradas en el proyecto de Altium de la siguiente forma:
+\begin{itemize}
+  \item \textbf{Matched Lengths Rule:} aplicada a los net classes \texttt{MIPI\_DSI} y \texttt{LPDDR4} para forzar el length matching en el DRC.
+  \item \textbf{Differential Pair Rule:} impedancia 100\,$\Omega$ para MIPI DSI y 90\,$\Omega$ para USB-C, con gap mínimo de 3.5\,mil entre pistas del par.
+  \item \textbf{Via Count Limit:} 0 vías para antenas RF, 2 para USB-C, 10 para I2S, 8 para señales MCU.
+  \item \textbf{Clearance específico por net class:} 4\,mil para MIPI/DDR/CSI, 6\,mil para I2S/MCU, 8\,mil para antenas, 100\,mil para rieles de potencia.
+\end{itemize}
