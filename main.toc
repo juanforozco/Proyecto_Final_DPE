@@ -1,0 +1,16 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\nonumberline \'{I}ndice de tablas}{3}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Introducción}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Propósito del entregable}{4}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Alcance del Producto}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Descripción General}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Funcionalidades y Características Incluidas}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Exclusiones y Limitaciones}{5}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Metodología de Construcción de Requisitos}{7}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Lista de Requisitos de Hardware (Diseño de PCB)}{8}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Matriz de Verificación en Altium Designer}{9}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Observaciones y Conclusiones}{10}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Observaciones, supuestos o vacíos identificados}{10}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Conclusiones}{10}{section.6.2}%
+\contentsline {chapter}{\nonumberline Referencias}{11}{chapter*.5}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
