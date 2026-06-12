@@ -1,0 +1,693 @@
+*************************************************************
+FileName = Main_Board.GBR
+AutoAperture = True
+*************************************************************
+Generating : Bottom Paste
+      File : Main_Board.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : L8_Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D28
+    D29
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D41
+    D45
+    D57
+    D59
+    D60
+    D61
+    D62
+    D81
+    D83
+    D129
+    D130
+    D131
+    D132
+    D133
+    D134
+    D135
+    D136
+    D137
+    D138
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : Main_Board.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : L1_Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+    D73
+    D74
+    D75
+    D76
+    D77
+    D78
+    D79
+    D80
+    D81
+    D82
+    D83
+    D84
+    D85
+    D86
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : Main_Board.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : L8_Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D28
+    D29
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D41
+    D45
+    D57
+    D59
+    D60
+    D61
+    D62
+    D81
+    D83
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D129
+    D130
+    D131
+    D132
+    D133
+    D134
+    D135
+    D136
+    D137
+    D138
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : Main_Board.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : L1_Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+    D73
+    D74
+    D75
+    D76
+    D77
+    D78
+    D79
+    D80
+    D81
+    D82
+    D83
+    D84
+    D85
+    D86
+    D87
+    D88
+    D89
+    D90
+    D91
+    D92
+    D93
+    D94
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : Main_Board.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D10
+    D12
+    D17
+    D18
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : Main_Board.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+*************************************************************
+
+*************************************************************
+Generating : L8_Bottom
+      File : Main_Board.GBL
+
+    Adding Layer      : L8_Bottom
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D28
+    D29
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D41
+    D45
+    D57
+    D59
+    D60
+    D61
+    D62
+    D81
+    D83
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D108
+    D109
+    D110
+    D111
+    D112
+    D113
+    D129
+    D130
+    D131
+    D132
+    D133
+    D134
+    D135
+    D136
+    D137
+    D138
+    D139
+*************************************************************
+
+*************************************************************
+Generating : L9_GND3
+      File : Main_Board.GP4
+
+    Adding Layer      : L9_GND3
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D101
+    D112
+    D114
+    D115
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+*************************************************************
+
+*************************************************************
+Generating : L8_Sig4
+      File : Main_Board.G4
+
+    Adding Layer      : L8_Sig4
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D100
+    D101
+    D102
+    D106
+    D108
+    D109
+    D111
+    D122
+*************************************************************
+
+*************************************************************
+Generating : L7_GND2
+      File : Main_Board.GP3
+
+    Adding Layer      : L7_GND2
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D101
+    D112
+    D114
+    D117
+    D118
+    D119
+    D120
+    D121
+    D123
+    D124
+    D125
+    D126
+    D127
+    D128
+*************************************************************
+
+*************************************************************
+Generating : L6_Sig3
+      File : Main_Board.G3
+
+    Adding Layer      : L6_Sig3
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D108
+    D109
+    D122
+*************************************************************
+
+*************************************************************
+Generating : L5_Sig2
+      File : Main_Board.G2
+
+    Adding Layer      : L5_Sig2
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D108
+    D109
+    D122
+*************************************************************
+
+*************************************************************
+Generating : L4_GND1
+      File : Main_Board.GP2
+
+    Adding Layer      : L4_GND1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D101
+    D112
+    D114
+    D115
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+    D123
+    D124
+    D125
+*************************************************************
+
+*************************************************************
+Generating : L3_Sig1
+      File : Main_Board.G1
+
+    Adding Layer      : L3_Sig1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D100
+    D101
+    D102
+    D106
+    D108
+    D109
+    D111
+    D122
+*************************************************************
+
+*************************************************************
+Generating : L2_PWR1
+      File : Main_Board.GP1
+
+    Adding Layer      : L2_PWR1
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D101
+    D112
+    D114
+    D115
+    D116
+    D117
+    D118
+    D119
+    D120
+    D121
+*************************************************************
+
+*************************************************************
+Generating : L1_Top
+      File : Main_Board.GTL
+
+    Adding Layer      : L1_Top
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D12
+    D13
+    D14
+    D15
+    D16
+    D18
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+    D73
+    D74
+    D75
+    D76
+    D77
+    D78
+    D79
+    D80
+    D81
+    D82
+    D83
+    D84
+    D85
+    D86
+    D87
+    D88
+    D89
+    D90
+    D91
+    D92
+    D93
+    D94
+    D95
+    D96
+    D97
+    D98
+    D99
+    D100
+    D101
+    D102
+    D103
+    D104
+    D105
+    D106
+    D107
+    D108
+    D109
+    D110
+    D111
+    D112
+    D113
+*************************************************************
+
+*************************************************************
+Generating : Profile
+      File : Main_Board.GM
+
+
+Used DCodes :
+    D140
+*************************************************************
+

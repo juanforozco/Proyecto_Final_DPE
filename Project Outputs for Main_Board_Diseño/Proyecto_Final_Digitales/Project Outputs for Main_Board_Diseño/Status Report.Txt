@@ -1,0 +1,28 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [Main_Board_Diseño.PrjPcb]
+   Generated File[Main_Board.GTO]
+   Generated File[Main_Board.GTP]
+   Generated File[Main_Board.GTS]
+   Generated File[Main_Board.GTL]
+   Generated File[Main_Board.GP1]
+   Generated File[Main_Board.G1]
+   Generated File[Main_Board.GP2]
+   Generated File[Main_Board.G2]
+   Generated File[Main_Board.G3]
+   Generated File[Main_Board.GP3]
+   Generated File[Main_Board.G4]
+   Generated File[Main_Board.GP4]
+   Generated File[Main_Board.GBL]
+   Generated File[Main_Board.GBS]
+   Generated File[Main_Board.GBP]
+   Generated File[Main_Board.GBO]
+   Generated File[Main_Board.GM]
+   Generated File[Main_Board.EXTREP]
+   Generated File[Main_Board.REP]
+
+
+Files Generated   : 19
+Documents Printed : 0
+
+Finished Output Generation At 5:12:25 a. m. On 12/06/2026

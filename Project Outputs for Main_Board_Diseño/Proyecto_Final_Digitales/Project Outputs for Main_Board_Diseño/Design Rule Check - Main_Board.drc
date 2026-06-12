@@ -1,0 +1,655 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\Public\Documents\Altium\Proyecto_Final_Digitales\Main_Board.PcbDoc
+Date     : 11/06/2026
+Time     : 5:33:01 p. m.
+
+ERROR : More than 500 violations detected, DRC was stopped
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net Net*_7 Between Pad *-7(114mm,52mm) on L1_Top [Unplated] And Pad R78-1(190.348mm,62.026mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad *-9(113.45mm,50.7mm) on L1_Top [Unplated] And Pad *-8(113.45mm,51.2mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net BOOT_D6 Between Pad B1-7(141.326mm,100.979mm) on L1_Top [Unplated] And Pad B1-6(142.596mm,100.979mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net BOOT_D6 Between Pad B1-6(142.596mm,100.979mm) on L1_Top [Unplated] And Pad R42-1(160.63mm,92.76mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BOOT_D6 Between Pad U1-AR24(104.2mm,71.6mm) on L1_Top And Pad B1-7(141.326mm,100.979mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net NetB2_13 Between Pad B2-13(151.3mm,72.624mm) on L1_Top [Unplated] And Pad C126-1(176.378mm,19.879mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetB2_14 Between Pad B2-14(152.2mm,72.624mm) on L1_Top [Unplated] And Pad R54-2(213.589mm,20.746mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net WIFI_PWREN Between Pad U1-E20(105.8mm,84.4mm) on L1_Top And Pad B2-15(153.1mm,72.624mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net WIFI_SD_D1 Between Pad U1-E21(105.4mm,84.4mm) on L1_Top And Pad B2-22(159.4mm,72.624mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net NetB2_26 Between Pad L4-2(85.428mm,21.26mm) on L1_Top And Pad B2-26(163.438mm,74.312mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net NetB2_31 Between Pad R72-2(136.246mm,45.744mm) on L1_Top And Pad B2-31(163.438mm,78.812mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net NetB2_34 Between Pad B2-34(163.438mm,81.512mm) on L1_Top [Unplated] And Pad C132-1(207.112mm,45.035mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C100-1(36.678mm,93.041mm) on L1_Top And Pad C101-1(43.79mm,93.041mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C99-1(30.963mm,93.007mm) on L1_Top And Pad C100-1(36.678mm,93.041mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C101-1(43.79mm,93.041mm) on L1_Top And Pad C102-1(50.394mm,93.041mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C102-1(50.394mm,93.041mm) on L1_Top And Pad C103-1(57.506mm,93.041mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C103-1(57.506mm,93.041mm) on L1_Top And Pad C104-1(64.618mm,93.041mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C104-1(64.618mm,93.041mm) on L1_Top And Pad U1-H10(110mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C12-1(192.712mm,-7.129mm) on L1_Top And Pad C12-2(192.712mm,-6.502mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetB2_13 Between Pad C126-1(176.378mm,19.879mm) on L1_Top And Pad Y2-1(190.71mm,20.529mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad C134-1(172.695mm,44.944mm) on L1_Top And Pad C135-1(179.807mm,44.944mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Via (118.739mm,21.483mm) from L1_Top to L8_Bottom And Pad C134-1(172.695mm,44.944mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad C135-1(179.807mm,44.944mm) on L1_Top And Pad C136-1(186.919mm,44.944mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C32-1(200.127mm,139.598mm) on L1_Top And Pad C33-1(205.969mm,139.598mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C37-1(194.285mm,139.598mm) on L1_Top And Pad C32-1(200.127mm,139.598mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C33-1(205.969mm,139.598mm) on L1_Top And Pad C38-1(212mm,138mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C34-1(177.267mm,139.87mm) on L1_Top And Pad C35-1(183.109mm,139.87mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad J4-6(120mm,145mm) on L1_Top [Unplated] And Pad C34-1(177.267mm,139.87mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C35-1(183.109mm,139.87mm) on L1_Top And Pad C36-1(190mm,136.098mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C36-1(190mm,136.098mm) on L1_Top And Pad C37-1(194.285mm,139.598mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad C38-1(212mm,138mm) on L1_Top And Pad C39-1(218.034mm,139.904mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetC40_1 Between Pad C40-1(120.228mm,134.904mm) on L1_Top And Pad R28-1(165.456mm,139.623mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AK10(110mm,73.7mm) on L1_Top And Pad C97-1(275.374mm,-24.079mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad C98-1(25.565mm,93.65mm) on L1_Top And Pad C99-1(30.963mm,93.007mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetD1_1 Between Pad D2-1(120.449mm,-5.64mm) on L1_Top And Pad D1-1(155.501mm,-5.64mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetD1_1 Between Pad D1-1(155.501mm,-5.64mm) on L1_Top And Pad U2-8(184.522mm,58.242mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Pad D13-1(168.123mm,45.347mm) on L1_Top And Pad R69-1(193.777mm,44.811mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Pad R73-1(130.15mm,44.888mm) on L1_Top And Pad D13-1(168.123mm,45.347mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetC40_1 Between Pad D4-2(225mm,136mm) on L1_Top And Pad R26-1(228.575mm,139.904mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetC40_1 Between Pad R28-1(165.456mm,139.623mm) on L1_Top And Pad D4-2(225mm,136mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net CSI_A_D0P Between Pad J2-15(72mm,145mm) on L1_Top [Unplated] And Pad U1-C32(100.9mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net CSI_A_CLKN Between Pad J2-17(73mm,145mm) on L1_Top [Unplated] And Pad U1-A32(100.9mm,86mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDDIO_1V8 Between Pad J2-25(77mm,145mm) on L1_Top [Unplated] And Pad J4-9(121.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J2-26(77.5mm,145mm) on L1_Top [Unplated] And Pad J2-27(78mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net CSI_A_D2N Between Pad J2-5(67mm,145mm) on L1_Top [Unplated] And Pad U1-B31(101.3mm,85.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net MIPI_DSI_D3N Between Pad J3-2(88.5mm,145mm) on L1_Top [Unplated] And Pad U1-AU18(106.6mm,70.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net LCD_RESET Between Pad J3-20(97.5mm,145mm) on L1_Top [Unplated] And Pad U1-AR21(105.4mm,71.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J3-22(98.5mm,145mm) on L1_Top [Unplated] And Pad J3-23(99mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J3-23(99mm,145mm) on L1_Top [Unplated] And Pad J3-24(99.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J3-24(99.5mm,145mm) on L1_Top [Unplated] And Pad J3-25(100mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad J3-26(100.5mm,145mm) on L1_Top [Unplated] And Pad J3-27(101mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad J3-27(101mm,145mm) on L1_Top [Unplated] And Pad J3-28(101.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad J3-28(101.5mm,145mm) on L1_Top [Unplated] And Pad J3-29(102mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad J3-29(102mm,145mm) on L1_Top [Unplated] And Pad J3-30(102.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad J3-30(102.5mm,145mm) on L1_Top [Unplated] And Via (118.739mm,21.483mm) from L1_Top to L8_Bottom 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-H10(110mm,83.2mm) on L1_Top And Pad J4-24(129mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net PWR_EN Between Pad J4-26(130mm,145mm) on L1_Top [Unplated] And Pad R58-1(164.694mm,20.143mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J4-27(130.5mm,145mm) on L1_Top [Unplated] And Pad J4-28(131mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J4-28(131mm,145mm) on L1_Top [Unplated] And Pad J4-29(131.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J4-29(131.5mm,145mm) on L1_Top [Unplated] And Pad J4-30(132mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M18(106.6mm,81.5mm) on L1_Top And Pad J4-6(120mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net VDDGPU_PWM Between Pad U1-C15(107.8mm,85.2mm) on L1_Top And Pad J4-7(120.5mm,145mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net VDDIO_1V8 Between Pad J4-9(121.5mm,145mm) on L1_Top [Unplated] And Pad L2-2(212.506mm,-5.926mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Pad J5-1(123.524mm,25.04mm) on L1_Top [Unplated] And Pad J5-2(124.724mm,25.04mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Pad R74-1(124.435mm,45.035mm) on L1_Top And Pad J5-2(124.724mm,25.04mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Via (117.939mm,20.783mm) from L1_Top to L8_Bottom And Pad J5-2(124.724mm,25.04mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net NetJ6_2 Between Pad R70-2(214.224mm,45.263mm) on L1_Top And Pad J6-2(228.128mm,47.403mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDDIO_M Between Pad L3-1(204.032mm,-5.926mm) on L1_Top And Pad L2-1(210.255mm,-5.926mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDDIO_M Between Pad U1-L25(103.5mm,81.9mm) on L1_Top And Pad L3-1(204.032mm,-5.926mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net MCU_BOOT_CTRL Between Pad Q2-1(45.076mm,123.048mm) on L1_Top And Pad R39-1(281.915mm,92.76mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetQ3_3 Between Pad Q3-3(198.968mm,-23.571mm) on L1_Top And Pad R44-2(262.865mm,-24.085mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetR1_1 Between Pad U1-B15(107.8mm,85.6mm) on L1_Top And Pad R1-1(313.769mm,-6.942mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net RTC_INT Between Pad R14-1(172.519mm,-7.324mm) on L1_Top And Pad U2-3(179.222mm,55.702mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net RTC_CLK Between Pad R15-2(148.897mm,-6.815mm) on L1_Top And Pad U2-7(184.522mm,56.972mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDDCPU_B_EN Between Pad U1-F14(108.2mm,84mm) on L1_Top And Pad R2-2(289.332mm,-6.942mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetR4_2 Between Pad U1-A15(107.8mm,86mm) on L1_Top And Pad R4-2(275.997mm,-6.942mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BOOT_D6 Between Pad R42-1(160.63mm,92.76mm) on L1_Top And Pad R43-1(268.707mm,-24.835mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BOOT_CLK Between Pad U5-M6(87.5mm,81.5mm) on L1_Top And Pad R44-1(262.865mm,-24.835mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net SDIO_CLK Between Pad U1-A21(105.4mm,86mm) on L1_Top And Pad R5-2(252.783mm,-6.942mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BT_WAKE_HOST Between Pad U1-E17(107mm,84.4mm) on L1_Top And Pad R52-2(225.273mm,20.746mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDDIO_LX Between Pad R61-1(131.674mm,19.862mm) on L1_Top And Pad R62-1(137.008mm,19.862mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetR69_2 Between Pad R71-2(148.946mm,45.638mm) on L1_Top And Pad R69-2(193.777mm,45.461mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net FAN_PWM Between Pad R70-1(214.224mm,44.754mm) on L1_Top And Pad U10-1(261mm,57mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net FAN_PWM Between Pad U3-19(76.7mm,78mm) on L1_Top And Pad R70-1(214.224mm,44.754mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetR69_2 Between Pad U7-4(118.089mm,19.983mm) on L1_Top And Pad R71-2(148.946mm,45.638mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN_VIN Between Pad R74-1(124.435mm,45.035mm) on L1_Top And Pad R73-1(130.15mm,44.888mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DCIN Between Pad R79-2(105.258mm,20.371mm) on L1_Top And Via (118.739mm,21.483mm) from L1_Top to L8_Bottom 
+   Violation between Un-Routed Net Constraint: Net NetU9_4 Between Pad U9-4(167.9mm,7mm) on L1_Top And Pad U10-2(264.3mm,57mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net I2S_SCLK1 Between Pad U12-16(86.685mm,95.185mm) on L1_Top And Pad U1-P33(100.5mm,80.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net NetU13_2 Between Pad U13-2(235.55mm,144.35mm) on L1_Top And Pad U18-4(261mm,104.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net PDM_DCLK Between Pad U15-3(175.577mm,62.813mm) on L1_Top And Pad U16-3(181.292mm,62.813mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net PDM_DCLK Between Pad U1-J32(100.9mm,82.4mm) on L1_Top And Pad U15-3(175.577mm,62.813mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-B6(111.5mm,85.6mm) on L1_Top And Pad U1-A5(111.9mm,86mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AC11(109.6mm,76.7mm) on L1_Top And Pad U1-AA10(110mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-Y11(109.6mm,78mm) on L1_Top And Pad U1-AA10(110mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB11(109.6mm,77.2mm) on L1_Top And Pad U1-AA11(109.6mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB14(108.3mm,77.2mm) on L1_Top And Pad U1-AA14(108.3mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AA14(108.3mm,77.6mm) on L1_Top And Pad U1-Y14(108.3mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB17(107mm,77.2mm) on L1_Top And Pad U1-AA17(107mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB18(106.6mm,77.2mm) on L1_Top And Pad U1-AA18(106.6mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AA18(106.6mm,77.6mm) on L1_Top And Pad U1-Y18(106.6mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB26(103.1mm,77.2mm) on L1_Top And Pad U1-AA26(103.1mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AA26(103.1mm,77.6mm) on L1_Top And Pad U1-Y26(103.1mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB5(111.9mm,77.2mm) on L1_Top And Pad U1-AA5(111.9mm,77.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AA5(111.9mm,77.6mm) on L1_Top And Pad U1-Y5(111.9mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AA9(110.5mm,77.6mm) on L1_Top And Pad U1-Y9(110.5mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB11(109.6mm,77.2mm) on L1_Top And Pad U1-AB10(110mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC10(110mm,76.7mm) on L1_Top And Pad U1-AB10(110mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB10(110mm,77.2mm) on L1_Top And Pad U1-Y10(110mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB14(108.3mm,77.2mm) on L1_Top And Pad U1-AB13(108.7mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC14(108.3mm,76.7mm) on L1_Top And Pad U1-AB14(108.3mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB17(107mm,77.2mm) on L1_Top And Pad U1-AB16(107.4mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB18(106.6mm,77.2mm) on L1_Top And Pad U1-AB17(107mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC18(106.6mm,76.7mm) on L1_Top And Pad U1-AB18(106.6mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AB2(113.1mm,77.2mm) on L1_Top And Pad U1-AC1(113.5mm,76.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC20(105.7mm,76.7mm) on L1_Top And Pad U1-AB20(105.7mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC22(104.8mm,76.7mm) on L1_Top And Pad U1-AB22(104.8mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC24(104mm,76.7mm) on L1_Top And Pad U1-AB24(104mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD5(111.9mm,76.4mm) on L1_Top And Pad U1-AB5(111.9mm,77.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC10(110mm,76.7mm) on L1_Top And Pad U1-AC9(110.5mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AC11(109.6mm,76.7mm) on L1_Top And Pad U1-AD10(110mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD14(108.3mm,76.3mm) on L1_Top And Pad U1-AC14(108.3mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC18(106.6mm,76.7mm) on L1_Top And Pad U1-AC17(107mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD17(107mm,76.3mm) on L1_Top And Pad U1-AC17(107mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC19(106.1mm,76.7mm) on L1_Top And Pad U1-AC18(106.6mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC20(105.7mm,76.7mm) on L1_Top And Pad U1-AC19(106.1mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD19(106.1mm,76.3mm) on L1_Top And Pad U1-AC19(106.1mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ23 Between Pad U1-AC2(113.1mm,76.8mm) on L1_Top And Pad U4-Y4(124.2mm,72.75mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC21(105.3mm,76.7mm) on L1_Top And Pad U1-AC20(105.7mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC22(104.8mm,76.7mm) on L1_Top And Pad U1-AC21(105.3mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC23(104.4mm,76.7mm) on L1_Top And Pad U1-AC22(104.8mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD22(104.8mm,76.3mm) on L1_Top And Pad U1-AC22(104.8mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC24(104mm,76.7mm) on L1_Top And Pad U1-AC23(104.4mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC25(103.5mm,76.7mm) on L1_Top And Pad U1-AC24(104mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD24(104mm,76.3mm) on L1_Top And Pad U1-AC24(104mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC26(103.1mm,76.7mm) on L1_Top And Pad U1-AC25(103.5mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD25(103.5mm,76.3mm) on L1_Top And Pad U1-AC25(103.5mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AC9(110.5mm,76.7mm) on L1_Top And Pad U1-AC8(110.9mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD9(110.5mm,76.3mm) on L1_Top And Pad U1-AC9(110.5mm,76.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AD10(110mm,76.3mm) on L1_Top And Pad U1-AE8(110.9mm,75.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AF11(109.6mm,75.4mm) on L1_Top And Pad U1-AD10(110mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AE11(109.6mm,75.9mm) on L1_Top And Pad U1-AD11(109.6mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD14(108.3mm,76.3mm) on L1_Top And Pad U1-AD13(108.7mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AE14(108.3mm,75.9mm) on L1_Top And Pad U1-AD14(108.3mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AD17(107mm,76.3mm) on L1_Top And Pad U1-AD16(107.4mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AE17(107mm,75.9mm) on L1_Top And Pad U1-AD17(107mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ21 Between Pad U1-AD2(113.1mm,76.4mm) on L1_Top And Pad U4-AA2(122.6mm,72.1mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AE24(104mm,75.9mm) on L1_Top And Pad U1-AD24(104mm,76.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF5(111.9mm,75.6mm) on L1_Top And Pad U1-AD5(111.9mm,76.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ19 Between Pad U1-AE1(113.5mm,76mm) on L1_Top And Pad U4-Y2(122.6mm,72.75mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AE11(109.6mm,75.9mm) on L1_Top And Pad U1-AE10(110mm,75.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF10(110mm,75.4mm) on L1_Top And Pad U1-AE10(110mm,75.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF14(108.3mm,75.4mm) on L1_Top And Pad U1-AE14(108.3mm,75.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF24(104mm,75.4mm) on L1_Top And Pad U1-AE24(104mm,75.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ22 Between Pad U1-AE3(112.7mm,76mm) on L1_Top And Pad U4-V2(122.6mm,74.05mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DDR1_CAB3 Between Pad U1-AE5(111.9mm,76mm) on L1_Top And Pad U4-R10(129mm,76mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF10(110mm,75.4mm) on L1_Top And Pad U1-AF9(110.5mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AF11(109.6mm,75.4mm) on L1_Top And Pad U1-AG10(110mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF14(108.3mm,75.4mm) on L1_Top And Pad U1-AF13(108.7mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF15(107.9mm,75.4mm) on L1_Top And Pad U1-AF14(108.3mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG14(108.3mm,75mm) on L1_Top And Pad U1-AF14(108.3mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF17(107mm,75.4mm) on L1_Top And Pad U1-AF16(107.4mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF18(106.6mm,75.4mm) on L1_Top And Pad U1-AF17(107mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF19(106.1mm,75.4mm) on L1_Top And Pad U1-AF18(106.6mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG18(106.6mm,75mm) on L1_Top And Pad U1-AF18(106.6mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF20(105.7mm,75.4mm) on L1_Top And Pad U1-AF19(106.1mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ17 Between Pad U1-AF2(113.1mm,75.6mm) on L1_Top And Pad U4-V4(124.2mm,74.05mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF21(105.3mm,75.4mm) on L1_Top And Pad U1-AF20(105.7mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG20(105.7mm,75mm) on L1_Top And Pad U1-AF20(105.7mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF22(104.8mm,75.4mm) on L1_Top And Pad U1-AF21(105.3mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF23(104.4mm,75.4mm) on L1_Top And Pad U1-AF22(104.8mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG22(104.8mm,75mm) on L1_Top And Pad U1-AF22(104.8mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF24(104mm,75.4mm) on L1_Top And Pad U1-AF23(104.4mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF25(103.5mm,75.4mm) on L1_Top And Pad U1-AF24(104mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG24(104mm,75mm) on L1_Top And Pad U1-AF24(104mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF26(103.1mm,75.4mm) on L1_Top And Pad U1-AF25(103.5mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG25(103.5mm,75mm) on L1_Top And Pad U1-AF25(103.5mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQM2 Between Pad U1-AF3(112.7mm,75.6mm) on L1_Top And Pad U4-Y3(123.4mm,72.75mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH5(111.9mm,74.8mm) on L1_Top And Pad U1-AF5(111.9mm,75.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AF9(110.5mm,75.4mm) on L1_Top And Pad U1-AF8(110.9mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG9(110.5mm,75mm) on L1_Top And Pad U1-AF9(110.5mm,75.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AJ11(109.6mm,74.1mm) on L1_Top And Pad U1-AG10(110mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH11(109.6mm,74.6mm) on L1_Top And Pad U1-AG11(109.6mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG15(107.9mm,75mm) on L1_Top And Pad U1-AG14(108.3mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH14(108.3mm,74.6mm) on L1_Top And Pad U1-AG14(108.3mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH15(107.9mm,74.6mm) on L1_Top And Pad U1-AG15(107.9mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG17(107mm,75mm) on L1_Top And Pad U1-AG16(107.4mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH16(107.4mm,74.6mm) on L1_Top And Pad U1-AG16(107.4mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH18(106.6mm,74.6mm) on L1_Top And Pad U1-AG18(106.6mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ18 Between Pad U1-AG2(113.1mm,75.2mm) on L1_Top And Pad U4-U4(124.2mm,74.7mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH24(104mm,74.6mm) on L1_Top And Pad U1-AG24(104mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG26(103.1mm,75mm) on L1_Top And Pad U1-AG25(103.5mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH26(103.1mm,74.6mm) on L1_Top And Pad U1-AG26(103.1mm,75mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_CAB4 Between Pad U1-AG5(111.9mm,75.2mm) on L1_Top And Pad U4-R11(129.8mm,76mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AG9(110.5mm,75mm) on L1_Top And Pad U1-AH8(110.9mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH11(109.6mm,74.6mm) on L1_Top And Pad U1-AH10(110mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ10(110mm,74.1mm) on L1_Top And Pad U1-AH10(110mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH12(109.2mm,74.6mm) on L1_Top And Pad U1-AH11(109.6mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH13(108.7mm,74.6mm) on L1_Top And Pad U1-AH12(109.2mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ12(109.2mm,74.1mm) on L1_Top And Pad U1-AH12(109.2mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH14(108.3mm,74.6mm) on L1_Top And Pad U1-AH13(108.7mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH16(107.4mm,74.6mm) on L1_Top And Pad U1-AH15(107.9mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH17(107mm,74.6mm) on L1_Top And Pad U1-AH16(107.4mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH18(106.6mm,74.6mm) on L1_Top And Pad U1-AH17(107mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ18(106.6mm,74.1mm) on L1_Top And Pad U1-AH18(106.6mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AH2(113.1mm,74.8mm) on L1_Top And Pad U1-AJ1(113.5mm,74.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ5(111.9mm,74.4mm) on L1_Top And Pad U1-AH5(111.9mm,74.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ8(110.9mm,74.1mm) on L1_Top And Pad U1-AH8(110.9mm,74.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ10(110mm,74.1mm) on L1_Top And Pad U1-AJ9(110.5mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-AJ11(109.6mm,74.1mm) on L1_Top And Pad U1-AK10(110mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK12(109.2mm,73.7mm) on L1_Top And Pad U1-AJ12(109.2mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK16(107.4mm,73.7mm) on L1_Top And Pad U1-AJ16(107.4mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ19(106.1mm,74.1mm) on L1_Top And Pad U1-AJ18(106.6mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ20(105.7mm,74.1mm) on L1_Top And Pad U1-AJ19(106.1mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK19(106.1mm,73.7mm) on L1_Top And Pad U1-AJ19(106.1mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_CSB1 Between Pad U1-AJ2(113.1mm,74.4mm) on L1_Top And Pad U4-R3(123.4mm,76mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ23(104.4mm,74.1mm) on L1_Top And Pad U1-AJ22(104.8mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK22(104.8mm,73.7mm) on L1_Top And Pad U1-AJ22(104.8mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ24(104mm,74.1mm) on L1_Top And Pad U1-AJ23(104.4mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ25(103.5mm,74.1mm) on L1_Top And Pad U1-AJ24(104mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ31(101.3mm,74.4mm) on L1_Top And Pad U1-AJ29(102.1mm,74.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_CAB1 Between Pad U1-AJ3(112.7mm,74.4mm) on L1_Top And Pad U4-P2(122.6mm,76.65mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK5(111.9mm,74mm) on L1_Top And Pad U1-AJ5(111.9mm,74.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AJ9(110.5mm,74.1mm) on L1_Top And Pad U1-AJ8(110.9mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK9(110.5mm,73.7mm) on L1_Top And Pad U1-AJ9(110.5mm,74.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK12(109.2mm,73.7mm) on L1_Top And Pad U1-AK11(109.6mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL12(109.2mm,73.3mm) on L1_Top And Pad U1-AK12(109.2mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL14(108.3mm,73.3mm) on L1_Top And Pad U1-AK14(108.3mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK16(107.4mm,73.7mm) on L1_Top And Pad U1-AK15(107.9mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL15(107.9mm,73.3mm) on L1_Top And Pad U1-AK15(107.9mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK17(107mm,73.7mm) on L1_Top And Pad U1-AK16(107.4mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL18(106.6mm,73.3mm) on L1_Top And Pad U1-AK17(107mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK20(105.7mm,73.7mm) on L1_Top And Pad U1-AK19(106.1mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL20(105.7mm,73.3mm) on L1_Top And Pad U1-AK20(105.7mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK22(104.8mm,73.7mm) on L1_Top And Pad U1-AK21(105.3mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL21(105.3mm,73.3mm) on L1_Top And Pad U1-AK21(105.3mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL22(104.8mm,73.3mm) on L1_Top And Pad U1-AK22(104.8mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL26(103.1mm,73.3mm) on L1_Top And Pad U1-AK26(103.1mm,73.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AK9(110.5mm,73.7mm) on L1_Top And Pad U1-AL8(110.9mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL10(110mm,73.3mm) on L1_Top And Pad U1-AM9(110.2mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL13(108.7mm,73.3mm) on L1_Top And Pad U1-AL12(109.2mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL12(109.2mm,73.3mm) on L1_Top And Pad U1-AM11(109.4mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL14(108.3mm,73.3mm) on L1_Top And Pad U1-AL13(108.7mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL15(107.9mm,73.3mm) on L1_Top And Pad U1-AL14(108.3mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AM2(113.1mm,72.8mm) on L1_Top And Pad U1-AL2(113.1mm,73.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL21(105.3mm,73.3mm) on L1_Top And Pad U1-AL20(105.7mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL23(104.4mm,73.3mm) on L1_Top And Pad U1-AL22(104.8mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL24(104mm,73.3mm) on L1_Top And Pad U1-AL23(104.4mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AL26(103.1mm,73.3mm) on L1_Top And Pad U1-AM26(103.4mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AM8(110.6mm,72.8mm) on L1_Top And Pad U1-AL8(110.9mm,73.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AP2(113.1mm,72mm) on L1_Top And Pad U1-AM2(113.1mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BOOT_D3 Between Pad U5-B2(89.5mm,76.5mm) on L1_Top And Pad U1-AM21(105.4mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN26(103.4mm,72.4mm) on L1_Top And Pad U1-AM26(103.4mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AM31(101.3mm,72.8mm) on L1_Top And Pad U1-AM29(102.1mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN29(102.1mm,72.4mm) on L1_Top And Pad U1-AM29(102.1mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_CAA4 Between Pad U1-AM3(112.7mm,72.8mm) on L1_Top And Pad U4-H11(129.8mm,80.55mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AM33(100.5mm,72.8mm) on L1_Top And Pad U1-AM31(101.3mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AP31(101.3mm,72mm) on L1_Top And Pad U1-AM31(101.3mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN5(111.9mm,72.4mm) on L1_Top And Pad U1-AM5(111.9mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AM9(110.2mm,72.8mm) on L1_Top And Pad U1-AM8(110.6mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN9(110.2mm,72.4mm) on L1_Top And Pad U1-AM9(110.2mm,72.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR13(108.6mm,71.6mm) on L1_Top And Pad U1-AN13(108.6mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN17(107mm,72.4mm) on L1_Top And Pad U1-AN16(107.4mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR16(107.4mm,71.6mm) on L1_Top And Pad U1-AN16(107.4mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN19(106.2mm,72.4mm) on L1_Top And Pad U1-AN17(107mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR19(106.2mm,71.6mm) on L1_Top And Pad U1-AN19(106.2mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_CAA2 Between Pad U1-AN2(113.1mm,72.4mm) on L1_Top And Pad U4-H9(128.2mm,80.55mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR22(105mm,71.6mm) on L1_Top And Pad U1-AN22(105mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AN26(103.4mm,72.4mm) on L1_Top And Pad U1-AN25(103.8mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR25(103.8mm,71.6mm) on L1_Top And Pad U1-AN25(103.8mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AP10(109.8mm,72mm) on L1_Top And Pad U1-AN9(110.2mm,72.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR10(109.8mm,71.6mm) on L1_Top And Pad U1-AP10(109.8mm,72mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AT31(101.3mm,71.2mm) on L1_Top And Pad U1-AP31(101.3mm,72mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ3 Between Pad U1-AP6(111.5mm,72mm) on L1_Top And Pad U4-B4(124.2mm,84.45mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQM1 Between Pad U1-AP7(111mm,72mm) on L1_Top And Pad U4-C10(129mm,83.8mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR10(109.8mm,71.6mm) on L1_Top And Pad U1-AT9(110.2mm,71.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AU10(109.8mm,70.8mm) on L1_Top And Pad U1-AR10(109.8mm,71.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AR13(108.6mm,71.6mm) on L1_Top And Pad U1-AT12(109mm,71.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-AT20(105.8mm,71.2mm) on L1_Top And Pad U1-AR19(106.2mm,71.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net BOOT_D6 Between Pad U5-B5(88mm,76.5mm) on L1_Top And Pad U1-AR24(104.2mm,71.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ10 Between Pad U1-AR9(110.2mm,71.6mm) on L1_Top And Pad U4-B9(128.2mm,84.45mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-C11(109.4mm,85.2mm) on L1_Top And Pad U1-B11(109.4mm,85.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-B17(107mm,85.6mm) on L1_Top And Pad U1-C16(107.4mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-B26(103.4mm,85.6mm) on L1_Top And Pad U1-C25(103.8mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-B3(112.7mm,85.6mm) on L1_Top And Pad U1-C2(113.1mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-C9(110.2mm,85.2mm) on L1_Top And Pad U1-B8(110.6mm,85.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-C13(108.6mm,85.2mm) on L1_Top And Pad U1-C11(109.4mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-C11(109.4mm,85.2mm) on L1_Top And Pad U1-C9(110.2mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-D11(109.4mm,84.8mm) on L1_Top And Pad U1-C11(109.4mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E13(108.6mm,84.4mm) on L1_Top And Pad U1-C13(108.6mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E25(103.8mm,84.4mm) on L1_Top And Pad U1-C25(103.8mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E9(110.2mm,84.4mm) on L1_Top And Pad U1-C9(110.2mm,85.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E10(109.8mm,84.4mm) on L1_Top And Pad U1-E9(110.2mm,84.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-F23(104.6mm,84mm) on L1_Top And Pad U1-E22(105mm,84.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E26(103.4mm,84.4mm) on L1_Top And Pad U1-E25(103.8mm,84.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-F26(103.4mm,84mm) on L1_Top And Pad U1-E26(103.4mm,84.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-E9(110.2mm,84.4mm) on L1_Top And Pad U1-E7(111mm,84.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-F23(104.6mm,84mm) on L1_Top And Pad U1-G22(104.8mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-F26(103.4mm,84mm) on L1_Top And Pad U1-G25(103.5mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G8(110.9mm,83.6mm) on L1_Top And Pad U1-F6(111.5mm,83.7mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G11(109.6mm,83.6mm) on L1_Top And Pad U1-G10(110mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H11(109.6mm,83.2mm) on L1_Top And Pad U1-G11(109.6mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G14(108.3mm,83.6mm) on L1_Top And Pad U1-G13(108.7mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G15(107.9mm,83.6mm) on L1_Top And Pad U1-G14(108.3mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H14(108.3mm,83.2mm) on L1_Top And Pad U1-G14(108.3mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H17(107mm,83.2mm) on L1_Top And Pad U1-G17(107mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G20(105.7mm,83.6mm) on L1_Top And Pad U1-G19(106.1mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H19(106.1mm,83.2mm) on L1_Top And Pad U1-G19(106.1mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G23(104.4mm,83.6mm) on L1_Top And Pad U1-G22(104.8mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G24(104mm,83.6mm) on L1_Top And Pad U1-G23(104.4mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H23(104.4mm,83.2mm) on L1_Top And Pad U1-G23(104.4mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G25(103.5mm,83.6mm) on L1_Top And Pad U1-G24(104mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-G26(103.1mm,83.6mm) on L1_Top And Pad U1-G25(103.5mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H26(103.1mm,83.2mm) on L1_Top And Pad U1-G26(103.1mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J8(110.9mm,82.8mm) on L1_Top And Pad U1-G8(110.9mm,83.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-J11(109.6mm,82.8mm) on L1_Top And Pad U1-H10(110mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H11(109.6mm,83.2mm) on L1_Top And Pad U1-J10(110mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J14(108.3mm,82.8mm) on L1_Top And Pad U1-H14(108.3mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J17(107mm,82.8mm) on L1_Top And Pad U1-H17(107mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H19(106.1mm,83.2mm) on L1_Top And Pad U1-H18(106.6mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J18(106.6mm,82.8mm) on L1_Top And Pad U1-H18(106.6mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-H20(105.7mm,83.2mm) on L1_Top And Pad U1-H19(106.1mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J23(104.4mm,82.8mm) on L1_Top And Pad U1-H23(104.4mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J26(103.1mm,82.8mm) on L1_Top And Pad U1-H26(103.1mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J9(110.5mm,82.8mm) on L1_Top And Pad U1-H9(110.5mm,83.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J10(110mm,82.8mm) on L1_Top And Pad U1-J9(110.5mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K10(110mm,82.4mm) on L1_Top And Pad U1-J10(110mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-J11(109.6mm,82.8mm) on L1_Top And Pad U1-L10(110mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J14(108.3mm,82.8mm) on L1_Top And Pad U1-J13(108.7mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K14(108.3mm,82.4mm) on L1_Top And Pad U1-J14(108.3mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J17(107mm,82.8mm) on L1_Top And Pad U1-J16(107.4mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J18(106.6mm,82.8mm) on L1_Top And Pad U1-J17(107mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K18(106.6mm,82.4mm) on L1_Top And Pad U1-J18(106.6mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J22(104.8mm,82.8mm) on L1_Top And Pad U1-J21(105.3mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K22(104.8mm,82.4mm) on L1_Top And Pad U1-J22(104.8mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J24(104mm,82.8mm) on L1_Top And Pad U1-J23(104.4mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K23(104.4mm,82.4mm) on L1_Top And Pad U1-J23(104.4mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K26(103.1mm,82.4mm) on L1_Top And Pad U1-J26(103.1mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-J9(110.5mm,82.8mm) on L1_Top And Pad U1-J8(110.9mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K8(110.9mm,82.4mm) on L1_Top And Pad U1-J8(110.9mm,82.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K11(109.6mm,82.4mm) on L1_Top And Pad U1-K10(110mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L11(109.6mm,81.9mm) on L1_Top And Pad U1-K11(109.6mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L14(108.3mm,81.9mm) on L1_Top And Pad U1-K14(108.3mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L18(106.6mm,81.9mm) on L1_Top And Pad U1-K18(106.6mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K23(104.4mm,82.4mm) on L1_Top And Pad U1-K22(104.8mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L23(104.4mm,81.9mm) on L1_Top And Pad U1-K23(104.4mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-K26(103.1mm,82.4mm) on L1_Top And Pad U1-K25(103.5mm,82.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-M11(109.6mm,81.5mm) on L1_Top And Pad U1-L10(110mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L11(109.6mm,81.9mm) on L1_Top And Pad U1-M10(110mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L14(108.3mm,81.9mm) on L1_Top And Pad U1-L13(108.7mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M14(108.3mm,81.5mm) on L1_Top And Pad U1-L14(108.3mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N16(107.4mm,81.1mm) on L1_Top And Pad U1-L16(107.4mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L19(106.1mm,81.9mm) on L1_Top And Pad U1-L18(106.6mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L20(105.7mm,81.9mm) on L1_Top And Pad U1-L19(106.1mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N19(106.1mm,81.1mm) on L1_Top And Pad U1-L19(106.1mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L21(105.3mm,81.9mm) on L1_Top And Pad U1-L20(105.7mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L24(104mm,81.9mm) on L1_Top And Pad U1-L23(104.4mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M24(104mm,81.5mm) on L1_Top And Pad U1-L24(104mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M26(103.1mm,81.5mm) on L1_Top And Pad U1-L26(103.1mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-L31(101.3mm,81.6mm) on L1_Top And Pad U1-L29(102.1mm,81.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M9(110.5mm,81.5mm) on L1_Top And Pad U1-L9(110.5mm,81.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M10(110mm,81.5mm) on L1_Top And Pad U1-M9(110.5mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N10(110mm,81.1mm) on L1_Top And Pad U1-M10(110mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-R11(109.6mm,80.2mm) on L1_Top And Pad U1-M11(109.6mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N14(108.3mm,81.1mm) on L1_Top And Pad U1-M14(108.3mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N17(107mm,81.1mm) on L1_Top And Pad U1-M17(107mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M19(106.1mm,81.5mm) on L1_Top And Pad U1-M18(106.6mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-N18(106.6mm,81.1mm) on L1_Top And Pad U1-M18(106.6mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M20(105.7mm,81.5mm) on L1_Top And Pad U1-M19(106.1mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M21(105.3mm,81.5mm) on L1_Top And Pad U1-M20(105.7mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-N20(105.7mm,81.1mm) on L1_Top And Pad U1-M20(105.7mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M22(104.8mm,81.5mm) on L1_Top And Pad U1-M21(105.3mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-M23(104.4mm,81.5mm) on L1_Top And Pad U1-M22(104.8mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-N22(104.8mm,81.1mm) on L1_Top And Pad U1-M22(104.8mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N24(104mm,81.1mm) on L1_Top And Pad U1-M24(104mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N26(103.1mm,81.1mm) on L1_Top And Pad U1-M26(103.1mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-M9(110.5mm,81.5mm) on L1_Top And Pad U1-M8(110.9mm,81.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N11(109.6mm,81.1mm) on L1_Top And Pad U1-N10(110mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P11(109.6mm,80.6mm) on L1_Top And Pad U1-N11(109.6mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N14(108.3mm,81.1mm) on L1_Top And Pad U1-N13(108.7mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P14(108.3mm,80.6mm) on L1_Top And Pad U1-N14(108.3mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N17(107mm,81.1mm) on L1_Top And Pad U1-N16(107.4mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P17(107mm,80.6mm) on L1_Top And Pad U1-N17(107mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R18(106.6mm,80.2mm) on L1_Top And Pad U1-N18(106.6mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P19(106.1mm,80.6mm) on L1_Top And Pad U1-N19(106.1mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P21(105.3mm,80.6mm) on L1_Top And Pad U1-N21(105.3mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N24(104mm,81.1mm) on L1_Top And Pad U1-N23(104.4mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P23(104.4mm,80.6mm) on L1_Top And Pad U1-N23(104.4mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N25(103.5mm,81.1mm) on L1_Top And Pad U1-N24(104mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N26(103.1mm,81.1mm) on L1_Top And Pad U1-N25(103.5mm,81.1mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-N6(111.5mm,80.8mm) on L1_Top And Pad U1-P5(111.9mm,80.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-R11(109.6mm,80.2mm) on L1_Top And Pad U1-P10(110mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P11(109.6mm,80.6mm) on L1_Top And Pad U1-R10(110mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R14(108.3mm,80.2mm) on L1_Top And Pad U1-P14(108.3mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P18(106.6mm,80.6mm) on L1_Top And Pad U1-P17(107mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R17(107mm,80.2mm) on L1_Top And Pad U1-P17(107mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P19(106.1mm,80.6mm) on L1_Top And Pad U1-P18(106.6mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P20(105.7mm,80.6mm) on L1_Top And Pad U1-P19(106.1mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P21(105.3mm,80.6mm) on L1_Top And Pad U1-P20(105.7mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P22(104.8mm,80.6mm) on L1_Top And Pad U1-P21(105.3mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P23(104.4mm,80.6mm) on L1_Top And Pad U1-P22(104.8mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-P24(104mm,80.6mm) on L1_Top And Pad U1-R23(104.4mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-P26(103.1mm,80.6mm) on L1_Top And Pad U1-P25(103.5mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R26(103.1mm,80.2mm) on L1_Top And Pad U1-P26(103.1mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R5(111.9mm,80mm) on L1_Top And Pad U1-P5(111.9mm,80.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R9(110.5mm,80.2mm) on L1_Top And Pad U1-P9(110.5mm,80.6mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R10(110mm,80.2mm) on L1_Top And Pad U1-R9(110.5mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T10(110mm,79.8mm) on L1_Top And Pad U1-R10(110mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-R11(109.6mm,80.2mm) on L1_Top And Pad U1-U10(110mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R14(108.3mm,80.2mm) on L1_Top And Pad U1-R13(108.7mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T14(108.3mm,79.8mm) on L1_Top And Pad U1-R14(108.3mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R17(107mm,80.2mm) on L1_Top And Pad U1-R16(107.4mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T17(107mm,79.8mm) on L1_Top And Pad U1-R17(107mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R19(106.1mm,80.2mm) on L1_Top And Pad U1-R18(106.6mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-T18(106.6mm,79.8mm) on L1_Top And Pad U1-R18(106.6mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R20(105.7mm,80.2mm) on L1_Top And Pad U1-R19(106.1mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R21(105.3mm,80.2mm) on L1_Top And Pad U1-R20(105.7mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-T20(105.7mm,79.8mm) on L1_Top And Pad U1-R20(105.7mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R22(104.8mm,80.2mm) on L1_Top And Pad U1-R21(105.3mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-R23(104.4mm,80.2mm) on L1_Top And Pad U1-R22(104.8mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Pad U1-T22(104.8mm,79.8mm) on L1_Top And Pad U1-R22(104.8mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T24(104mm,79.8mm) on L1_Top And Pad U1-R24(104mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T26(103.1mm,79.8mm) on L1_Top And Pad U1-R26(103.1mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T5(111.9mm,79.6mm) on L1_Top And Pad U1-R5(111.9mm,80mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-R9(110.5mm,80.2mm) on L1_Top And Pad U1-R8(110.9mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T8(110.9mm,79.8mm) on L1_Top And Pad U1-R8(110.9mm,80.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T11(109.6mm,79.8mm) on L1_Top And Pad U1-T10(110mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U11(109.6mm,79.3mm) on L1_Top And Pad U1-T11(109.6mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U14(108.3mm,79.3mm) on L1_Top And Pad U1-T14(108.3mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U17(107mm,79.3mm) on L1_Top And Pad U1-T17(107mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U19(106.1mm,79.3mm) on L1_Top And Pad U1-T19(106.1mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T2(113.1mm,79.6mm) on L1_Top And Pad U1-U1(113.5mm,79.2mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U21(105.3mm,79.3mm) on L1_Top And Pad U1-T21(105.3mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T24(104mm,79.8mm) on L1_Top And Pad U1-T23(104.4mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U23(104.4mm,79.3mm) on L1_Top And Pad U1-T23(104.4mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-T26(103.1mm,79.8mm) on L1_Top And Pad U1-T25(103.5mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U25(103.5mm,79.3mm) on L1_Top And Pad U1-T25(103.5mm,79.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-V11(109.6mm,78.9mm) on L1_Top And Pad U1-U10(110mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U12(109.2mm,79.3mm) on L1_Top And Pad U1-U11(109.6mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V12(109.2mm,78.9mm) on L1_Top And Pad U1-U12(109.2mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U14(108.3mm,79.3mm) on L1_Top And Pad U1-U13(108.7mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V13(108.7mm,78.9mm) on L1_Top And Pad U1-U13(108.7mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U15(107.9mm,79.3mm) on L1_Top And Pad U1-U14(108.3mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V15(107.9mm,78.9mm) on L1_Top And Pad U1-U15(107.9mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U17(107mm,79.3mm) on L1_Top And Pad U1-U16(107.4mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U18(106.6mm,79.3mm) on L1_Top And Pad U1-U17(107mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U19(106.1mm,79.3mm) on L1_Top And Pad U1-U18(106.6mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V18(106.6mm,78.9mm) on L1_Top And Pad U1-U18(106.6mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U20(105.7mm,79.3mm) on L1_Top And Pad U1-U19(106.1mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U21(105.3mm,79.3mm) on L1_Top And Pad U1-U20(105.7mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U22(104.8mm,79.3mm) on L1_Top And Pad U1-U21(105.3mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U23(104.4mm,79.3mm) on L1_Top And Pad U1-U22(104.8mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U24(104mm,79.3mm) on L1_Top And Pad U1-U23(104.4mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-U25(103.5mm,79.3mm) on L1_Top And Pad U1-U24(104mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V24(104mm,78.9mm) on L1_Top And Pad U1-U24(104mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V9(110.5mm,78.9mm) on L1_Top And Pad U1-U9(110.5mm,79.3mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V10(110mm,78.9mm) on L1_Top And Pad U1-V9(110.5mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W10(110mm,78.5mm) on L1_Top And Pad U1-V10(110mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net VDD_DDR Between Pad U1-Y11(109.6mm,78mm) on L1_Top And Pad U1-V11(109.6mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V13(108.7mm,78.9mm) on L1_Top And Pad U1-V12(109.2mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W12(109.2mm,78.5mm) on L1_Top And Pad U1-V12(109.2mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V18(106.6mm,78.9mm) on L1_Top And Pad U1-V17(107mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W18(106.6mm,78.5mm) on L1_Top And Pad U1-V18(106.6mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W24(104mm,78.5mm) on L1_Top And Pad U1-V24(104mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W26(103.1mm,78.5mm) on L1_Top And Pad U1-V26(103.1mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V8(110.9mm,78.9mm) on L1_Top And Pad U1-V6(111.5mm,78.8mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-V9(110.5mm,78.9mm) on L1_Top And Pad U1-V8(110.9mm,78.9mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W11(109.6mm,78.5mm) on L1_Top And Pad U1-W10(110mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y10(110mm,78mm) on L1_Top And Pad U1-W10(110mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W12(109.2mm,78.5mm) on L1_Top And Pad U1-W11(109.6mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y12(109.2mm,78mm) on L1_Top And Pad U1-W12(109.2mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y18(106.6mm,78mm) on L1_Top And Pad U1-W18(106.6mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W2(113.1mm,78.4mm) on L1_Top And Pad U1-Y1(113.5mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y20(105.7mm,78mm) on L1_Top And Pad U1-W20(105.7mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y22(104.8mm,78mm) on L1_Top And Pad U1-W22(104.8mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W25(103.5mm,78.5mm) on L1_Top And Pad U1-W24(104mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W26(103.1mm,78.5mm) on L1_Top And Pad U1-W25(103.5mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-W28(102.5mm,78.4mm) on L1_Top And Pad U1-W26(103.1mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y26(103.1mm,78mm) on L1_Top And Pad U1-W26(103.1mm,78.5mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y29(102.1mm,78mm) on L1_Top And Pad U1-W28(102.5mm,78.4mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y10(110mm,78mm) on L1_Top And Pad U1-Y9(110.5mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y13(108.7mm,78mm) on L1_Top And Pad U1-Y12(109.2mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y14(108.3mm,78mm) on L1_Top And Pad U1-Y13(108.7mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y15(107.9mm,78mm) on L1_Top And Pad U1-Y14(108.3mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y17(107mm,78mm) on L1_Top And Pad U1-Y16(107.4mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y18(106.6mm,78mm) on L1_Top And Pad U1-Y17(107mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y19(106.1mm,78mm) on L1_Top And Pad U1-Y18(106.6mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y20(105.7mm,78mm) on L1_Top And Pad U1-Y19(106.1mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y21(105.3mm,78mm) on L1_Top And Pad U1-Y20(105.7mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y22(104.8mm,78mm) on L1_Top And Pad U1-Y21(105.3mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y23(104.4mm,78mm) on L1_Top And Pad U1-Y22(104.8mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y24(104mm,78mm) on L1_Top And Pad U1-Y23(104.4mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y31(101.3mm,78mm) on L1_Top And Pad U1-Y29(102.1mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net DDR1_DQ28 Between Pad U1-Y3(112.7mm,78mm) on L1_Top And Pad U4-AA9(128.2mm,72.1mm) on L1_Top [Unplated] 
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U1-Y9(110.5mm,78mm) on L1_Top And Pad U1-Y8(110.9mm,78mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net RTC_INT Between Pad U3-17(76.7mm,77mm) on L1_Top And Pad U2-3(179.222mm,55.702mm) on L1_Top 
+   Violation between Un-Routed Net Constraint: Net WOL_EN Between Pad U6-2(38.584mm,-11.675mm) on L1_Top And Pad U3-13(74.6mm,76.4mm) on L1_Top 
+Rule Violations :497
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.089mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('TYPEC_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.089mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('MIPI_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.102mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('WIFI_BT_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.089mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('DDR1_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.05mm) (Max=0.254mm) (Preferred=0.254mm) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.089mm) (Max=0.254mm) (Preferred=0.254mm) (InNet('DDR1_CAA0'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.089mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('CSI_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.152mm) (Max=0.305mm) (Preferred=0.254mm) (InNetClass('UNCLASIFICATE_LOW_SPEED_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.127mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('PERIPHERICS_SIGNALS'))
+   Violation between Width Constraint: Arc (174.727mm,64.993mm) on L1_Top Actual Width = 0.46mm, Target Width = 0.254mm
+   Violation between Width Constraint: Arc (180.442mm,64.993mm) on L1_Top Actual Width = 0.46mm, Target Width = 0.254mm
+Rule Violations :2
+
+Processing Rule : Width Constraint (Min=0.152mm) (Max=0.305mm) (Preferred=0.254mm) (InNetClass('PULL_DOWN_UP_RESISTENCE'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.203mm) (Max=0.381mm) (Preferred=0.254mm) (InNetClass('POWER_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.1mm) (Max=2.54mm) (Preferred=0.254mm) (InNetClass('POWER_SUPPLY'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.102mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('ANTENAS'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.102mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('EMMC_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.127mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('CPU_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.127mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('MCU_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.127mm) (Max=0.254mm) (Preferred=0.254mm) (InNetClass('I2S_PROTOCOL'))
+Rule Violations :0
+
+Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Length Constraint (Min=0mm) (Max=38.1mm) (InNetClass('EMMC_HIGH_SPEED'))
+   Violation between Length Constraint: (281.7mm > 38.1mm) Net BOOT_CLK Actual Length = 281.7mm
+Rule Violations :1
+
+Processing Rule : Matched Lengths(Tolerance=1.27mm) (InDifferentialPairClass('CSI'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=1.27mm) (InDifferentialPairClass('MIPI'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=1.27mm) (InDifferentialPairClass('DDR1'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=12) (InNetClass('PERIPHERICS_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=10) (InNetClass('I2S_PROTOCOL'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=8) (InNetClass('MCU_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=15) (InNetClass('POWER_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=30) (InNetClass('POWER_SUPPLY'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=20) (InNetClass('PULL_DOWN_UP_RESISTENCE'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=20) (InNetClass('UNCLASIFICATE_LOW_SPEED_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=8) (InNetClass('CPU_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=2) (InNetClass('MIPI_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=2) (InNetClass('DDR1_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=0) (InNetClass('ANTENAS'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=2) (InNetClass('WIFI_BT_SIGNAL'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=2) (InNetClass('CSI_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=4) (InNetClass('EMMC_HIGH_SPEED'))
+Rule Violations :0
+
+Processing Rule : Maximum Via Count Constraint (Limit=2) (InNetClass('TYPEC_SIGNALS'))
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 500
+Waived Violations : 0
+Time Elapsed        : 00:00:01

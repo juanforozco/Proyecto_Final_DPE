@@ -1,0 +1,131 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\Public\Documents\Altium\Power_Board_Diseño\Power_Board.PcbDoc
+Date     : 12/06/2026
+Time     : 1:07:25 a. m.
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=1mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net NetR64_1 Between Via (1481mil,742mil) from Top Layer to Layer 1 And Track (1481mil,742mil)(2377mil,742mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDIO_1V8 Between Via (1497mil,172mil) from Top Layer to Layer 1 And Track (1497mil,172mil)(1532mil,207mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net Net*3_2 Between Via (1550mil,287mil) from Top Layer to Layer 1 And Track (1550mil,287mil)(1789mil,287mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net Net*3_6 Between Via (1575mil,630mil) from Top Layer to Layer 1 And Track (1575mil,630mil)(1575mil,1228mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetC74_2 Between Via (1649mil,1313mil) from Top Layer to Layer 1 And Track (1649mil,1313mil)(3253mil,1313mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC52_1 Between Via (1656.472mil,815.472mil) from Top Layer to Layer 1 And Track (1656.472mil,815.472mil)(1983.443mil,815.472mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDEE_MODE Between Track (168mil,680mil)(178.748mil,669.252mil) on Bottom Layer And Via (168mil,680mil) from Top Layer to Layer 1 
+   Violation between Un-Routed Net Constraint: Net NetR32_2 Between Via (1704mil,689mil) from Top Layer to Layer 1 And Track (1704mil,689mil)(1927.915mil,689mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDGPU_MODE Between Via (1852mil,928mil) from Top Layer to Layer 1 And Track (1709mil,928mil)(1852mil,928mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net Net*1_3 Between Via (1768mil,1140mil) from Top Layer to Layer 1 And Track (1768mil,1140mil)(1853mil,1225mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net GPIOD_7 Between Via (176mil,715mil) from Top Layer to Layer 1 And Track (176mil,715mil)(1100mil,1639mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR31_1 Between Via (1795mil,1295mil) from Top Layer to Layer 1 And Track (1795mil,1295mil)(2481mil,1295mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC56_2 Between Via (1858mil,476mil) from Top Layer to Layer 1 And Track (1858mil,476mil)(1858mil,755mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetC56_2 Between Via (2030mil,927mil) from Top Layer to Layer 1 And Track (1858mil,755mil)(2030mil,927mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetC33_2 Between Via (1880mil,588mil) from Top Layer to Layer 1 And Track (1880mil,588mil)(2159mil,867mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net Net*1_8 Between Via (1891mil,1139mil) from Top Layer to Layer 1 And Track (1891mil,1139mil)(2325mil,1139mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDAO_1V8 Between Via (1936.5mil,1054mil) from Top Layer to Layer 1 And Track (1936.5mil,1054mil)(2602mil,1054mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR50_2 Between Track (1944mil,230mil)(1944mil,345mil) on Bottom Layer And Via (1944mil,345mil) from Top Layer to Layer 1 
+   Violation between Un-Routed Net Constraint: Net VDDAO_1V8 Between Via (2001mil,1256mil) from Top Layer to Layer 1 And Track (1981mil,1276mil)(2001mil,1256mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR7_1 Between Via (2415mil,564mil) from Top Layer to Layer 1 And Track (2024mil,173mil)(2415mil,564mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR13_2 Between Via (2062.5mil,840mil) from Top Layer to Layer 1 And Track (2062.5mil,840mil)(2682.062mil,840mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDDDR_PWM Between Via (247mil,648mil) from Top Layer to Layer 1 And Track (209mil,648mil)(247mil,648mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetC33_2 Between Via (2156.205mil,880mil) from Top Layer to Layer 1 And Track (2159mil,867mil)(2159mil,880mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR46_1 Between Via (4486.33mil,1393mil) from Top Layer to Layer 1 And Track (2202mil,1393mil)(4486.33mil,1393mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Via (227.874mil,601mil) from Top Layer to Layer 1 And Track (227.874mil,601mil)(387.5mil,601mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDDGPU_PWM Between Via (2974mil,279mil) from Top Layer to Layer 1 And Track (2320mil,279mil)(2974mil,279mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net Net*1_8 Between Via (2455mil,1269mil) from Top Layer to Layer 1 And Track (2325mil,1139mil)(2455mil,1269mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDCPU_A_PWM Between Via (2495mil,182mil) from Top Layer to Layer 1 And Track (2495mil,182mil)(4018mil,182mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR32_2 Between Via (2987mil,302mil) from Top Layer to Layer 1 And Track (2521.5mil,302mil)(2987mil,302mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VCC5V_EN Between Via (253mil,518.938mil) from Top Layer to Layer 1 And Track (253mil,518.938mil)(1252.938mil,518.938mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC52_1 Between Via (2875.316mil,494mil) from Top Layer to Layer 1 And Track (2553.844mil,815.472mil)(2875.316mil,494mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR67_1 Between Via (2810mil,1145mil) from Top Layer to Layer 1 And Track (2652.874mil,987.874mil)(2810mil,1145mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net CPUA_MODE Between Via (918mil,374mil) from Top Layer to Layer 1 And Track (274mil,374mil)(918mil,374mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net Net*3_6 Between Via (3090mil,1254mil) from Top Layer to Layer 1 And Track (2753mil,1254mil)(3090mil,1254mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR31_1 Between Via (3080mil,1008mil) from Top Layer to Layer 1 And Track (2768mil,1008mil)(3080mil,1008mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR7_1 Between Via (2994mil,699mil) from Top Layer to Layer 1 And Track (2994mil,699mil)(4303mil,699mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC66_1 Between Via (3033mil,515.5mil) from Top Layer to Layer 1 And Track (3033mil,515.5mil)(3033mil,528.085mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC32_1 Between Via (3337.936mil,1320mil) from Top Layer to Layer 1 And Track (3337.936mil,1320mil)(3511.562mil,1146.374mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VCC5V Between Via (3341mil,1180mil) from Top Layer to Layer 1 And Track (3341mil,1005mil)(3341mil,1180mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDGPU_MODE Between Via (341mil,802mil) from Top Layer to Layer 1 And Track (341mil,802mil)(476mil,937mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC74_2 Between Via (3487mil,893mil) from Top Layer to Layer 1 And Track (3487mil,893mil)(3487mil,1079mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Via (3521mil,745mil) from Top Layer to Layer 1 And Track (3521mil,745mil)(3521mil,1064.278mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR12_1 Between Via (3615mil,1022.876mil) from Top Layer to Layer 1 And Track (3615mil,1022.876mil)(3643mil,1022.876mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR12_1 Between Via (3644mil,541.812mil) from Top Layer to Layer 1 And Track (3644mil,541.812mil)(3644mil,776.29mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net Net*2_6 Between Via (3795mil,1315mil) from Top Layer to Layer 1 And Track (3666mil,1186mil)(3795mil,1315mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net Net*2_1 Between Via (3680mil,1015.312mil) from Top Layer to Layer 1 And Track (3680mil,1015.312mil)(5480mil,1015.312mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net Net*2_1 Between Via (5480mil,1015.312mil) from Top Layer to Layer 1 And Track (3680mil,1015.312mil)(5480mil,1015.312mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR13_2 Between Via (3709.818mil,581.182mil) from Top Layer to Layer 1 And Track (3697mil,594mil)(3709.818mil,581.182mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDQLP_0V6_1V1 Between Via (3985mil,455mil) from Top Layer to Layer 1 And Track (3853mil,455mil)(3985mil,455mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net CPUB_MODE Between Via (3960mil,623mil) from Top Layer to Layer 1 And Track (3960mil,589mil)(3960mil,623mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDDCPU_A_PWM Between Via (4248mil,412mil) from Top Layer to Layer 1 And Track (4018mil,182mil)(4248mil,412mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC75_2 Between Via (4112mil,729mil) from Top Layer to Layer 1 And Track (4112mil,729mil)(4236.05mil,853.05mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR64_1 Between Via (4357mil,321mil) from Top Layer to Layer 1 And Track (4199.126mil,478.874mil)(4357mil,321mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC75_2 Between Via (4236.05mil,1326.05mil) from Top Layer to Layer 1 And Track (4236.05mil,853.05mil)(4236.05mil,1326.05mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR7_1 Between Via (4580mil,976mil) from Top Layer to Layer 1 And Track (4303mil,699mil)(4580.213mil,976.213mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net Net*5_7 Between Via (4395mil,388mil) from Layer 2 to Bottom Layer And Track (4395mil,337.796mil)(4395mil,388mil) on Top Layer 
+   Violation between Un-Routed Net Constraint: Net NetR50_2 Between Track (4448mil,778mil)(4448mil,1271mil) on Layer 2 And Via (4448mil,1271mil) from Top Layer to Layer 1 
+   Violation between Un-Routed Net Constraint: Net NetC71_1 Between Via (4477mil,710mil) from Top Layer to Layer 1 And Track (4477mil,435.5mil)(4477mil,710mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDDAO_1V8 Between Track (4498.934mil,521.067mil)(4511.382mil,508.618mil) on Bottom Layer And Via (4511.614mil,509mil) from Top Layer to Layer 1 
+   Violation between Un-Routed Net Constraint: Net Net*1_3 Between Via (4850mil,892mil) from Top Layer to Layer 1 And Track (4653mil,695mil)(4850mil,892mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net GPIOD_7 Between Via (4670mil,973mil) from Top Layer to Layer 1 And Track (4670mil,973mil)(4670mil,1445mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDDDDR_PWM Between Via (4728mil,705mil) from Top Layer to Layer 1 And Track (4699mil,676mil)(4728mil,705mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDDCPU_B_PWM Between Via (4993mil,1192.5mil) from Top Layer to Layer 1 And Track (4993mil,560mil)(4993mil,1192.5mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetC32_1 Between Via (5347mil,886mil) from Top Layer to Layer 1 And Track (5228.626mil,1004.374mil)(5347mil,886mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDGPU_PWM Between Via (588mil,583mil) from Top Layer to Layer 1 And Track (588mil,583mil)(1218mil,583mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDAO_1V8 Between Via (62mil,685mil) from Top Layer to Layer 1 And Track (62mil,685mil)(62mil,1159mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetR66_1 Between Via (644.874mil,712.126mil) from Top Layer to Layer 1 And Track (644.874mil,712.126mil)(829.122mil,896.374mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDQLP_0V6_1V1 Between Via (795mil,220mil) from Top Layer to Layer 1 And Track (795mil,104.5mil)(795mil,220mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net NetR46_1 Between Via (942mil,292.126mil) from Top Layer to Layer 1 And Track (942mil,292.126mil)(952.126mil,292.126mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net CPUA_MODE Between Via (978mil,372mil) from Top Layer to Layer 1 And Track (978mil,355mil)(978mil,372mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net CPUA_MODE Between Via (97mil,794.528mil) from Top Layer to Layer 1 And Track (97mil,668.085mil)(97mil,794.528mil) on Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net NetC71_1 Between Via (993mil,494mil) from Top Layer to Layer 1 And Track (993mil,368mil)(993mil,494mil) on Layer 2 
+   Violation between Un-Routed Net Constraint: Net VDD_GPU Between Via (1115mil,1271mil) from Top Layer to Layer 1 And Via (1130mil,1270mil) from Layer 2 to Bottom Layer 
+   Violation between Un-Routed Net Constraint: Net VDDEE_MODE Between Via (1990mil,825mil) from Layer 2 to Bottom Layer And Via (1993mil,836mil) from Top Layer to Layer 1 
+Rule Violations :74
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=1mil) (Max=10mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Routing Topology Rule(Topology=Shortest) (All)
+Rule Violations :0
+
+Processing Rule : SMD Neck-Down Constraint (Percent=50%) (Disabled)(All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (Disabled)(IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (Disabled)(All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+
+Violations Detected : 74
+Waived Violations : 0
+Time Elapsed        : 00:00:01
